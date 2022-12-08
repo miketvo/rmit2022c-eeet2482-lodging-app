@@ -7,3 +7,12 @@ add_executable(
     lodging
     src/main.cpp
 )
+
+
+#=======#
+# TESTS #
+#=======#
+enable_testing()
+add_subdirectory(test)
+
+add_test(main.test lodging)
