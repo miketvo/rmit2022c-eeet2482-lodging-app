@@ -1,3 +1,11 @@
+# JetBrains IDE
+.idea/
+
+# Visual Studio Code
+.vscode/
+.history/
+*.vsix
+
 # Prerequisites
 *.d
 
