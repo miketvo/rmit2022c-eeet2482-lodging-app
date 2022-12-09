@@ -1,7 +1,10 @@
 #
 # Syntax: build.ps1 [Options] -m <build-mode>
 # Options:
-#   -m Specify build mode. Accepted values are 'debug', 'debug-test', 'release', 'release-test', and 'minsizerel'
+#   -m Specify build mode. Accepted values are
+#       'debug', 'debug-test',
+#       'release', 'release-test',
+#       'minsizerel', and 'minsizerel-test'
 #   -c (Optional) Clean built files. Use in conjunction with '-m'
 #   -h (Optional) Display help and exit.
 #
@@ -15,7 +18,10 @@
 if ($h.IsPresent) {
     Write-Output "Syntax: build.ps1 [Options] -m <build-mode>"
     Write-Output "Options:"
-    Write-Output "  -m Specify build mode. Accepted values are 'debug', 'debug-test', 'release', 'release-test', and 'minsizerel'"
+    Write-Output "  -m Specify build mode. Accepted values are"
+    Write-Output "      'debug', 'debug-test',"
+    Write-Output "      'release', 'release-test',"
+    Write-Output "      'minsizerel', and 'minsizerel-test'"
     Write-Output "  -c (Optional) Clean built files. Use in conjunction with '-m'"
     Write-Output "  -h (Optional) Display this help and exit."
     exit 0
@@ -102,6 +108,22 @@ switch ($m) {
         {
             Write-Output "[ Build | Release ]"
             Write-Output "cmake --build ./cmake-build-minsizerel --target lodging -j 9"
+            cmake --build ./cmake-build-release --target all-tests -j 9
+            Write-Output "[ Build finished ]"
+        }
+    }
+    "minsizerel-test" {
+        if ($c.IsPresent)
+        {
+            Write-Output "[ Clean | Release ]"
+            Write-Output "cmake --build ./cmake-build-minsizerel --target clean -j 9"
+            cmake --build ./cmake-build-release --target clean -j 9
+            Write-Output "[ Clean finished ]"
+        }
+        else
+        {
+            Write-Output "[ Build | Release ]"
+            Write-Output "cmake --build ./cmake-build-minsizerel --target all-tests -j 9"
             cmake --build ./cmake-build-release --target all-tests -j 9
             Write-Output "[ Build finished ]"
         }

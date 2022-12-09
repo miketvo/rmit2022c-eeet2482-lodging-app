@@ -2,7 +2,10 @@
 #
 # Syntax: build.sh -build.sh [Options] -m <build-mode>
 # Options:
-#   -m Specify build mode. Accepted values are 'debug', 'debug-test', 'release', 'release-test', and 'minsizerel'
+#   -m Specify build mode. Accepted values are
+#       'debug', 'debug-test',
+#       'release', 'release-test',
+#       'minsizerel', and 'minsizerel-test'
 #   -c (Optional) Clean built files. Use in conjunction with '-m'
 #   -h (Optional) Display help and exit.
 #
@@ -14,7 +17,10 @@ while getopts m:hc flag; do
   h)
     echo "Syntax: build.sh [Options] -m <build-mode>"
     echo "Options:"
-    echo "  -m Specify build mode. Accepted values are 'debug', 'debug-test', 'release', 'release-test', and 'minsizerel'"
+    echo "  -m Specify build mode. Accepted values are"
+    echo "      'debug', 'debug-test',"
+    echo "      'release', 'release-test',"
+    echo "      'minsizerel', and 'minsizerel-test'"
     echo "  -c (Optional) Clean built files. Use in conjunction with '-m'"
     echo "  -h (Optional) Display this help and exit."
     exit 0
@@ -95,6 +101,19 @@ case "$mode" in
   else
     echo "[ Build | Release ]"
     echo "cmake --build ./cmake-build-minsizerel --target lodging -j 9"
+    cmake --build ./cmake-build-release --target all-tests -j 9
+    echo "[ Build finished ]"
+  fi
+  ;;
+"minsizerel-test")
+  if [ $clean -eq 1 ]; then
+    echo "[ Clean | Release ]"
+    echo "cmake --build ./cmake-build-minsizerel --target clean -j 9"
+    cmake --build ./cmake-build-release --target clean -j 9
+    echo "[ Clean finished ]"
+  else
+    echo "[ Build | Release ]"
+    echo "cmake --build ./cmake-build-minsizerel --target all-tests -j 9"
     cmake --build ./cmake-build-release --target all-tests -j 9
     echo "[ Build finished ]"
   fi
