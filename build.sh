@@ -49,7 +49,7 @@ case "$mode" in
   else
     echo "[ Build | Debug ]"
     echo "cmake --build ./cmake-build-debug --target lodging -j 9"
-    cmake --build ./cmake-build-debug --target dsvcol -j 9
+    cmake --build ./cmake-build-debug --target lodging -j 9
     echo "[ Build finished ]"
   fi
   ;;
@@ -75,7 +75,7 @@ case "$mode" in
   else
     echo "[ Build | Release ]"
     echo "cmake --build ./cmake-build-release --target lodging -j 9"
-    cmake --build ./cmake-build-release --target dsvcol -j 9
+    cmake --build ./cmake-build-release --target lodging -j 9
     echo "[ Build finished ]"
   fi
   ;;

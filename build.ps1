@@ -44,7 +44,7 @@ switch ($m) {
         {
             Write-Output "[ Build | Debug ]"
             Write-Output "cmake --build ./cmake-build-debug --target lodging -j 9"
-            cmake --build ./cmake-build-debug --target dsvcol -j 9
+            cmake --build ./cmake-build-debug --target lodging -j 9
             Write-Output "[ Build finished ]"
         }
     }
@@ -76,7 +76,7 @@ switch ($m) {
         {
             Write-Output "[ Build | Release ]"
             Write-Output "cmake --build ./cmake-build-release --target lodging -j 9"
-            cmake --build ./cmake-build-release --target dsvcol -j 9
+            cmake --build ./cmake-build-release --target lodging -j 9
             Write-Output "[ Build finished ]"
         }
     }
