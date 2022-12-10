@@ -61,7 +61,7 @@ case "$mode" in
     echo "[ Clean finished ]"
   else
     echo "[ Build | Debug ]"
-    echo "cmake --build ./cmake-build-debug --target  lodging all-tests -j 9"
+    echo "cmake --build ./cmake-build-debug --target lodging all-tests -j 9"
     cmake --build ./cmake-build-debug --target lodging all-tests -j 9
     echo "[ Build finished ]"
   fi
@@ -87,7 +87,7 @@ case "$mode" in
     echo "[ Clean finished ]"
   else
     echo "[ Build | Release ]"
-    echo "cmake --build ./cmake-build-release --target  lodging all-tests -j 9"
+    echo "cmake --build ./cmake-build-release --target lodging all-tests -j 9"
     cmake --build ./cmake-build-release --target lodging all-tests -j 9
     echo "[ Build finished ]"
   fi
@@ -113,7 +113,7 @@ case "$mode" in
     echo "[ Clean finished ]"
   else
     echo "[ Build | Release ]"
-    echo "cmake --build ./cmake-build-minsizerel --target  lodging all-tests -j 9"
+    echo "cmake --build ./cmake-build-minsizerel --target lodging all-tests -j 9"
     cmake --build ./cmake-build-minsizerel --target lodging all-tests -j 9
     echo "[ Build finished ]"
   fi
