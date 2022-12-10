@@ -16,6 +16,7 @@ This project uses [C++14](https://en.wikipedia.org/wiki/C%2B%2B14).
 
 ```
 .
+├── .github/
 ├── src/
 ├── test/
 ├── CMakeLists.txt
@@ -31,19 +32,20 @@ This project uses [C++14](https://en.wikipedia.org/wiki/C%2B%2B14).
 └── README.md
 ```
 
-1. `src/`: This directory contains all C++ source code for this project.
-2. `test/`: This directory contains all CTest source files.
-3. `CMakeLists.txt`: This file contains build and test configurations for CMake and CTest.
-4. `.clang-format`: This YAML-formatted file defines C/C++ code style for this project.
-5. `.gitignore`: This file tells git which files it should not track / not maintain a version history for.
-6. `init.sh`: This Shell script initializes CMake and build folders for this project.
-7. `init.ps1`: This Windows Powershell script initializes CMake and build folders for this project.
-8. `build.sh`: This Shell script is a wrapper for CMake build processes.
-9. `build.ps1`: This Windows Powershell script is a wrapper for CMake build processes.
-10. `ProjectScheme.xml`: JetBrains XML code style file that contains C./C++ formatting rules. Alternative to `.clang-format`.
-11. `ProjectRequirements.md`: Project requirements provided by the course EEET2482/COSC2082.
-12. `LICENSE`: MIT
-13. `README.md`: A text file containing useful reference information about this project.
+1. `.github/`: This directory contains GitHub repository configurations.
+2. `src/`: This directory contains all C++ source code for this project.
+3. `test/`: This directory contains all CTest source files.
+4. `CMakeLists.txt`: This file contains build and test configurations for CMake and CTest.
+5. `.clang-format`: This YAML-formatted file defines C/C++ code style for this project.
+6. `.gitignore`: This file tells git which files it should not track / not maintain a version history for.
+7. `init.sh`: This Shell script initializes CMake and build folders for this project.
+8. `init.ps1`: This Windows Powershell script initializes CMake and build folders for this project.
+9. `build.sh`: This Shell script is a wrapper for CMake build processes.
+10. `build.ps1`: This Windows Powershell script is a wrapper for CMake build processes.
+11. `ProjectScheme.xml`: JetBrains XML code style file that contains C./C++ formatting rules. Alternative to `.clang-format`.
+12. `ProjectRequirements.md`: Project requirements provided by the course EEET2482/COSC2082.
+13. `LICENSE`: MIT
+14. `README.md`: A text file containing useful reference information about this project.
 
 
 ## Quick start
