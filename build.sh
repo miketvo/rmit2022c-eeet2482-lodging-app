@@ -96,12 +96,12 @@ case "$mode" in
   if [ $clean -eq 1 ]; then
     echo "[ Clean | Release ]"
     echo "cmake --build ./cmake-build-minsizerel --target clean -j 9"
-    cmake --build ./cmake-build-release --target clean -j 9
+    cmake --build ./cmake-build-minsizerel --target clean -j 9
     echo "[ Clean finished ]"
   else
     echo "[ Build | Release ]"
     echo "cmake --build ./cmake-build-minsizerel --target lodging -j 9"
-    cmake --build ./cmake-build-release --target all-tests -j 9
+    cmake --build ./cmake-build-minsizerel --target all-tests -j 9
     echo "[ Build finished ]"
   fi
   ;;
@@ -109,12 +109,12 @@ case "$mode" in
   if [ $clean -eq 1 ]; then
     echo "[ Clean | Release ]"
     echo "cmake --build ./cmake-build-minsizerel --target clean -j 9"
-    cmake --build ./cmake-build-release --target clean -j 9
+    cmake --build ./cmake-build-minsizerel --target clean -j 9
     echo "[ Clean finished ]"
   else
     echo "[ Build | Release ]"
     echo "cmake --build ./cmake-build-minsizerel --target all-tests -j 9"
-    cmake --build ./cmake-build-release --target all-tests -j 9
+    cmake --build ./cmake-build-minsizerel --target all-tests -j 9
     echo "[ Build finished ]"
   fi
   ;;

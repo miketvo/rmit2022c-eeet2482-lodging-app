@@ -101,14 +101,14 @@ switch ($m) {
         {
             Write-Output "[ Clean | Release ]"
             Write-Output "cmake --build ./cmake-build-minsizerel --target clean -j 9"
-            cmake --build ./cmake-build-release --target clean -j 9
+            cmake --build ./cmake-build-minsizerel --target clean -j 9
             Write-Output "[ Clean finished ]"
         }
         else
         {
             Write-Output "[ Build | Release ]"
             Write-Output "cmake --build ./cmake-build-minsizerel --target lodging -j 9"
-            cmake --build ./cmake-build-release --target all-tests -j 9
+            cmake --build ./cmake-build-minsizerel --target all-tests -j 9
             Write-Output "[ Build finished ]"
         }
     }
@@ -117,14 +117,14 @@ switch ($m) {
         {
             Write-Output "[ Clean | Release ]"
             Write-Output "cmake --build ./cmake-build-minsizerel --target clean -j 9"
-            cmake --build ./cmake-build-release --target clean -j 9
+            cmake --build ./cmake-build-minsizerel --target clean -j 9
             Write-Output "[ Clean finished ]"
         }
         else
         {
             Write-Output "[ Build | Release ]"
             Write-Output "cmake --build ./cmake-build-minsizerel --target all-tests -j 9"
-            cmake --build ./cmake-build-release --target all-tests -j 9
+            cmake --build ./cmake-build-minsizerel --target all-tests -j 9
             Write-Output "[ Build finished ]"
         }
     }
