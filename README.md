@@ -113,13 +113,13 @@ For all available options flags and build modes, use:
 ### Testing
 
 1. Navigate to one of the build folders:
-    * `cmake-build-debug/`
-    * `cmake-build-release/`
-    * `cmake-build-minsizerel/`
+    ```
+    cd cmake-build-<debug|release|minsizerel>
+    ```
 2. Run CTest (bundled with CMake):
-```shell
-ctest
-```
+    ```shell
+    ctest
+    ```
 
 To run tests selectively, use the `-R`/`--tests-regex` or `-N`/`--show-only` flag. Refer to [CTest Documentation](https://cmake.org/cmake/help/latest/manual/ctest.1.html).
 
