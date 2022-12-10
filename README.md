@@ -6,7 +6,7 @@ VACATION HOUSE EXCHANGE APPLICATION
 
 This is an assignment project for EEET2482 Software Engineering Design / COSC2082 Advanced Programming Techniques offered at RMIT University Vietnam during Semester 2022C.
 
-> Assume that you are involved in a start-up who came up with an idea to make an app for people to exchange their houses on vacation. The app will allow registered members to use houses of other members when they go on vacation...
+  Assume that you are involved in a start-up who came up with an idea to make an app for people to exchange their houses on vacation. The app will allow registered members to use houses of other members when they go on vacation...
 [Read more](ProjectDetails.md)
 
 This project uses [C++14](https://en.wikipedia.org/wiki/C%2B%2B14).
@@ -59,27 +59,27 @@ This project uses [C++14](https://en.wikipedia.org/wiki/C%2B%2B14).
 ### Setting up development environment
 
 1. Clone this repository using git: 
-    > HTTPS
-    > ```shell
-    > git clone https://github.com/miketvo/rmit2022c-eeet2482-lodging-app.git
-    > ```
-   
-    > SSH
-    > ```shell
-    > git clone git@github.com:miketvo/rmit2022c-eeet2482-lodging-app.git
-    > ```
+    * HTTPS
+      ```shell
+      git clone https://github.com/miketvo/rmit2022c-eeet2482-lodging-app.git
+      ```
+
+    * SSH
+      ```shell
+      git clone git@github.com:miketvo/rmit2022c-eeet2482-lodging-app.git
+      ```
     
     Alternatively, you can download this repository as a ZIP file and extract it (not recommended for development purposes since git features are not enabled for this method).
 2. Initialize CMake and build folders:
-    > Linux/MacOS
-    > ```shell
-    > ./init.sh
-    > ```
+    * Linux/MacOS
+      ```shell
+      ./init.sh
+      ```
 
-    > Windows
-    > ```shell
-    > ./init.ps1
-    > ```
+    * Windows
+      ```shell
+      ./init.ps1
+      ```
 
    This will generate three build folders corresponding to three respective build modes offered in this project:
     * `cmake-build-debug/`
@@ -88,33 +88,33 @@ This project uses [C++14](https://en.wikipedia.org/wiki/C%2B%2B14).
 
 ### Building
 
-> Linux/MacOS
-> ```shell
-> ./build.sh [Options] -m <build-mode>
-> ```
+* Linux/MacOS
+  ```shell
+  ./build.sh [Options] -m <build-mode 
+  ```
 
-> Windows
-> ```shell
-> ./build.ps1 [Options] -m <build-mode>
-> ```
+* Windows
+  ```shell
+  ./build.ps1 [Options] -m <build-mode 
+  ```
 
 For all available options flags and build modes, use:
 
-> Linux/MacOS
-> ```shell
-> ./build.sh -h
-> ```
+* Linux/MacOS
+  ```shell
+  ./build.sh -h
+  ```
 
-> Windows
-> ```shell
-> ./build.ps1 -h
-> ```
+* Windows
+  ```shell
+  ./build.ps1 -h
+  ```
 
 ### Testing
 
 1. Navigate to one of the build folders:
     ```
-    cd cmake-build-<debug|release|minsizerel>
+    cd cmake-build-<debug|release|minsizerel 
     ```
 2. Run CTest (bundled with CMake):
     ```shell
