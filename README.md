@@ -51,10 +51,10 @@ This project uses [C++14](https://en.wikipedia.org/wiki/C%2B%2B14).
 ### Prerequisites
 | Name   | Recommended version | Notes    |
 |--------|---------------------|----------|
-| g++    | 9.3.0 and higher    |          |
-| cmake  | 3.10.0 and higher   |          |
-| ninja  | 1.10.0 and higher   |          |
-| clangd | 10.0.0 and higher   | Optional |
+| g++    | 9.3.0 or higher     |          |
+| cmake  | 3.10.0 or higher    |          |
+| ninja  | 1.10.0 or higher    |          |
+| clangd | 10.0.0 or higher    | Optional |
 
 ### Setting up development environment
 
