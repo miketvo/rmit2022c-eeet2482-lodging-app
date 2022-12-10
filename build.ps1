@@ -59,8 +59,8 @@ switch ($m) {
         else
         {
             Write-Output "[ Build | Debug ]"
-            Write-Output "cmake --build ./cmake-build-debug --target all-tests -j 9"
-            cmake --build ./cmake-build-debug --target all-tests -j 9
+            Write-Output "cmake --build ./cmake-build-debug --target  lodging all-tests -j 9"
+            cmake --build ./cmake-build-debug --target lodging all-tests -j 9
             Write-Output "[ Build finished ]"
         }
     }
@@ -91,8 +91,8 @@ switch ($m) {
         else
         {
             Write-Output "[ Build | Release ]"
-            Write-Output "cmake --build ./cmake-build-release --target all-tests -j 9"
-            cmake --build ./cmake-build-release --target all-tests -j 9
+            Write-Output "cmake --build ./cmake-build-release --target  lodging all-tests -j 9"
+            cmake --build ./cmake-build-release --target lodging all-tests -j 9
             Write-Output "[ Build finished ]"
         }
     }
@@ -108,7 +108,7 @@ switch ($m) {
         {
             Write-Output "[ Build | Release ]"
             Write-Output "cmake --build ./cmake-build-minsizerel --target lodging -j 9"
-            cmake --build ./cmake-build-minsizerel --target all-tests -j 9
+            cmake --build ./cmake-build-minsizerel --target lodging -j 9
             Write-Output "[ Build finished ]"
         }
     }
@@ -123,8 +123,8 @@ switch ($m) {
         else
         {
             Write-Output "[ Build | Release ]"
-            Write-Output "cmake --build ./cmake-build-minsizerel --target all-tests -j 9"
-            cmake --build ./cmake-build-minsizerel --target all-tests -j 9
+            Write-Output "cmake --build ./cmake-build-minsizerel --target  lodging all-tests -j 9"
+            cmake --build ./cmake-build-minsizerel --target lodging all-tests -j 9
             Write-Output "[ Build finished ]"
         }
     }
