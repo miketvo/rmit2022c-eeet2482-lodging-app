@@ -6,7 +6,7 @@ VACATION HOUSE EXCHANGE APPLICATION
 
 This is an assignment project for EEET2482 Software Engineering Design / COSC2082 Advanced Programming Techniques offered at RMIT University Vietnam during Semester 2022C.
 
-  Assume that you are involved in a start-up who came up with an idea to make an app for people to exchange their houses on vacation. The app will allow registered members to use houses of other members when they go on vacation...
+> Assume that you are involved in a start-up who came up with an idea to make an app for people to exchange their houses on vacation. The app will allow registered members to use houses of other members when they go on vacation...
 [Read more](ProjectDetails.md)
 
 This project uses [C++14](https://en.wikipedia.org/wiki/C%2B%2B14).
@@ -90,12 +90,12 @@ This project uses [C++14](https://en.wikipedia.org/wiki/C%2B%2B14).
 
 * Linux/MacOS
   ```shell
-  ./build.sh [Options] -m <build-mode 
+  ./build.sh [Options] -m <build-mode> 
   ```
 
 * Windows
   ```shell
-  ./build.ps1 [Options] -m <build-mode 
+  ./build.ps1 [Options] -m <build-mode> 
   ```
 
 For all available options flags and build modes, use:
@@ -114,7 +114,7 @@ For all available options flags and build modes, use:
 
 1. Navigate to one of the build folders:
     ```
-    cd cmake-build-<debug|release|minsizerel 
+    cd cmake-build-<debug|release|minsizerel>
     ```
 2. Run CTest (bundled with CMake):
     ```shell
