@@ -9,7 +9,7 @@ This is an assignment project for EEET2482 Software Engineering Design / COSC208
 > Assume that you are involved in a start-up who came up with an idea to make an app for people to exchange their houses on vacation. The app will allow registered members to use houses of other members when they go on vacation...
 [Read more](ProjectDetails.md)
 
-This project uses [C++14](https://en.wikipedia.org/wiki/C%2B%2B14).
+This project uses [C++14](https://en.wikipedia.org/wiki/C%2B%2B14) standard and [CMake](https://cmake.org/).
 
 
 ## Project Structure
@@ -114,11 +114,21 @@ For all available option flags and build modes, use:
 
 ### Testing
 
-1. Navigate to one of the build folders:
+1. Make sure that the test binaries are built before testing:
+    * Linux/MacOS
+      ```shell
+      ./build.sh -m <debug-test|release-test|minsizerel-test>
+      ```
+
+    * Windows
+      ```shell
+      ./build.ps1 -m <debug-test|release-test|minsizerel-test>
+      ```
+2. Navigate to one of the build folders corresponding to the build mode specified in step 1:
     ```
     cd cmake-build-<debug|release|minsizerel>
     ```
-2. Run CTest (bundled with CMake):
+3. Run CTest (bundled with CMake) for the specified build folder in step 2:
     ```shell
     ctest
     ```
