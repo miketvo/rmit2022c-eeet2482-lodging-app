@@ -100,7 +100,7 @@ This project uses [C++14](https://en.wikipedia.org/wiki/C%2B%2B14).
   ./build.ps1 [Options] -m <build-mode> 
   ```
 
-For all available options flags and build modes, use:
+For all available option flags and build modes, use:
 
 * Linux/MacOS
   ```shell
