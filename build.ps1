@@ -1,12 +1,13 @@
 #
 # Syntax: build.ps1 [Options] -m <build-mode>
+#         build.ps1 -c
 # Options:
 #   -m Specify build mode. Accepted values are
 #       'debug', 'debug-test',
 #       'release', 'release-test',
 #       'minsizerel', and 'minsizerel-test'
-#   -c (Optional) Clean built files. Use in conjunction with '-m' to clean built files in a specific build folder.
-#   -h (Optional) Display help and exit.
+#   -c Clean built files. Use in conjunction with '-m' to clean built files in a specific build folder.
+#   -h Display help and exit.
 #
 
 [CmdletBinding()] param(
@@ -16,14 +17,15 @@
 )
 
 if ($h.IsPresent) {
-    Write-Output "Syntax: build.ps1 [Options] -m <build-mode>"
+    Write-Output "Syntax: build.ps1 [options] -m <build-mode>"
+    Write-Output "        build.ps1 -c"
     Write-Output "Options:"
     Write-Output "  -m Specify build mode. Accepted values are"
     Write-Output "      'debug', 'debug-test',"
     Write-Output "      'release', 'release-test',"
     Write-Output "      'minsizerel', and 'minsizerel-test'"
-    Write-Output "  -c (Optional) Clean built files. Use in conjunction with '-m' to clean built files in a specific build folder."
-    Write-Output "  -h (Optional) Display this help and exit."
+    Write-Output "  -c Clean built files. Use in conjunction with '-m' to clean built files in a specific build folder."
+    Write-Output "  -h Display this help and exit."
     exit 0
 }
 

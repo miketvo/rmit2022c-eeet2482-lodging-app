@@ -1,13 +1,14 @@
 #!/bin/bash
 #
-# Syntax: build.sh -build.sh [Options] -m <build-mode>
+# Syntax: build.sh [Options] -m <build-mode>
+#         build.sh -c
 # Options:
 #   -m Specify build mode. Accepted values are
 #       'debug', 'debug-test',
 #       'release', 'release-test',
 #       'minsizerel', and 'minsizerel-test'
-#   -c (Optional) Clean built files. Use in conjunction with '-m' to clean built files in a specific build folder.
-#   -h (Optional) Display help and exit.
+#   -c Clean built files. Use in conjunction with '-m' to clean built files in a specific build folder.
+#   -h Display help and exit.
 #
 
 clean=0
@@ -19,14 +20,15 @@ while getopts m:hc flag; do
     has_mode=1
     ;;
   h)
-    echo "Syntax: build.sh [Options] -m <build-mode>"
+    echo "Syntax: build.sh [options] -m <build-mode>"
+    echo "        build.sh -c"
     echo "Options:"
     echo "  -m Specify build mode. Accepted values are"
     echo "      'debug', 'debug-test',"
     echo "      'release', 'release-test',"
     echo "      'minsizerel', and 'minsizerel-test'"
-    echo "  -c (Optional) Clean built files. Use in conjunction with '-m' to clean built files in a specific build folder."
-    echo "  -h (Optional) Display this help and exit."
+    echo "  -c Clean built files. Use in conjunction with '-m' to clean built files in a specific build folder."
+    echo "  -h Display this help and exit."
     exit 0
     ;;
   c) clean=1 ;;
