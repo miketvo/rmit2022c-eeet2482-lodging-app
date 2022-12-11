@@ -123,6 +123,6 @@ For all available option flags and build modes, use:
     ctest
     ```
 
-To run tests selectively, use the `-R`/`--tests-regex` or `-N`/`--show-only` flag. Refer to [CTest Documentation](https://cmake.org/cmake/help/latest/manual/ctest.1.html).
+To run tests selectively, use the `-R`/`--tests-regex` or `-N`/`--show-only` flag. Refer to [CTest Documentation](https://cmake.org/cmake/help/latest/manual/ctest.1.html) for more instructions.
 
 To write and add test configurations, please refer to [Testing With CMake and CTest](https://cmake.org/cmake/help/book/mastering-cmake/chapter/Testing%20With%20CMake%20and%20CTest.html). **Note: All test source files for this project are placed under `test/`.**
