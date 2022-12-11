@@ -44,7 +44,7 @@ if ( $c.IsPresent -and (!$PSBoundParameters.ContainsKey('m')) ) {
 
 switch ($m) {
     "" {
-        Write-Host "Error: No build mode specified. Try 'build.sh -h' for more information." -ForegroundColor Red
+        Write-Host "Error: No build mode specified. Try 'build.ps1 -h' for more information." -ForegroundColor Red
         exit 1
     }
     "debug" {
