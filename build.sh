@@ -6,14 +6,18 @@
 #       'debug', 'debug-test',
 #       'release', 'release-test',
 #       'minsizerel', and 'minsizerel-test'
-#   -c (Optional) Clean built files. Use in conjunction with '-m'
+#   -c (Optional) Clean built files. Use in conjunction with '-m' to clean built files in a specific build folder.
 #   -h (Optional) Display help and exit.
 #
 
 clean=0
+has_mode=0
 while getopts m:hc flag; do
   case "$flag" in
-  m) mode=${OPTARG} ;;
+  m)
+    mode=${OPTARG}
+    has_mode=1
+    ;;
   h)
     echo "Syntax: build.sh [Options] -m <build-mode>"
     echo "Options:"
@@ -21,7 +25,7 @@ while getopts m:hc flag; do
     echo "      'debug', 'debug-test',"
     echo "      'release', 'release-test',"
     echo "      'minsizerel', and 'minsizerel-test'"
-    echo "  -c (Optional) Clean built files. Use in conjunction with '-m'"
+    echo "  -c (Optional) Clean built files. Use in conjunction with '-m' to clean built files in a specific build folder."
     echo "  -h (Optional) Display this help and exit."
     exit 0
     ;;
@@ -32,6 +36,19 @@ while getopts m:hc flag; do
     ;;
   esac
 done
+
+if [ $clean -eq 1 ] && [ $has_mode -eq 0 ]; then
+  echo "[ Clean | All ]"
+
+  echo "cmake --build ./cmake-build-debug --target clean -j 9"
+  cmake --build ./cmake-build-debug --target clean -j 9
+  echo "cmake --build ./cmake-build-release --target clean -j 9"
+  cmake --build ./cmake-build-release --target clean -j 9
+  echo "cmake --build ./cmake-build-minsizerel --target clean -j 9"
+  cmake --build ./cmake-build-minsizerel --target clean -j 9
+
+  exit 0;
+fi
 
 if [ "" = "${mode}" ]; then
   echo "Error: No build mode specified. Try 'build.sh -h' for more information."

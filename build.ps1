@@ -5,7 +5,7 @@
 #       'debug', 'debug-test',
 #       'release', 'release-test',
 #       'minsizerel', and 'minsizerel-test'
-#   -c (Optional) Clean built files. Use in conjunction with '-m'
+#   -c (Optional) Clean built files. Use in conjunction with '-m' to clean built files in a specific build folder.
 #   -h (Optional) Display help and exit.
 #
 
@@ -22,8 +22,21 @@ if ($h.IsPresent) {
     Write-Output "      'debug', 'debug-test',"
     Write-Output "      'release', 'release-test',"
     Write-Output "      'minsizerel', and 'minsizerel-test'"
-    Write-Output "  -c (Optional) Clean built files. Use in conjunction with '-m'"
+    Write-Output "  -c (Optional) Clean built files. Use in conjunction with '-m' to clean built files in a specific build folder."
     Write-Output "  -h (Optional) Display this help and exit."
+    exit 0
+}
+
+if ( $c.IsPresent -and (!$PSBoundParameters.ContainsKey('m')) ) {
+    Write-Output "[ Clean | All ]"
+
+    Write-Output "cmake --build ./cmake-build-debug --target clean -j 9"
+    cmake --build ./cmake-build-debug --target clean -j 9
+    Write-Output "cmake --build ./cmake-build-release --target clean -j 9"
+    cmake --build ./cmake-build-release --target clean -j 9
+    Write-Output "cmake --build ./cmake-build-minsizerel --target lodging -j 9"
+    cmake --build ./cmake-build-minsizerel --target clean -j 9
+
     exit 0
 }
 
