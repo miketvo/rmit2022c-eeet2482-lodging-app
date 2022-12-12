@@ -1,28 +1,34 @@
 #!/bin/bash
 #
-# Syntax: build.sh -build.sh [Options] -m <build-mode>
+# Syntax: build.sh [Options] -m <build-mode>
+#         build.sh -c
 # Options:
 #   -m Specify build mode. Accepted values are
 #       'debug', 'debug-test',
 #       'release', 'release-test',
 #       'minsizerel', and 'minsizerel-test'
-#   -c (Optional) Clean built files. Use in conjunction with '-m'
-#   -h (Optional) Display help and exit.
+#   -c Clean built files. Use in conjunction with '-m' to clean built files in a specific build folder.
+#   -h Display help and exit.
 #
 
 clean=0
+has_mode=0
 while getopts m:hc flag; do
   case "$flag" in
-  m) mode=${OPTARG} ;;
+  m)
+    mode=${OPTARG}
+    has_mode=1
+    ;;
   h)
-    echo "Syntax: build.sh [Options] -m <build-mode>"
+    echo "Syntax: build.sh [options] -m <build-mode>"
+    echo "        build.sh -c"
     echo "Options:"
     echo "  -m Specify build mode. Accepted values are"
     echo "      'debug', 'debug-test',"
     echo "      'release', 'release-test',"
     echo "      'minsizerel', and 'minsizerel-test'"
-    echo "  -c (Optional) Clean built files. Use in conjunction with '-m'"
-    echo "  -h (Optional) Display this help and exit."
+    echo "  -c Clean built files. Use in conjunction with '-m' to clean built files in a specific build folder."
+    echo "  -h Display this help and exit."
     exit 0
     ;;
   c) clean=1 ;;
@@ -32,6 +38,19 @@ while getopts m:hc flag; do
     ;;
   esac
 done
+
+if [ $clean -eq 1 ] && [ $has_mode -eq 0 ]; then
+  echo "[ Clean | All ]"
+
+  echo "cmake --build ./cmake-build-debug --target clean -j 9"
+  cmake --build ./cmake-build-debug --target clean -j 9
+  echo "cmake --build ./cmake-build-release --target clean -j 9"
+  cmake --build ./cmake-build-release --target clean -j 9
+  echo "cmake --build ./cmake-build-minsizerel --target clean -j 9"
+  cmake --build ./cmake-build-minsizerel --target clean -j 9
+
+  exit 0;
+fi
 
 if [ "" = "${mode}" ]; then
   echo "Error: No build mode specified. Try 'build.sh -h' for more information."
@@ -61,8 +80,8 @@ case "$mode" in
     echo "[ Clean finished ]"
   else
     echo "[ Build | Debug ]"
-    echo "cmake --build ./cmake-build-debug --target all-tests -j 9"
-    cmake --build ./cmake-build-debug --target all-tests -j 9
+    echo "cmake --build ./cmake-build-debug --target lodging all-tests -j 9"
+    cmake --build ./cmake-build-debug --target lodging all-tests -j 9
     echo "[ Build finished ]"
   fi
   ;;
@@ -87,8 +106,8 @@ case "$mode" in
     echo "[ Clean finished ]"
   else
     echo "[ Build | Release ]"
-    echo "cmake --build ./cmake-build-release --target all-tests -j 9"
-    cmake --build ./cmake-build-release --target all-tests -j 9
+    echo "cmake --build ./cmake-build-release --target lodging all-tests -j 9"
+    cmake --build ./cmake-build-release --target lodging all-tests -j 9
     echo "[ Build finished ]"
   fi
   ;;
@@ -101,7 +120,7 @@ case "$mode" in
   else
     echo "[ Build | Release ]"
     echo "cmake --build ./cmake-build-minsizerel --target lodging -j 9"
-    cmake --build ./cmake-build-minsizerel --target all-tests -j 9
+    cmake --build ./cmake-build-minsizerel --target lodging -j 9
     echo "[ Build finished ]"
   fi
   ;;
@@ -113,8 +132,8 @@ case "$mode" in
     echo "[ Clean finished ]"
   else
     echo "[ Build | Release ]"
-    echo "cmake --build ./cmake-build-minsizerel --target all-tests -j 9"
-    cmake --build ./cmake-build-minsizerel --target all-tests -j 9
+    echo "cmake --build ./cmake-build-minsizerel --target lodging all-tests -j 9"
+    cmake --build ./cmake-build-minsizerel --target lodging all-tests -j 9
     echo "[ Build finished ]"
   fi
   ;;
