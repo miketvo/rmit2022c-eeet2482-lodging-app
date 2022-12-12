@@ -1,12 +1,13 @@
 #
 # Syntax: build.ps1 [Options] -m <build-mode>
+#         build.ps1 -c
 # Options:
 #   -m Specify build mode. Accepted values are
 #       'debug', 'debug-test',
 #       'release', 'release-test',
 #       'minsizerel', and 'minsizerel-test'
-#   -c (Optional) Clean built files. Use in conjunction with '-m'
-#   -h (Optional) Display help and exit.
+#   -c Clean built files. Use in conjunction with '-m' to clean built files in a specific build folder.
+#   -h Display help and exit.
 #
 
 [CmdletBinding()] param(
@@ -16,20 +17,34 @@
 )
 
 if ($h.IsPresent) {
-    Write-Output "Syntax: build.ps1 [Options] -m <build-mode>"
+    Write-Output "Syntax: build.ps1 [options] -m <build-mode>"
+    Write-Output "        build.ps1 -c"
     Write-Output "Options:"
     Write-Output "  -m Specify build mode. Accepted values are"
     Write-Output "      'debug', 'debug-test',"
     Write-Output "      'release', 'release-test',"
     Write-Output "      'minsizerel', and 'minsizerel-test'"
-    Write-Output "  -c (Optional) Clean built files. Use in conjunction with '-m'"
-    Write-Output "  -h (Optional) Display this help and exit."
+    Write-Output "  -c Clean built files. Use in conjunction with '-m' to clean built files in a specific build folder."
+    Write-Output "  -h Display this help and exit."
+    exit 0
+}
+
+if ( $c.IsPresent -and (!$PSBoundParameters.ContainsKey('m')) ) {
+    Write-Output "[ Clean | All ]"
+
+    Write-Output "cmake --build ./cmake-build-debug --target clean -j 9"
+    cmake --build ./cmake-build-debug --target clean -j 9
+    Write-Output "cmake --build ./cmake-build-release --target clean -j 9"
+    cmake --build ./cmake-build-release --target clean -j 9
+    Write-Output "cmake --build ./cmake-build-minsizerel --target lodging -j 9"
+    cmake --build ./cmake-build-minsizerel --target clean -j 9
+
     exit 0
 }
 
 switch ($m) {
     "" {
-        Write-Host "Error: No build mode specified. Try 'build.sh -h' for more information." -ForegroundColor Red
+        Write-Host "Error: No build mode specified. Try 'build.ps1 -h' for more information." -ForegroundColor Red
         exit 1
     }
     "debug" {
@@ -59,8 +74,8 @@ switch ($m) {
         else
         {
             Write-Output "[ Build | Debug ]"
-            Write-Output "cmake --build ./cmake-build-debug --target all-tests -j 9"
-            cmake --build ./cmake-build-debug --target all-tests -j 9
+            Write-Output "cmake --build ./cmake-build-debug --target lodging all-tests -j 9"
+            cmake --build ./cmake-build-debug --target lodging all-tests -j 9
             Write-Output "[ Build finished ]"
         }
     }
@@ -91,8 +106,8 @@ switch ($m) {
         else
         {
             Write-Output "[ Build | Release ]"
-            Write-Output "cmake --build ./cmake-build-release --target all-tests -j 9"
-            cmake --build ./cmake-build-release --target all-tests -j 9
+            Write-Output "cmake --build ./cmake-build-release --target lodging all-tests -j 9"
+            cmake --build ./cmake-build-release --target lodging all-tests -j 9
             Write-Output "[ Build finished ]"
         }
     }
@@ -108,7 +123,7 @@ switch ($m) {
         {
             Write-Output "[ Build | Release ]"
             Write-Output "cmake --build ./cmake-build-minsizerel --target lodging -j 9"
-            cmake --build ./cmake-build-minsizerel --target all-tests -j 9
+            cmake --build ./cmake-build-minsizerel --target lodging -j 9
             Write-Output "[ Build finished ]"
         }
     }
@@ -123,8 +138,8 @@ switch ($m) {
         else
         {
             Write-Output "[ Build | Release ]"
-            Write-Output "cmake --build ./cmake-build-minsizerel --target all-tests -j 9"
-            cmake --build ./cmake-build-minsizerel --target all-tests -j 9
+            Write-Output "cmake --build ./cmake-build-minsizerel --target lodging all-tests -j 9"
+            cmake --build ./cmake-build-minsizerel --target lodging all-tests -j 9
             Write-Output "[ Build finished ]"
         }
     }
