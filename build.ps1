@@ -1,5 +1,5 @@
 #
-# Syntax: build.ps1 [Options] -m <build-mode>
+# Syntax: build.ps1 [options] -m <build-mode>
 #         build.ps1 -c
 # Options:
 #   -m Specify build mode. Accepted values are

@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# Syntax: build.sh [Options] -m <build-mode>
+# Syntax: build.sh [options] -m <build-mode>
 #         build.sh -c
 # Options:
 #   -m Specify build mode. Accepted values are
