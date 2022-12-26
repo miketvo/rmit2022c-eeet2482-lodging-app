@@ -1,9 +1,9 @@
 #include "DatabaseFile.h"
 
 namespace utils {
-    DatabaseFile::DatabaseFile(const std::string &delim) {
+    DatabaseFile::DatabaseFile() {
         this->path = "";
-        this->delim = delim;
+        this->delim = ",";
     }
 
     DatabaseFile::DatabaseFile(const std::string &path, const std::string &delim) {
@@ -22,13 +22,27 @@ namespace utils {
         return this->open();
     }
 
-    bool DatabaseFile::write(std::vector<std::map<std::string, std::string>> &data) {
+    void DatabaseFile::load(std::vector<std::map<std::string, std::string>> &data) {
+        this->data = data;
+    }
+
+    void DatabaseFile::unload(std::vector<std::map<std::string, std::string>> &data) {
+        data = this->data;
+    }
+
+    bool DatabaseFile::write() {
         return false;
+    }
+
+    bool DatabaseFile::write(std::vector<std::map<std::string, std::string>> &data) {
+        this->data = data;
+        return this->write();
     }
 
     bool DatabaseFile::write(const std::string &path, std::vector<std::map<std::string, std::string>> &data) {
         this->path = path;
-        return this->write(data);
+        this->data = data;
+        return this->write();
     }
 
 
@@ -52,7 +66,7 @@ namespace utils {
     }
 
     std::map<std::string, std::string> DatabaseFile::get(size_t index) {
-        return this->data.at(index);
+        return this->data[index];
     }
 
 
@@ -62,5 +76,10 @@ namespace utils {
 
     void DatabaseFile::set_delim(const std::string &val) {
         this->delim = val;
+    }
+
+
+    std::map<std::string, std::string> DatabaseFile::operator[](size_t index) {
+        return this->get(index);
     }
 } // utils

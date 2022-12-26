@@ -27,11 +27,14 @@ namespace utils {
         std::fstream file;
 
       public:
-        explicit DatabaseFile(const std::string &delim = ",");
+        DatabaseFile();
         explicit DatabaseFile(const std::string &path, const std::string &delim = ",");
 
         bool open();
         bool open(const std::string &path);
+        void load(std::vector<std::map<std::string, std::string>> &data);
+        void unload(std::vector<std::map<std::string, std::string>> &data);
+        bool write();
         bool write(std::vector<std::map<std::string, std::string>> &data);
         bool write(const std::string &path, std::vector<std::map<std::string, std::string>> &data);
 
@@ -42,6 +45,8 @@ namespace utils {
         std::map<std::string, std::string> get(size_t index);
         std::string get_delim();
         void set_delim(const std::string &val);
+
+        std::map<std::string, std::string> operator[](size_t index);
     };
 
 } // utils
