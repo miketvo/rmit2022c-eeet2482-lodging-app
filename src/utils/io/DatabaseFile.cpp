@@ -14,7 +14,7 @@ namespace utils {
 
 
     bool DatabaseFile::open() {
-        return false;
+        return false;  // TODO: Implement
     }
 
     bool DatabaseFile::open(const std::string &path) {
@@ -31,7 +31,7 @@ namespace utils {
     }
 
     bool DatabaseFile::write() {
-        return false;
+        return false;  // TODO: Implement
     }
 
     bool DatabaseFile::write(std::vector<std::map<std::string, std::string>> &data) {
