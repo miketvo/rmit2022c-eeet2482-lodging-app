@@ -6,6 +6,7 @@ set(CMAKE_CXX_STANDARD 14)
 add_executable(
     lodging
     src/main.cpp
+    src/utils/io/DatabaseFile.cpp src/utils/io/DatabaseFile.h
 )
 
 
