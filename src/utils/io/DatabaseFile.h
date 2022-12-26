@@ -27,7 +27,6 @@ namespace utils {
         std::fstream file;
 
       public:
-        DatabaseFile();
         explicit DatabaseFile(const std::string &delim = ",");
         explicit DatabaseFile(const std::string &path, const std::string &delim = ",");
 

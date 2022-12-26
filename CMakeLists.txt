@@ -17,3 +17,4 @@ enable_testing()
 add_subdirectory(test)
 
 add_test(main.test lodging)
+add_test(DatabaseFile.test test/DatabaseFile.test)

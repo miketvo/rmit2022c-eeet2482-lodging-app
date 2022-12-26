@@ -1,11 +1,6 @@
 #include "DatabaseFile.h"
 
 namespace utils {
-    DatabaseFile::DatabaseFile() {
-        this->path = "";
-        this->delim = ",";
-    }
-
     DatabaseFile::DatabaseFile(const std::string &delim) {
         this->path = "";
         this->delim = delim;
