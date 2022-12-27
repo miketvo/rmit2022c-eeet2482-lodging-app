@@ -1,6 +1,21 @@
+#include <iomanip>
 #include "DatabaseFile.h"
 
 namespace utils {
+    std::vector<std::string> DatabaseFile::tokenize(const std::string &str) {
+        std::vector<std::string> tokens;
+        size_t token_start = 0, token_end = 0;
+
+        while (token_end != std::string::npos) {
+            token_end = str.find(this->delim, token_start);
+            tokens.push_back(str.substr(token_start, token_end - token_start));
+            token_start = token_end + this->delim.length();
+        }
+
+        return tokens;
+    }
+
+
     DatabaseFile::DatabaseFile() {
         this->path = "";
         this->delim = ",";
@@ -14,7 +29,31 @@ namespace utils {
 
 
     bool DatabaseFile::open() {
-        return false;  // TODO: Implement
+        this->file.open(this->path, std::ios::in);
+        if (!this->file.is_open()) return false;  // TODO: Throw error here for "unable to read database"
+
+        std::string buffer;
+
+        // Read keys
+        std::getline(this->file, buffer);
+        if (buffer.empty()) return false;  // TODO: Throw error here for "corrupted database"
+        std::vector<std::string> keys = this->tokenize(buffer);
+
+        // Read values
+        std::vector<std::string> values;
+        while (std::getline(this->file, buffer)) {
+            if (!buffer.empty()) {
+                values = this->tokenize(buffer);
+                if (keys.size() != values.size()) return false;  // TODO: Throw error here for "corrupted database"
+
+                std::map<std::string, std::string> record;
+                for (size_t i = 0; i < keys.size(); i++) {
+                    record.emplace(keys[i], values[i]);
+                }
+            }
+        }
+
+        return true;
     }
 
     bool DatabaseFile::open(const std::string &path) {
@@ -31,7 +70,13 @@ namespace utils {
     }
 
     bool DatabaseFile::write() {
-        return false;  // TODO: Implement
+        std::string buffer;
+        std::vector<std::string> keys;
+
+        this->file.open(this->path, std::ios::out);
+        if (!this->file.is_open()) return false;  // TODO: Throw error here for "unable to write database"
+
+        return true;
     }
 
     bool DatabaseFile::write(std::vector<std::map<std::string, std::string>> &data) {

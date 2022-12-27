@@ -26,6 +26,9 @@ namespace utils {
         std::vector<std::map<std::string, std::string>> data;
         std::fstream file;
 
+      protected:
+        std::vector<std::string> tokenize(const std::string &str);
+
       public:
         DatabaseFile();
         explicit DatabaseFile(const std::string &path, const std::string &delim = ",");

@@ -21,6 +21,6 @@ add_test(main.test lodging)
 
 ## Unit tests
 add_test(DatabaseFile.test test/DatabaseFile.test)
-add_test(DatabaseFile.data.csv.test test/DatabaseFile.test data/bos2021ModC.csv)
-add_test(DatabaseFile.data.tsv.test test/DatabaseFile.test data/bos2021ModC.tsv "\t")
-add_test(DatabaseFile.data.psv.test test/DatabaseFile.test data/bos2021ModC.dat "|")
+add_test(DatabaseFile.data.csv.test test/DatabaseFile.test test/data/bos2021ModC.csv)
+add_test(DatabaseFile.data.tsv.test test/DatabaseFile.test test/data/bos2021ModC.tsv "\t")
+add_test(DatabaseFile.data.psv.test test/DatabaseFile.test test/data/bos2021ModC.dat "|")
