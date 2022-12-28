@@ -6,6 +6,7 @@ set(CMAKE_CXX_STANDARD 14)
 add_executable(
     lodging
     src/main.cpp
+    src/utils/io/DatabaseFile.cpp src/utils/io/DatabaseFile.h
 )
 
 
@@ -15,4 +16,11 @@ add_executable(
 enable_testing()
 add_subdirectory(test)
 
+## Black box tests
 add_test(main.test lodging)
+
+## Unit tests
+add_test(DatabaseFile.test test/DatabaseFile.test)
+add_test(DatabaseFile.data.csv.test test/DatabaseFile.test test/data/bos2021ModC.csv)
+add_test(DatabaseFile.data.tsv.test test/DatabaseFile.test test/data/bos2021ModC.tsv "\t")
+add_test(DatabaseFile.data.psv.test test/DatabaseFile.test test/data/bos2021ModC.dat "|")
