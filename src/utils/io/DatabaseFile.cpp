@@ -75,14 +75,14 @@ namespace utils {
         if (this->data.empty()) return false;
 
         std::string buffer;
-        std::vector<std::string> keys;
 
         this->file.open(this->path, std::ios::out);
         if (!this->file.is_open()) return false;  // TODO: Throw error here for "unable to write database"
 
         // Write header
+        std::vector<std::string> keys = this->keys();
         for (size_t i = 0; i < keys.size(); i++) {
-            file << keys[i] << (i == keys.size() ? "\n" : this->delim);
+            file << keys[i] << (i + 1 == keys.size() ? "\n" : this->delim);
         }
 
         // Write records
