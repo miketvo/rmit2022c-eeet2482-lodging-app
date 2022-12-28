@@ -3,11 +3,20 @@
 
 namespace utils {
     std::vector<std::string> DatabaseFile::tokenize(const std::string &str) {
+        bool quoted_field = false;
         std::vector<std::string> tokens;
         size_t token_start = 0, token_end = 0;
 
         while (token_end != std::string::npos) {
-            token_end = str.find(this->delim, token_start);
+            if (str[token_start] == QUOTE) quoted_field = true;
+            if (quoted_field) {
+                while (quoted_field) {
+                    token_end = str.find(this->delim, token_end + this->delim.length());
+                    if (str[token_end - 1] == QUOTE && str[token_end - 2] != '\\') quoted_field = false;
+                }
+            } else {
+                token_end = str.find(this->delim, token_start);
+            }
             tokens.push_back(str.substr(token_start, token_end - token_start));
             token_start = token_end + this->delim.length();
         }

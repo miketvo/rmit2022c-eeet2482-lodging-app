@@ -21,7 +21,7 @@ namespace utils {
      * Notes:
      * <ul>
      *  <li>Can skip through blank lines when reading database file.</li>
-     *  <li>Not greedy. I.e. does not discard consecutive delimiters but treats them as empty fields.</li>
+     *  <li>Not greedy, e.g. does not discard consecutive delimiters but treats them as empty fields.</li>
      *  <li>Quoted field always use quote <code><strong>"</strong></code> character.</li>
      * </ul>
      * </p>
