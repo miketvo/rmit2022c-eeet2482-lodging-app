@@ -1,5 +1,5 @@
 #
-# Syntax: build.ps1 [Options] -m <build-mode>
+# Syntax: build.ps1 [options] -m <build-mode>
 #         build.ps1 -c
 # Options:
 #   -m Specify build mode. Accepted values are
@@ -36,7 +36,7 @@ if ( $c.IsPresent -and (!$PSBoundParameters.ContainsKey('m')) ) {
     cmake --build ./cmake-build-debug --target clean -j 9
     Write-Output "cmake --build ./cmake-build-release --target clean -j 9"
     cmake --build ./cmake-build-release --target clean -j 9
-    Write-Output "cmake --build ./cmake-build-minsizerel --target lodging -j 9"
+    Write-Output "cmake --build ./cmake-build-minsizerel --target clean -j 9"
     cmake --build ./cmake-build-minsizerel --target clean -j 9
 
     exit 0
