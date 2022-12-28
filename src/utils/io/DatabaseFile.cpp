@@ -50,6 +50,7 @@ namespace utils {
                 for (size_t i = 0; i < keys.size(); i++) {
                     record.emplace(keys[i], values[i]);
                 }
+                data.push_back(record);
             }
         }
 
