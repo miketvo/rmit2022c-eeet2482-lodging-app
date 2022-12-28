@@ -6,6 +6,9 @@ set(CMAKE_CXX_STANDARD 14)
 add_executable(
     lodging
     src/main.cpp
+    src/Application.cpp src/Application.h
+    src/entities/House.cpp src/entities/House.h src/entities/Member.cpp src/entities/Member.h
+    src/entities/Admin.cpp src/entities/Admin.h src/entities/Account.cpp src/entities/Account.h
 )
 
 
