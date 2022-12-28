@@ -54,6 +54,7 @@ namespace utils {
             }
         }
 
+        this->file.close();
         return true;
     }
 
@@ -93,6 +94,7 @@ namespace utils {
             }
         }
 
+        this->file.close();
         return true;
     }
 
