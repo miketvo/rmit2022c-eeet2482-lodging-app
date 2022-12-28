@@ -28,6 +28,7 @@ int main(int argc, char *argv[]) {  // TODO: Make this test more verbose
             utils::DatabaseFile test_read_db(argv[1]);
             utils::DatabaseFile test_write_db("test/data/new1.dtb");
 
+            test_read_db.open();
             if (test_read_db.empty()) return 1;
             if (test_read_db.size() != 99) return 1;  // TODO: Make this automatically update if data source changes
             test_read_db.unload(data);
@@ -52,6 +53,7 @@ int main(int argc, char *argv[]) {  // TODO: Make this test more verbose
             utils::DatabaseFile test_read_db(argv[1], argv[2]);
             utils::DatabaseFile test_write_db("test/data/new3.dtb", argv[2]);
 
+            test_read_db.open();
             if (test_read_db.empty()) return 1;
             if (test_read_db.size() != 99) return 1;  // TODO: Make this automatically update if data source changes
             test_read_db.unload(data);

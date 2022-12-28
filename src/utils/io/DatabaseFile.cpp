@@ -33,7 +33,6 @@ namespace utils {
     DatabaseFile::DatabaseFile(const std::string &path, const std::string &delim) {
         this->path = path;
         this->delim = delim;
-        this->open(this->path);
     }
 
 
