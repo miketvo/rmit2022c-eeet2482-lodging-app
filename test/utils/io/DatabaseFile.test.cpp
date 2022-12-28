@@ -26,7 +26,7 @@ int main(int argc, char *argv[]) {
 
         if (argc == 2) {
             utils::DatabaseFile test_read_db(argv[1]);
-            utils::DatabaseFile test_write_db("data/new.dtb");
+            utils::DatabaseFile test_write_db("test/data/new2.dtb");
 
             if (test_read_db.empty()) return 1;
             test_read_db.unload(data);
@@ -36,7 +36,7 @@ int main(int argc, char *argv[]) {
             if (test_write_db.keys() != test_read_db.keys()) return 1;
             if (!test_write_db.write()) return 1;
             if (!test_write_db.write(data)) return 1;
-            if (!test_write_db.write("data/new2.dtb", data)) return 1;
+            if (!test_write_db.write("test/data/new2.dtb", data)) return 1;
 
             for (size_t i = 0; i < test_read_db.size(); i++) {
                 for (const std::string& key : test_read_db.keys()) {
@@ -49,7 +49,7 @@ int main(int argc, char *argv[]) {
 
         if (argc == 3) {
             utils::DatabaseFile test_read_db(argv[1], argv[2]);
-            utils::DatabaseFile test_write_db(argv[1], argv[2]);
+            utils::DatabaseFile test_write_db("test/data/new2.dtb", argv[2]);
 
             if (test_read_db.empty()) return 1;
             test_read_db.unload(data);
@@ -59,7 +59,7 @@ int main(int argc, char *argv[]) {
             if (test_write_db.keys() != test_read_db.keys()) return 1;
             if (!test_write_db.write()) return 1;
             if (!test_write_db.write(data)) return 1;
-            if (!test_write_db.write("data/new2.dtb", data)) return 1;
+            if (!test_write_db.write("test/data/new2.dtb", data)) return 1;
 
             for (size_t i = 0; i < test_read_db.size(); i++) {
                 for (const std::string& key : test_read_db.keys()) {

@@ -76,6 +76,14 @@ namespace utils {
         this->file.open(this->path, std::ios::out);
         if (!this->file.is_open()) return false;  // TODO: Throw error here for "unable to write database"
 
+        for (const auto &record : data) {
+            size_t pair_count = 0;
+            for (const auto& pair : record) {
+                pair_count++;
+                file << pair.second << (record.size() == pair_count ? "\n" : this->delim);
+            }
+        }
+
         return true;
     }
 
