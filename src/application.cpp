@@ -13,6 +13,8 @@ class Application {
     vector<House> houses;
     vector<Members> members;
     vector<string> cities;
+    Admin admin;
+
     Application() {
         cout << "EEET2482/COSC2082 ASSIGNMENT" << std::endl;
         cout << "VACATION HOUSE EXCHANGE APPLICATION"
@@ -25,7 +27,7 @@ class Application {
         cout << "s3963207, Do Le long An"
              << "\n\n\n";
     }
-    Admin admin;
+
     void init_database() {}
 
     void load_database() {}
@@ -35,18 +37,21 @@ class Application {
     void reset_database() {}
 
     bool login(Account account) {
-        if () {
+        if (quit == false) {
             return true;
         } else {
             return false;
         }
     }
 
-    void guest_menu() {}
+    void guest_menu() {
+    }
 
-    void member_menu() {}
+    void member_menu() {
+    }
 
-    void admin_menu() {}
+    void admin_menu() {
+    }
 
     bool register_member() {
         if () {
