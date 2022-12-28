@@ -29,6 +29,7 @@ int main(int argc, char *argv[]) {
             utils::DatabaseFile test_write_db("test/data/new1.dtb");
 
             if (test_read_db.empty()) return 1;
+            if (test_read_db.size() != 100) return 1;  // TODO: Make this automatically update if data source changes
             test_read_db.unload(data);
             test_write_db.load(data);
             if (test_write_db.empty()) return 1;
@@ -52,6 +53,7 @@ int main(int argc, char *argv[]) {
             utils::DatabaseFile test_write_db("test/data/new3.dtb", argv[2]);
 
             if (test_read_db.empty()) return 1;
+            if (test_read_db.size() != 100) return 1;  // TODO: Make this automatically update if data source changes
             test_read_db.unload(data);
             test_write_db.load(data);
             if (test_write_db.empty()) return 1;
