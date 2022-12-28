@@ -1,6 +1,7 @@
-#include <iostream>
+#include "Application.h"
 
 int main() {
-    std::cout << "Hello, World!" << std::endl;
+    Application app;
+    app.main_loop();
     return 0;
 }
