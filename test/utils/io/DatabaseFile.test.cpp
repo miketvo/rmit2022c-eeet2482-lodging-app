@@ -3,7 +3,7 @@
 #include <map>
 #include "../../../src/utils/io/DatabaseFile.h"
 
-int main(int argc, char *argv[]) {
+int main(int argc, char *argv[]) {  // TODO: Make this test more verbose
     try {
         if (argc == 1) {
             utils::DatabaseFile test_db;
