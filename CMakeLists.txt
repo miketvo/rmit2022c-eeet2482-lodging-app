@@ -9,6 +9,8 @@ add_executable(
     src/Application.cpp src/Application.h
     src/entities/House.cpp src/entities/House.h src/entities/Member.cpp src/entities/Member.h
     src/entities/Admin.cpp src/entities/Admin.h src/entities/Account.cpp src/entities/Account.h
+    src/entities/HouseReview.h src/entities/HouseReview.cpp
+    src/entities/OccupantReview.cpp src/entities/OccupantReview.h
     src/utils/io/DatabaseFile.cpp src/utils/io/DatabaseFile.h
 )
 
