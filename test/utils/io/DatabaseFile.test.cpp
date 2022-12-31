@@ -8,29 +8,34 @@
 int main(int argc, char *argv[]) {
     try {
         if (argc == 1) {
-            utils::DatabaseFile test_db;
+            utils::io::DatabaseFile test_db;
 
             if (test_db.get_delim() != ",") return 1;
             if (test_db.size() != 0) return 1;
             if (!test_db.empty()) return 1;
-            if (test_db.open()) return 1;
+            if (test_db.read()) return 1;
+            try {
+                test_db.at(1);  // throws std::out_of_range
+            } catch (std::out_of_range &e) {
+                std::cout << e.what() << "\n";
+            }
 
             test_db.set_delim("***");
             if (test_db.get_delim() != "***") return 1;
             test_db.set_delim(",");
             if (test_db.get_delim() != ",") return 1;
 
-            test_db.open("ThisDoesNotExist.file");  // throws std::fstream::failure
+            test_db.read("ThisDoesNotExist.file");  // throws std::fstream::failure
             return 0;
         }
 
         std::vector<std::map<std::string, std::string>> data;
 
         if (argc == 2) {
-            utils::DatabaseFile test_read_db(argv[1]);
-            utils::DatabaseFile test_write_db("test/data/new1.dtb");
+            utils::io::DatabaseFile test_read_db(argv[1]);
+            utils::io::DatabaseFile test_write_db("test/data/new1.dtb");
 
-            test_read_db.open();
+            test_read_db.read();
             if (test_read_db.empty()) return 1;
             if (test_read_db.size() != 99) return 1;
             test_read_db.unload(data);
@@ -57,10 +62,10 @@ int main(int argc, char *argv[]) {
         }
 
         if (argc == 3) {
-            utils::DatabaseFile test_read_db(argv[1], argv[2]);
-            utils::DatabaseFile test_write_db("test/data/new3.dtb", argv[2]);
+            utils::io::DatabaseFile test_read_db(argv[1], argv[2]);
+            utils::io::DatabaseFile test_write_db("test/data/new3.dtb", argv[2]);
 
-            test_read_db.open();
+            test_read_db.read();
             if (test_read_db.empty()) return 1;
             if (test_read_db.size() != 99) return 1;
             test_read_db.unload(data);
@@ -89,7 +94,7 @@ int main(int argc, char *argv[]) {
         return 1;
     } catch (std::fstream::failure &e) {
         return 0;
-    } catch (utils::exceptions::corrupted_database &e) {
+    } catch (utils::io::exceptions::corrupted_database &e) {
         std::cout << e.what() << "\n";
         return 1;
     } catch (...) {
