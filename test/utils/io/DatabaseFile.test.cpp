@@ -35,6 +35,8 @@ int main(int argc, char *argv[]) {  // TODO: Make this test more verbose
             if (test_read_db.size() != 99) return 1;  // TODO: Make this automatically update if data source changes
             test_read_db.unload(data);
             test_write_db.load(data);
+            test_read_db >> data;
+            test_write_db << data;
             if (test_write_db.empty()) return 1;
             if (test_write_db.size() != test_read_db.size()) return 1;
             if (test_write_db.keys() != test_read_db.keys()) return 1;
@@ -63,6 +65,8 @@ int main(int argc, char *argv[]) {  // TODO: Make this test more verbose
             if (test_read_db.size() != 99) return 1;  // TODO: Make this automatically update if data source changes
             test_read_db.unload(data);
             test_write_db.load(data);
+            test_read_db >> data;
+            test_write_db << data;
             if (test_write_db.empty()) return 1;
             if (test_write_db.size() != test_read_db.size()) return 1;
             if (test_write_db.keys() != test_read_db.keys()) return 1;
