@@ -54,7 +54,7 @@ namespace utils {
              * @brief Reads data into this DatabaseFile from its associated file.
              * @return true if data have been read successfully, false if this DatabaseFile does have an associated file.
              * @throw std::fstream::failure if file I/O operation failed.
-             * @throw utils::exceptions::corrupted_database if encounters a malformed database entry.
+             * @throw utils::io::exceptions::corrupted_database if encounters a malformed database entry.
              */
             bool read();
 
@@ -63,7 +63,7 @@ namespace utils {
              * @param path New file to be associated with this DatabaseFile, overwrites any old association.
              * @return true if data have been read successfully, false if this DatabaseFile does have an associated file.
              * @throw std::fstream::failure if file I/O operation failed.
-             * @throw utils::exceptions::corrupted_database if encounters a malformed database entry.
+             * @throw utils::io::exceptions::corrupted_database if encounters a malformed database entry.
              */
             bool read(const std::string &path);
 
