@@ -1,7 +1,9 @@
 #include <iostream>
 #include <vector>
 #include <map>
+#include <cstring>
 #include "../../../src/utils/io/DatabaseFile.h"
+#include "../../../src/utils/io/corrupted_database.h"
 
 int main(int argc, char *argv[]) {  // TODO: Make this test more verbose
     try {
@@ -12,13 +14,13 @@ int main(int argc, char *argv[]) {  // TODO: Make this test more verbose
             if (test_db.size() != 0) return 1;
             if (!test_db.empty()) return 1;
             if (test_db.open()) return 1;
-            if (test_db.open("ThisDoesNotExist.file")) return 1;
 
             test_db.set_delim("***");
             if (test_db.get_delim() != "***") return 1;
             test_db.set_delim(",");
             if (test_db.get_delim() != ",") return 1;
 
+            test_db.open("ThisDoesNotExist.file");  // throws std::fstream::failure
             return 0;
         }
 
@@ -40,8 +42,11 @@ int main(int argc, char *argv[]) {  // TODO: Make this test more verbose
             if (!test_write_db.write(data)) return 1;
             if (!test_write_db.write("test/data/new2.dtb", data)) return 1;
 
-            for (size_t i = 0; i < test_read_db.size(); i++) {
-                for (const std::string& key : test_read_db.keys()) {
+            for (
+                size_t i = 0; i < test_read_db.size(); i++
+                ) {
+                for (
+                    const std::string &key : test_read_db.keys()) {
                     if (data[i][key] != test_write_db[i][key]) return 1;
                 }
             }
@@ -65,8 +70,11 @@ int main(int argc, char *argv[]) {  // TODO: Make this test more verbose
             if (!test_write_db.write(data)) return 1;
             if (!test_write_db.write("test/data/new4.dtb", data)) return 1;
 
-            for (size_t i = 0; i < test_read_db.size(); i++) {
-                for (const std::string& key : test_read_db.keys()) {
+            for (
+                size_t i = 0; i < test_read_db.size(); i++
+                ) {
+                for (
+                    const std::string &key : test_read_db.keys()) {
                     if (data[i][key] != test_write_db[i][key]) return 1;
                 }
             }
@@ -74,6 +82,11 @@ int main(int argc, char *argv[]) {  // TODO: Make this test more verbose
             return 0;
         }
 
+        return 1;
+    } catch (std::fstream::failure &e) {
+        return 0;
+    } catch (utils::exceptions::corrupted_database &e) {
+        std::cout << e.what() << "\n";
         return 1;
     } catch (...) {
         return 1;

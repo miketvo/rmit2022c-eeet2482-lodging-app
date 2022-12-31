@@ -45,11 +45,14 @@ namespace utils {
 
         bool open();
         bool open(const std::string &path);
-        void load(std::vector<std::map<std::string, std::string>> &data);
-        void unload(std::vector<std::map<std::string, std::string>> &data);
         bool write();
         bool write(std::vector<std::map<std::string, std::string>> &data);
         bool write(const std::string &path, std::vector<std::map<std::string, std::string>> &data);
+
+        void load(std::vector<std::map<std::string, std::string>> &data);
+        void unload(std::vector<std::map<std::string, std::string>> &data);
+        void operator<<(std::vector<std::map<std::string, std::string>> &data);
+        void operator>>(std::vector<std::map<std::string, std::string>> &data);
 
         size_t size();
         bool empty();

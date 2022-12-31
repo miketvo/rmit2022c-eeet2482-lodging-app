@@ -1,5 +1,6 @@
 #include <sstream>
 #include "DatabaseFile.h"
+#include "corrupted_database.h"
 
 namespace utils {
     std::vector<std::string> DatabaseFile::tokenize(const std::string &str) {
@@ -46,23 +47,25 @@ namespace utils {
     DatabaseFile::DatabaseFile() {
         this->path = "";
         this->delim = ",";
+        this->file.exceptions( std::ios::failbit | std::ios::badbit );
     }
 
     DatabaseFile::DatabaseFile(const std::string &path, const std::string &delim) {
         this->path = path;
         this->delim = delim;
+        this->file.exceptions( std::ios::failbit | std::ios::badbit );
     }
 
 
     bool DatabaseFile::open() {
-        this->file.open(this->path, std::ios::in);
-        if (!this->file.is_open()) return false;  // TODO: Throw error here for "unable to read database"
+        if (this->path.empty()) return false;
 
+        this->file.open(this->path, std::ios::in);
         std::string buffer;
 
         // Read keys
         std::getline(this->file, buffer);
-        if (buffer.empty()) return false;  // TODO: Throw error here for "corrupted database"
+        if (buffer.empty()) throw exceptions::corrupted_database(this->path);
         std::vector<std::string> keys = this->tokenize(buffer);
 
         // Read values
@@ -70,7 +73,7 @@ namespace utils {
         while (std::getline(this->file, buffer)) {
             if (!buffer.empty()) {
                 values = this->tokenize(buffer);
-                if (keys.size() != values.size()) return false;  // TODO: Throw error here for "corrupted database"
+                if (keys.size() != values.size()) throw exceptions::corrupted_database(this->path);
 
                 std::map<std::string, std::string> record;
                 for (size_t i = 0; i < keys.size(); i++) {
@@ -89,21 +92,11 @@ namespace utils {
         return this->open();
     }
 
-    void DatabaseFile::load(std::vector<std::map<std::string, std::string>> &data) {
-        this->data = data;
-    }
-
-    void DatabaseFile::unload(std::vector<std::map<std::string, std::string>> &data) {
-        data = this->data;
-    }
-
     bool DatabaseFile::write() {
         if (this->data.empty()) return false;
 
         std::string buffer;
-
         this->file.open(this->path, std::ios::out);
-        if (!this->file.is_open()) return false;  // TODO: Throw error here for "unable to write database"
 
         // Write header
         std::vector<std::string> keys = this->keys();
@@ -133,6 +126,23 @@ namespace utils {
         this->path = path;
         this->data = data;
         return this->write();
+    }
+
+
+    void DatabaseFile::load(std::vector<std::map<std::string, std::string>> &data) {
+        this->data = data;
+    }
+
+    void DatabaseFile::unload(std::vector<std::map<std::string, std::string>> &data) {
+        data = this->data;
+    }
+
+    void DatabaseFile::operator<<(std::vector<std::map<std::string, std::string>> &data) {
+        this->load(data);
+    }
+
+    void DatabaseFile::operator>>(std::vector<std::map<std::string, std::string>> &data) {
+        this->unload(data);
     }
 
 

@@ -10,7 +10,7 @@ add_executable(
     src/entities/House.cpp src/entities/House.h src/entities/Member.cpp src/entities/Member.h
     src/entities/Admin.cpp src/entities/Admin.h src/entities/Account.cpp src/entities/Account.h
     src/utils/io/DatabaseFile.cpp src/utils/io/DatabaseFile.h
-)
+    src/utils/io/corrupted_database.cpp src/utils/io/corrupted_database.h)
 
 
 #=======#
@@ -27,3 +27,6 @@ add_test(DatabaseFile.test test/DatabaseFile.test)
 add_test(DatabaseFile.data.csv.test test/DatabaseFile.test test/data/bos2021ModC.csv)
 add_test(DatabaseFile.data.tsv.test test/DatabaseFile.test test/data/bos2021ModC.tsv "\t")
 add_test(DatabaseFile.data.psv.test test/DatabaseFile.test test/data/bos2021ModC.dat "|")
+add_test(DatabaseFile.data.corrupted-dtb.test test/DatabaseFile.test test/data/corrupted.dtb)  # Throws utils::exceptions::corrupted_database
+
+set_property(TEST DatabaseFile.data.corrupted-dtb.test PROPERTY WILL_FAIL true)

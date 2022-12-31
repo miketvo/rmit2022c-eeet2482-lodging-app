@@ -9,3 +9,8 @@ Files:
 * bos2021ModC.csv (comma separated, UTF-8 text, 100 entries)
 * bos2021ModC.tsv (tab separated, UTF-8 text, 100 entries)
 * bos2021ModC.dat (pipe separated, UTF-8 text, 100 entries)
+
+
+## 2. corrupted.dtb
+
+A CSV file with one line that does not have the same amount of fields and specified in the first header line.
