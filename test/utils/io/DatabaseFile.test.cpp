@@ -5,7 +5,7 @@
 #include "../../../src/utils/io/DatabaseFile.h"
 #include "../../../src/utils/io/corrupted_database.h"
 
-int main(int argc, char *argv[]) {  // TODO: Make this test more verbose
+int main(int argc, char *argv[]) {
     try {
         if (argc == 1) {
             utils::DatabaseFile test_db;
@@ -32,7 +32,7 @@ int main(int argc, char *argv[]) {  // TODO: Make this test more verbose
 
             test_read_db.open();
             if (test_read_db.empty()) return 1;
-            if (test_read_db.size() != 99) return 1;  // TODO: Make this automatically update if data source changes
+            if (test_read_db.size() != 99) return 1;
             test_read_db.unload(data);
             test_write_db.load(data);
             test_read_db >> data;
@@ -62,7 +62,7 @@ int main(int argc, char *argv[]) {  // TODO: Make this test more verbose
 
             test_read_db.open();
             if (test_read_db.empty()) return 1;
-            if (test_read_db.size() != 99) return 1;  // TODO: Make this automatically update if data source changes
+            if (test_read_db.size() != 99) return 1;
             test_read_db.unload(data);
             test_write_db.load(data);
             test_read_db >> data;
