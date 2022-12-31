@@ -37,6 +37,7 @@ namespace utils {
 
       protected:
         std::vector<std::string> tokenize(const std::string &str);
+        std::string auto_quoted_field(const std::string &str);
 
       public:
         DatabaseFile();

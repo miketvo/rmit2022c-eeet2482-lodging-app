@@ -34,6 +34,14 @@ namespace utils {
         return tokens;
     }
 
+    std::string DatabaseFile::auto_quoted_field(const std::string &str) {
+        if (str.find(this->delim) != std::string::npos) {
+            return '"' + str + '"';
+        }
+
+        return str;
+    }
+
 
     DatabaseFile::DatabaseFile() {
         this->path = "";
@@ -100,7 +108,7 @@ namespace utils {
         // Write header
         std::vector<std::string> keys = this->keys();
         for (size_t i = 0; i < keys.size(); i++) {
-            file << keys[i] << (i + 1 == keys.size() ? "\n" : this->delim);
+            file << this->auto_quoted_field(keys[i]) << (i + 1 == keys.size() ? "\n" : this->delim);
         }
 
         // Write records
@@ -108,7 +116,7 @@ namespace utils {
             size_t pair_count = 0;
             for (const auto& pair : record) {
                 pair_count++;
-                file << pair.second << (record.size() == pair_count ? "\n" : this->delim);
+                file << this->auto_quoted_field(pair.second) << (record.size() == pair_count ? "\n" : this->delim);
             }
         }
 
