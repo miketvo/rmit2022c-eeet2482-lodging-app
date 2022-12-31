@@ -22,7 +22,9 @@ namespace utils {
      * <ul>
      *  <li>Can skip through blank lines when reading database file.</li>
      *  <li>Not greedy, e.g. does not discard consecutive delimiters but treats them as empty fields.</li>
+     *  <li>Recognizes quoted fields.</li>
      *  <li>Quoted field always use quote <code><strong>"</strong></code> character.</li>
+     *  <li>Automatic quoted fields when writing to disk.</li>
      * </ul>
      * </p>
      *

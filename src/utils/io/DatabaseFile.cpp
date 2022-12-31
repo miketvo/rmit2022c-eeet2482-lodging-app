@@ -11,14 +11,24 @@ namespace utils {
             if (str[token_start] == QUOTE) quoted_field = true;
             if (quoted_field) {
                 while (quoted_field) {
+                    // Start quoted tokenization
                     token_end = str.find(this->delim, token_end + this->delim.length());
-                    if (str[token_end - 1] == QUOTE && str[token_end - 2] != '\\') quoted_field = false;
+                    if (str[token_end - 1] == QUOTE && str[token_end - 2] != '\\') {
+                        token_start++;  // Discard the left quote
+                        token_end--;    // Discard the right quote
+                        tokens.push_back(str.substr(token_start, token_end - token_start));  // Get quoted field
+
+                        // Resume normal tokenization
+                        quoted_field = false;
+                        token_end++;
+                    }
                 }
             } else {
                 token_end = str.find(this->delim, token_start);
+                tokens.push_back(str.substr(token_start, token_end - token_start));  // Get field
             }
-            tokens.push_back(str.substr(token_start, token_end - token_start));
-            token_start = token_end + this->delim.length();
+
+            token_start = token_end + this->delim.length();  // Move to next token
         }
 
         return tokens;
