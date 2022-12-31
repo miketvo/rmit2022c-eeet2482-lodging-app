@@ -169,6 +169,10 @@ namespace utils {
         return this->data[index];
     }
 
+    std::map<std::string, std::string> DatabaseFile::operator[](size_t index) {
+        return this->get(index);
+    }
+
 
     std::string DatabaseFile::get_delim() {
         return this->delim;
@@ -178,8 +182,4 @@ namespace utils {
         this->delim = val;
     }
 
-
-    std::map<std::string, std::string> DatabaseFile::operator[](size_t index) {
-        return this->get(index);
-    }
 } // utils

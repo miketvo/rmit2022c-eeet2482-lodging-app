@@ -59,10 +59,10 @@ namespace utils {
         std::vector<std::string> keys();
 
         std::map<std::string, std::string> get(size_t index);
+        std::map<std::string, std::string> operator[](size_t index);
+
         std::string get_delim();
         void set_delim(const std::string &val);
-
-        std::map<std::string, std::string> operator[](size_t index);
     };
 
 } // utils
