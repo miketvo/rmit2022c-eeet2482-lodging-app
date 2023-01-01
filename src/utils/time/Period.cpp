@@ -8,6 +8,9 @@ namespace utils {
         }
 
         Period::Period(const Datetime &datetime1, const Datetime &datetime2) {
+            this->start = new Datetime();
+            this->end = new Datetime();
+
             if (datetime1 > datetime2) {
                 *this->start = datetime2;
                 *this->end = datetime1;
@@ -43,7 +46,7 @@ namespace utils {
 
 
         Duration Period::get_duration() const {
-            return Duration();  // TODO: Implement
+            return Duration(*this->start, *this->end);
         }
 
 
