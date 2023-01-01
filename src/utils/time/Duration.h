@@ -19,6 +19,11 @@ namespace utils {
             unsigned long long minutes();
             unsigned long long hours();
             unsigned long long days();
+
+            double to_seconds();
+            double to_minutes();
+            double to_hours();
+            double to_days();
         };
 
     } // time
