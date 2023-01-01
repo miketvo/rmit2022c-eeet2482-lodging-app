@@ -87,6 +87,25 @@ namespace utils {
         }
 
 
+        Datetime Datetime::operator+(const Duration &duration) {
+            return Datetime(*this->time + *duration.time);
+        }
+
+        Datetime Datetime::operator+=(const Duration &duration) {
+            *this->time += *duration.time;
+            return Datetime(*this->time);
+        }
+
+        Datetime Datetime::operator-(const Duration &duration) {
+            return Datetime(*this->time - *duration.time);
+        }
+
+        Datetime Datetime::operator-=(const Duration &duration) {
+            *this->time -= *duration.time;
+            return Datetime(*this->time);
+        }
+
+
         Period Datetime::operator-(const Datetime &datetime) const {
             return Period().set_start(*this).set_end(datetime);
         }

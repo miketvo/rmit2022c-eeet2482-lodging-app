@@ -24,6 +24,8 @@ namespace utils {
             double to_minutes();
             double to_hours();
             double to_days();
+
+            friend Datetime;
         };
 
     } // time

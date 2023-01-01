@@ -29,7 +29,7 @@ namespace utils {
 
         Temporal Temporal::operator+=(const Temporal &temporal) {
             *this->time += *temporal.time;
-            return Temporal(*this->time + *temporal.time);
+            return Temporal(*this->time);
         }
 
         Temporal Temporal::operator-(const Temporal &temporal) {
@@ -38,7 +38,7 @@ namespace utils {
 
         Temporal Temporal::operator-=(const Temporal &temporal) {
             *this->time -= *temporal.time;
-            return Temporal(*this->time - *temporal.time);
+            return Temporal(*this->time);
         }
 
 

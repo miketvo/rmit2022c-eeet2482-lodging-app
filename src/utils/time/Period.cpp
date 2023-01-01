@@ -50,19 +50,19 @@ namespace utils {
         }
 
 
-        unsigned long long Period::seconds() {
+        unsigned long long Period::seconds() const {
             return this->get_duration().seconds();
         }
 
-        unsigned long long Period::minutes() {
+        unsigned long long Period::minutes() const {
             return this->get_duration().minutes();
         }
 
-        unsigned long long Period::hours() {
+        unsigned long long Period::hours() const {
             return this->get_duration().hours();
         }
 
-        unsigned long long Period::days() {
+        unsigned long long Period::days() const {
             return this->get_duration().days();
         }
     } // time

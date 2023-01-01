@@ -33,6 +33,11 @@ namespace utils {
             void set(const std::tm &time);
             void set(const std::string &time_str, const char *fmt);
 
+            Datetime operator+(const Duration &duration);
+            Datetime operator+=(const Duration &duration);
+            Datetime operator-(const Duration &duration);
+            Datetime operator-=(const Duration &duration);
+
             Period operator-(const Datetime &datetime) const;
             static Period between(const Datetime &datetime1, const Datetime &datetime2);
 

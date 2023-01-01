@@ -32,10 +32,10 @@ namespace utils {
 
             Duration get_duration() const;
 
-            unsigned long long seconds();
-            unsigned long long minutes();
-            unsigned long long hours();
-            unsigned long long days();
+            unsigned long long seconds() const;
+            unsigned long long minutes() const;
+            unsigned long long hours() const;
+            unsigned long long days() const;
         };
 
     } // time

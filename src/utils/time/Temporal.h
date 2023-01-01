@@ -13,13 +13,13 @@ namespace utils {
             Temporal();
             explicit Temporal(std::time_t time);
 
+          public:
             ~Temporal();
             Temporal(const Temporal &source) = default;
             Temporal(Temporal &&source) = default;
             Temporal &operator=(const Temporal &source) = default;
             Temporal &operator=(Temporal &&source) = default;
 
-          public:
             void set(std::time_t time);
 
             Temporal operator+(const Temporal &temporal);
