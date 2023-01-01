@@ -10,7 +10,6 @@ namespace utils {
           protected:
             std::time_t *time;
 
-          public:
             Temporal();
             explicit Temporal(std::time_t time);
 
@@ -20,7 +19,7 @@ namespace utils {
             Temporal &operator=(const Temporal &source) = default;
             Temporal &operator=(Temporal &&source) = default;
 
-            std::time_t get() const;
+          public:
             void set(std::time_t time);
 
             Temporal operator+(const Temporal &temporal);
