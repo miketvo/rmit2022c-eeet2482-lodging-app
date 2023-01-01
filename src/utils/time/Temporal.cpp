@@ -18,6 +18,10 @@ namespace utils {
         }
 
 
+        std::time_t Temporal::get() const {
+            return *this->time;
+        }
+
         void Temporal::set(std::time_t time) {
             *this->time = time;
         }

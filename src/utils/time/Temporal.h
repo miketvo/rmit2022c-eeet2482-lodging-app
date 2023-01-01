@@ -20,6 +20,7 @@ namespace utils {
             Temporal &operator=(const Temporal &source) = default;
             Temporal &operator=(Temporal &&source) = default;
 
+            std::time_t get() const;
             void set(std::time_t time);
 
             Temporal operator+(const Temporal &temporal);

@@ -9,7 +9,7 @@ namespace utils {
 
         Duration::Duration(const Datetime &datetime1, const Datetime &datetime2) {
             this->Temporal::time = new std::time_t;
-            // TODO: Implement
+            *this->Temporal::time = datetime1.get() - datetime2.get();
         }
 
 

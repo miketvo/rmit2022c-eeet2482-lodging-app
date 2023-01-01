@@ -10,7 +10,6 @@ namespace utils {
     namespace time {
 
         class Period;
-        class Duration;
 
         class Datetime : public Temporal {
           public:
@@ -35,8 +34,6 @@ namespace utils {
 
             Period operator-(const Datetime &datetime) const;
             static Period between(const Datetime &datetime1, const Datetime &datetime2);
-
-            friend Duration;
         };
 
     } // time
