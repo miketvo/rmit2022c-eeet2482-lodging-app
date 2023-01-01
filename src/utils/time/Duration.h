@@ -8,10 +8,12 @@
 namespace utils {
     namespace time {
 
+        class Datetime;
+
         class Duration : public Temporal {
           public:
             explicit Duration(unsigned days = 0, unsigned hours = 0, unsigned minutes = 0, unsigned seconds = 0);
-            explicit Duration(const Datetime &datetime1, const Datetime &datetime2 = Datetime());
+            explicit Duration(const Datetime &datetime1, const Datetime &datetime2);
 
             unsigned long long seconds();
             unsigned long long minutes();

@@ -9,6 +9,9 @@
 namespace utils {
     namespace time {
 
+        class Period;
+        class Duration;
+
         class Datetime : public Temporal {
           public:
             Datetime();

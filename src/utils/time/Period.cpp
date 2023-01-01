@@ -3,35 +3,41 @@
 namespace utils {
     namespace time {
         Period::Period() {
-            this->start = Datetime();
-            this->end = Datetime();
+            this->start = new Datetime();
+            this->end = new Datetime();
         }
 
         Period::Period(const Datetime &datetime1, const Datetime &datetime2) {
             if (datetime1 > datetime2) {
-                this->start = datetime2;
-                this->end = datetime1;
+                *this->start = datetime2;
+                *this->end = datetime1;
             }
-            this->start = datetime1;
-            this->end = datetime2;
+            *this->start = datetime1;
+            *this->end = datetime2;
+        }
+
+
+        Period::~Period() {
+            delete this->start;
+            delete this->end;
         }
 
 
         Datetime Period::get_start() {
-            return this->start;
+            return *this->start;
         }
 
         Period &Period::set_start(const Datetime &start) {
-            this->start = start;
+            *this->start = start;
             return *this;
         }
 
         Datetime Period::get_end() {
-            return this->end;
+            return *this->end;
         }
 
         Period &Period::set_end(const Datetime &end) {
-            this->end = end;
+            *this->end = end;
             return *this;
         }
 

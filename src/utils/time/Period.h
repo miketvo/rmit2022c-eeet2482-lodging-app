@@ -8,15 +8,18 @@
 namespace utils {
     namespace time {
 
+        class Datetime;
+        class Duration;
+
         class Period {
           private:
-            Datetime start, end;
+            Datetime *start, *end;
 
           public:
             Period();
-            explicit Period(const Datetime &datetime1, const Datetime &datetime2 = Datetime());
+            explicit Period(const Datetime &datetime1, const Datetime &datetime2);
 
-            ~Period() = default;
+            ~Period();
             Period(const Period &source) = default;
             Period(Period &&source) = default;
             Period &operator=(const Period &source) = default;
