@@ -13,7 +13,7 @@ namespace utils {
 
           public:
             Period();
-            explicit Period(Datetime datetime1, Datetime datetime2 = Datetime());
+            explicit Period(const Datetime &datetime1, const Datetime &datetime2 = Datetime());
 
             ~Period() = default;
             Period(const Period &source) = default;
@@ -21,22 +21,17 @@ namespace utils {
             Period &operator=(const Period &source) = default;
             Period &operator=(Period &&source) = default;
 
+            Datetime get_start();
+            Period &set_start(const Datetime &start);
+            Datetime get_end();
+            Period &set_end(const Datetime &end);
+
+            Duration get_duration() const;
+
             unsigned long long seconds();
             unsigned long long minutes();
             unsigned long long hours();
-            unsigned long long m_day();
-            unsigned long long month();
-            unsigned long long year();
-            unsigned long long w_day();
-            unsigned long long y_day();
-            std::string strf(const char *fmt);
-
-            Datetime get_start();
-            void set_start(Datetime start);
-            Datetime get_end();
-            void set_end(Datetime end);
-
-            operator Duration() const;
+            unsigned long long days();
         };
 
     } // time

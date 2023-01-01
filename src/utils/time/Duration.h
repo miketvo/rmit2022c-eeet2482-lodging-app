@@ -8,11 +8,15 @@
 namespace utils {
     namespace time {
 
-        class Duration : protected Temporal {
+        class Duration : public Temporal {
           public:
-            Duration();
-            Duration(Datetime datetime1, Datetime datetime2);
-            Duration(Period period);
+            explicit Duration(unsigned days = 0, unsigned hours = 0, unsigned minutes = 0, unsigned seconds = 0);
+            explicit Duration(const Datetime &datetime1, const Datetime &datetime2 = Datetime());
+
+            unsigned long long seconds();
+            unsigned long long minutes();
+            unsigned long long hours();
+            unsigned long long days();
         };
 
     } // time
