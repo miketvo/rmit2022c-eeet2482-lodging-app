@@ -11,7 +11,7 @@ namespace account {
       Member reviewer, reviewee;
 
     public:
-      OccupantReview(std::string id = "", std::string comment = "", int rating = 0) : utils::Review(id, comment, rating){};
+      OccupantReview(std::string id , std::string comment , int rating ) : utils::Review(id, comment, rating){};
   };
 } // namespace account
 
