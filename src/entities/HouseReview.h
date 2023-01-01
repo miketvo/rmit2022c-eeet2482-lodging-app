@@ -13,6 +13,7 @@ namespace house {
 
             public:
             HouseReview(std::string id, std::string comment, int rating) : utils::Review(id, comment, rating){};
+            void show_house_review();
     };
 } // namespace house
 

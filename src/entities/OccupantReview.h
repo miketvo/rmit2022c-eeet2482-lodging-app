@@ -12,6 +12,7 @@ namespace account {
 
     public:
       OccupantReview(std::string id , std::string comment , int rating ) : utils::Review(id, comment, rating){};
+      void show_occupant_review();
   };
 } // namespace account
 
