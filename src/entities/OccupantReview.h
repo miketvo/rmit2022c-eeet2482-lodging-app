@@ -3,21 +3,17 @@
 
 #include <iostream>
 #include "Member.h"
+#include "../utils/Review/Review.h"
 
-namespace OccupantReview {
-  class OccupantReview {
-    private:
-      std::string id;
-      int rating;
-      std::string comment;
-      Member member;
-
+namespace account {
+  class OccupantReview : public utils::Review{
+    protected:
+      Member reviewer, reviewee;
+      
     public:
-      OccupantReview();
-      OccupantReview(std::string id, int rating, std::string comment);
-      void show_occupant_review();
-};
-}
+      OccupantReview(std::string id = "", std::string comment = "", int rating = 0) : utils::Review(id, comment, rating){};
+  };
+} // namespace account
 
 
 #endif//RMIT2022C_EEET2482_LODGING_APP_SRC_OCCUPANT_REVIEW_H_
