@@ -2,8 +2,8 @@
 #define RMIT2022C_EEET2482_LODGING_APP_SRC_UTILS_TIME_DURATION_H_
 
 #include <ctime>
-#include "Temporal.h"
 #include "Datetime.h"
+#include "Temporal.h"
 
 namespace utils {
     namespace time {

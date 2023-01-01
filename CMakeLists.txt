@@ -11,10 +11,10 @@ add_executable(
     src/entities/Admin.cpp src/entities/Admin.h src/entities/Account.cpp src/entities/Account.h
     src/utils/io/DatabaseFile.cpp src/utils/io/DatabaseFile.h
     src/utils/io/corrupted_database.cpp src/utils/io/corrupted_database.h
-#    src/utils/time/Temporal.cpp src/utils/time/Temporal.h
-#    src/utils/time/Datetime.cpp src/utils/time/Datetime.h
-#    src/utils/time/Duration.cpp src/utils/time/Duration.h
-#    src/utils/time/Period.cpp src/utils/time/Period.h
+    src/utils/time/Temporal.cpp src/utils/time/Temporal.h
+    src/utils/time/Datetime.cpp src/utils/time/Datetime.h
+    src/utils/time/Duration.cpp src/utils/time/Duration.h
+    src/utils/time/Period.cpp src/utils/time/Period.h
 )
 
 

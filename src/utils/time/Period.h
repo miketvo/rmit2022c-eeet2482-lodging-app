@@ -3,6 +3,7 @@
 
 #include <ctime>
 #include "Datetime.h"
+#include "Duration.h"
 
 namespace utils {
     namespace time {

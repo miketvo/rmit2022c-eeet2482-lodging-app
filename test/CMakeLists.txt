@@ -22,8 +22,8 @@ add_executable(
 add_executable(
     time.test EXCLUDE_FROM_ALL
     utils/time/time.test.cpp
-#    ../src/utils/time/Temporal.cpp ../src/utils/time/Temporal.h
-#    ../src/utils/time/Datetime.cpp ../src/utils/time/Datetime.h
-#    ../src/utils/time/Duration.cpp ../src/utils/time/Duration.h
-#    ../src/utils/time/Period.cpp ../src/utils/time/Period.h
+    ../src/utils/time/Temporal.cpp ../src/utils/time/Temporal.h
+    ../src/utils/time/Datetime.cpp ../src/utils/time/Datetime.h
+    ../src/utils/time/Duration.cpp ../src/utils/time/Duration.h
+    ../src/utils/time/Period.cpp ../src/utils/time/Period.h
 )

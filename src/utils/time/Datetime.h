@@ -4,7 +4,6 @@
 #include <ctime>
 #include <string>
 #include "Temporal.h"
-#include "Duration.h"
 #include "Period.h"
 
 namespace utils {
