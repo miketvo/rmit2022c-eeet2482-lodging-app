@@ -25,6 +25,9 @@ namespace utils {
             double to_hours();
             double to_days();
 
+            Duration operator-(const Duration &duration);
+            Duration operator-=(const Duration &duration);
+
             Duration operator*(unsigned val);
             Duration operator*=(unsigned val);
             Duration operator/(unsigned val);

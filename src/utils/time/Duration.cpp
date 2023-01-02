@@ -45,13 +45,23 @@ namespace utils {
         }
 
 
+        Duration Duration::operator-(const Duration &duration) {
+            return Duration(0, 0, 0, std::abs(*this->time - *duration.time));
+        }
+
+        Duration Duration::operator-=(const Duration &duration) {
+            *this->time = std::abs(*this->time - *duration.time);
+            return Duration(0, 0, 0, *this->time);
+        }
+
+
         Duration Duration::operator*(unsigned int val) {
             return Duration(0, 0, 0, *this->time * val);
         }
 
         Duration Duration::operator*=(unsigned int val) {
             *this->time *= val;
-            return Duration(0, 0, 0, *this->time * val);
+            return Duration(0, 0, 0, *this->time);
         }
 
         Duration Duration::operator/(unsigned int val) {
@@ -60,7 +70,7 @@ namespace utils {
 
         Duration Duration::operator/=(unsigned int val) {
             *this->time /= val;
-            return Duration(0, 0, 0, *this->time / val);
+            return Duration(0, 0, 0, *this->time);
         }
     } // time
 } // utils
