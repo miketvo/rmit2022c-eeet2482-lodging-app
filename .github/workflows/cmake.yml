@@ -31,4 +31,4 @@ jobs:
 
     - name: Test
       working-directory: ${{github.workspace}}/${{env.BUILD_DIR}}
-      run: ctest "--extra-verbose"
+      run: ctest
