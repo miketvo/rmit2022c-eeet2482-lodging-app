@@ -1,3 +1,4 @@
+#include <iostream>
 #include <algorithm>
 #include "Period.h"
 
@@ -23,7 +24,7 @@ namespace utils {
             delete this->end;
         }
 
-        Period::Period(const Period &source) : Period() {  // TODO: Swap idiom this
+        Period::Period(const Period &source) : Period() {
             *this->start = *source.start;
             *this->end = *source.end;
         }
@@ -33,7 +34,10 @@ namespace utils {
         }
 
         Period &Period::operator=(const Period &source) {
-            swap(*this, source);
+            if (this != &source) {
+                *this->start = *source.start;
+                *this->end = *source.end;
+            }
             return *this;
         }
 

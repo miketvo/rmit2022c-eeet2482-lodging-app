@@ -17,7 +17,7 @@ namespace utils {
         }
 
         Temporal::Temporal(const Temporal &source) : Temporal() {
-            *this->time = *source.time;  // TODO: Swap idiom this
+            *this->time = *source.time;
         }
 
         Temporal::Temporal(Temporal &&source) noexcept : Temporal() {
@@ -25,7 +25,7 @@ namespace utils {
         }
 
         Temporal &Temporal::operator=(const Temporal &source) {
-            *this->time = *source.time;  // TODO: Swap idiom this
+            if (this != &source) *this->time = *source.time;
             return *this;
         }
 
