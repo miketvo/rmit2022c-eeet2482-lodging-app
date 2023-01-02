@@ -9,7 +9,7 @@ int main() {
     // =================================================================================================================
     // Datetime constructor tests
     //
-    utils::time::Datetime now;
+    utils::time::Datetime now(utils::time::Datetime::now());
     std::cout << now.strf("now: %Y-%m-%d %H:%M:%S\n");
 
     utils::time::Datetime test1(std::time(nullptr));
@@ -44,7 +44,8 @@ int main() {
     utils::time::Datetime test5_end("2022-02-02 02:20:22", "%Y-%m-%d %H:%M:%S");
     utils::time::Period test5(test5_start, test5_end);
     std::cout << test5.days() << " days " << test5.hours() << " hours " << test5.minutes() << " minutes " << test5.seconds() << " seconds\n";
-    if (test5.days() != 763 || test5.hours() != 2 || test5.hours() != 1 || test5.minutes() != 20 || test5.seconds() != 22) return 1;
+
+    if (test5.days() != 763 || test5.hours() != 2 || test5.minutes() != 20 || test5.seconds() != 22) return 1;
 
 
     std::cout << "time.test: All tests passed.\n";

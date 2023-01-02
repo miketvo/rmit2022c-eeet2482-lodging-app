@@ -3,9 +3,7 @@
 
 namespace utils {
     namespace time {
-        Datetime::Datetime() : Temporal() {
-            std::time(this->time);
-        }
+        Datetime::Datetime() : Temporal() {}
 
         Datetime::Datetime(std::time_t time) : Temporal(time) {}
 
@@ -114,6 +112,10 @@ namespace utils {
 
         Period Datetime::between(const Datetime &datetime1, const Datetime &datetime2) {
             return datetime1 - datetime2;
+        }
+
+        std::time_t Datetime::now() {
+            return std::time(nullptr);
         }
     } // time
 } // utils

@@ -8,7 +8,7 @@ namespace utils {
         }
 
         Duration::Duration(const Datetime &datetime1, const Datetime &datetime2) : Temporal() {
-            *this->Temporal::time = *datetime1.time - *datetime2.time;
+            *this->Temporal::time = std::abs(*datetime1.time - *datetime2.time);
         }
 
 
@@ -17,11 +17,11 @@ namespace utils {
         }
 
         unsigned long long Duration::minutes() {
-            return (*this->Temporal::time - this->seconds()) / 60;
+            return (*this->Temporal::time - this->seconds() - this->hours() * 3600 - this->days() * 86400) / 60;
         }
 
         unsigned long long Duration::hours() {
-            return (*this->Temporal::time - this->seconds() - this->minutes() * 60) / 3600;
+            return (*this->Temporal::time - this->seconds() - this->days() * 86400) / 3600;
         }
 
         unsigned long long Duration::days() {

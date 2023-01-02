@@ -41,6 +41,7 @@ namespace utils {
             Period operator-(const Datetime &datetime) const;
             static Period between(const Datetime &datetime1, const Datetime &datetime2);
 
+            static std::time_t now();
             friend Duration;
         };
 

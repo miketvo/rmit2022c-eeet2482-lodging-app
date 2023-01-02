@@ -1,3 +1,4 @@
+#include <algorithm>
 #include "Period.h"
 
 namespace utils {
@@ -7,10 +8,7 @@ namespace utils {
             this->end = new Datetime();
         }
 
-        Period::Period(const Datetime &datetime1, const Datetime &datetime2) {
-            this->start = new Datetime(datetime1);
-            this->end = new Datetime();
-
+        Period::Period(const Datetime &datetime1, const Datetime &datetime2) : Period() {
             if (datetime1 > datetime2) {
                 *this->start = datetime2;
                 *this->end = datetime1;
@@ -24,6 +22,26 @@ namespace utils {
             delete this->start;
             delete this->end;
         }
+
+        Period::Period(const Period &source) : Period() {  // TODO: Swap idiom this
+            *this->start = *source.start;
+            *this->end = *source.end;
+        }
+
+        Period::Period(Period &&source) noexcept : Period() {
+            swap(*this, source);
+        }
+
+        Period &Period::operator=(const Period &source) {
+            swap(*this, source);
+            return *this;
+        }
+
+        Period &Period::operator=(Period &&source) noexcept {
+            swap(*this, source);
+            return *this;
+        }
+
 
 
         Datetime Period::get_start() {
@@ -64,6 +82,11 @@ namespace utils {
 
         unsigned long long Period::days() const {
             return this->get_duration().days();
+        }
+
+        void swap(Period a, Period b) {
+            std::swap(a.start, b.start);
+            std::swap(a.end, b.end);
         }
     } // time
 } // utils

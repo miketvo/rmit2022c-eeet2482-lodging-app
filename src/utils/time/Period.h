@@ -20,10 +20,10 @@ namespace utils {
             explicit Period(const Datetime &datetime1, const Datetime &datetime2);
 
             ~Period();
-            Period(const Period &source) = default;
-            Period(Period &&source) = default;
-            Period &operator=(const Period &source) = default;
-            Period &operator=(Period &&source) = default;
+            Period(const Period &source);
+            Period(Period &&source) noexcept;
+            Period &operator=(const Period &source);
+            Period &operator=(Period &&source) noexcept;
 
             Datetime get_start();
             Period &set_start(const Datetime &start);
@@ -36,6 +36,8 @@ namespace utils {
             unsigned long long minutes() const;
             unsigned long long hours() const;
             unsigned long long days() const;
+
+            friend void swap(Period a, Period b);
         };
 
     } // time
