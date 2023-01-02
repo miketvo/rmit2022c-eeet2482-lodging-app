@@ -57,17 +57,17 @@ int main() {
 
     utils::time::Period test5(test5_start, test5_end);
     std::cout <<
-        test5_start.strf("test5_start: %Y-%m-%d %H:%M:%S\n") <<
-        test5_end.strf("test5_end: %Y-%m-%d %H:%M:%S\n") <<
-        "Period between " << test5.get_start().strf("%Y-%m-%d %H:%M:%S") << " and " << test5.get_end().strf("%Y-%m-%d %H:%M:%S") << ":\n" <<
-        "    " << test5.days() << " days " << test5.hours() << " hours " << test5.minutes() << " minutes " << test5.seconds() << " seconds\n" <<
-        "or:\n" <<
-        "    " << std::fixed << std::setprecision(2) << test5.get_duration().to_days() << " days\n" <<
-        "    " << std::fixed << std::setprecision(2) << test5.get_duration().to_hours() << " hours\n" <<
-        "    " << std::fixed << std::setprecision(2) << test5.get_duration().to_minutes() << " minutes\n" <<
-        "    " << std::fixed << std::setprecision(0) << test5.get_duration().to_seconds() << " seconds\n";
+              test5_start.strf("test5_start: %Y-%m-%d %H:%M:%S\n") <<
+              test5_end.strf("test5_end: %Y-%m-%d %H:%M:%S\n") <<
+              "Period between " << test5.get_start().strf("%Y-%m-%d %H:%M:%S") << " and " << test5.get_end().strf("%Y-%m-%d %H:%M:%S") << ":\n" <<
+              "    " << test5.days() << " days " << test5.hours() << " hours " << test5.minutes() << " minutes " << test5.seconds() << " seconds\n" <<
+              "or:\n" <<
+              "    " << std::fixed << std::setprecision(2) << test5.duration().to_days() << " days\n" <<
+              "    " << std::fixed << std::setprecision(2) << test5.duration().to_hours() << " hours\n" <<
+              "    " << std::fixed << std::setprecision(2) << test5.duration().to_minutes() << " minutes\n" <<
+              "    " << std::fixed << std::setprecision(0) << test5.duration().to_seconds() << " seconds\n";
     if (test5.days() != 763 || test5.hours() != 2 || test5.minutes() != 20 || test5.seconds() != 22) return 1;
-    if (test5.get_duration().to_seconds() != 65931622) return 1;
+    if (test5.duration().to_seconds() != 65931622) return 1;
 
     utils::time::Datetime test6("2020-01-01 00:00:00", "%Y-%m-%d %H:%M:%S");
     std::cout << test6.strf("test6: %Y-%m-%d %H:%M:%S\n");

@@ -67,25 +67,25 @@ namespace utils {
         }
 
 
-        Duration Period::get_duration() const {
+        Duration Period::duration() const {
             return Duration(*this->start, *this->end);
         }
 
 
         unsigned long long Period::seconds() const {
-            return this->get_duration().seconds();
+            return this->duration().seconds();
         }
 
         unsigned long long Period::minutes() const {
-            return this->get_duration().minutes();
+            return this->duration().minutes();
         }
 
         unsigned long long Period::hours() const {
-            return this->get_duration().hours();
+            return this->duration().hours();
         }
 
         unsigned long long Period::days() const {
-            return this->get_duration().days();
+            return this->duration().days();
         }
 
         void swap(Period a, Period b) {

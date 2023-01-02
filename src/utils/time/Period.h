@@ -30,7 +30,7 @@ namespace utils {
             Datetime get_end();
             Period &set_end(const Datetime &end);
 
-            Duration get_duration() const;
+            Duration duration() const;
 
             unsigned long long seconds() const;
             unsigned long long minutes() const;
