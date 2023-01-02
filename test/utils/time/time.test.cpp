@@ -45,6 +45,16 @@ int main() {
     //
     utils::time::Datetime test5_start("2020-01-01 00:00:00", "%Y-%m-%d %H:%M:%S");
     utils::time::Datetime test5_end("2022-02-02 02:20:22", "%Y-%m-%d %H:%M:%S");
+    if (test5_end.year() != 2022 ||
+        test5_end.month() != 2 ||
+        test5_end.m_day() != 2 ||
+        test5_end.w_day() != utils::time::WED ||
+        test5_end.y_day() != 33 ||
+        test5_end.hour() != 2 ||
+        test5_end.minute() != 20 ||
+        test5_end.second() != 22
+        ) return 1;
+
     utils::time::Period test5(test5_start, test5_end);
     std::cout <<
         test5_start.strf("test5_start: %Y-%m-%d %H:%M:%S\n") <<

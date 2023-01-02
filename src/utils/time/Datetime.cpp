@@ -42,22 +42,22 @@ namespace utils {
         }
 
         int Datetime::month() {
-            return localtime(this->time)->tm_mon;
+            return localtime(this->time)->tm_mon + 1;
         }
 
         int Datetime::year() {
-            return localtime(this->time)->tm_year;
+            return localtime(this->time)->tm_year + 1900;
         }
 
-        int Datetime::w_day() {
-            return localtime(this->time)->tm_wday;
+        Weekdays Datetime::w_day() {
+            return static_cast<Weekdays>(localtime(this->time)->tm_wday);
         }
 
         int Datetime::y_day() {
-            return localtime(this->time)->tm_yday;
+            return localtime(this->time)->tm_yday + 1;
         }
 
-        int Datetime::is_dst() {
+        int Datetime::dst() {
             return localtime(this->time)->tm_isdst;
         }
 

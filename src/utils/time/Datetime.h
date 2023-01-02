@@ -12,6 +12,8 @@ namespace utils {
         class Period;
         class Duration;
 
+        enum Weekdays { SUN, MON, TUE, WED, THU, FRI, SAT };
+
         class Datetime : public Temporal {
           public:
             Datetime();
@@ -25,9 +27,9 @@ namespace utils {
             int m_day();
             int month();
             int year();
-            int w_day();
+            Weekdays w_day();
             int y_day();
-            int is_dst();
+            int dst();
             std::string strf(const char *fmt);
 
             void set(const std::tm &time);
