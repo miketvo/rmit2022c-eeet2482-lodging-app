@@ -25,6 +25,11 @@ namespace utils {
             double to_hours();
             double to_days();
 
+            Duration operator*(unsigned val);
+            Duration operator*=(unsigned val);
+            Duration operator/(unsigned val);
+            Duration operator/=(unsigned val);
+
             friend Datetime;
         };
 

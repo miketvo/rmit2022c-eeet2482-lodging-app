@@ -1,4 +1,3 @@
-#include <stdexcept>
 #include "Duration.h"
 
 namespace utils {
@@ -43,6 +42,25 @@ namespace utils {
 
         double Duration::to_days() {
             return this->to_hours() / 24;
+        }
+
+
+        Duration Duration::operator*(unsigned int val) {
+            return Duration(0, 0, 0, *this->time * val);
+        }
+
+        Duration Duration::operator*=(unsigned int val) {
+            *this->time *= val;
+            return Duration(0, 0, 0, *this->time * val);
+        }
+
+        Duration Duration::operator/(unsigned int val) {
+            return Duration(0, 0, 0, *this->time / val);
+        }
+
+        Duration Duration::operator/=(unsigned int val) {
+            *this->time /= val;
+            return Duration(0, 0, 0, *this->time / val);
         }
     } // time
 } // utils
