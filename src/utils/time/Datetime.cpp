@@ -3,24 +3,26 @@
 
 namespace utils {
     namespace time {
-        Datetime::Datetime() : Temporal() {}
+        Datetime::Datetime() : Temporal() {
+            std::time(this->time);
+        }
 
         Datetime::Datetime(std::time_t time) : Temporal(time) {}
 
-        Datetime::Datetime(const std::tm &time) {
+        Datetime::Datetime(const std::tm &time) : Temporal() {
             auto *temp = new std::tm;
             *temp = time;
-            *this->Temporal::time = mktime(temp);
+            *this->Temporal::time = std::mktime(temp);
             delete temp;
         }
 
-        Datetime::Datetime(const std::string &time_str, const char *fmt) {
+        Datetime::Datetime(const std::string &time_str, const char *fmt) : Temporal() {
             auto *temp = new std::tm;
             std::stringstream buffer;
 
             buffer << time_str;
             buffer >> std::get_time(temp, fmt);
-            *this->Temporal::time = mktime(temp);
+            *this->Temporal::time = std::mktime(temp);
 
             delete temp;
         }

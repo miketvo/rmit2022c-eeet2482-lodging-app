@@ -15,10 +15,10 @@ namespace utils {
 
           public:
             ~Temporal();
-            Temporal(const Temporal &source) = default;
-            Temporal(Temporal &&source) = default;
-            Temporal &operator=(const Temporal &source) = default;
-            Temporal &operator=(Temporal &&source) = default;
+            Temporal(const Temporal &source);
+            Temporal(Temporal &&source) noexcept ;
+            Temporal &operator=(const Temporal &source);
+            Temporal &operator=(Temporal &&source) noexcept ;
 
             void set(std::time_t time);
 
@@ -33,6 +33,8 @@ namespace utils {
             bool operator!=(const Temporal &temporal) const;
             bool operator>=(const Temporal &temporal) const;
             bool operator<=(const Temporal &temporal) const;
+
+            friend void swap(Temporal a, Temporal b);
         };
 
     } // time

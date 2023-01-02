@@ -3,13 +3,11 @@
 
 namespace utils {
     namespace time {
-        Duration::Duration(unsigned int days, unsigned int hours, unsigned int minutes, unsigned int seconds) {
-            this->Temporal::time = new std::time_t;
+        Duration::Duration(unsigned int days, unsigned int hours, unsigned int minutes, unsigned int seconds) : Temporal() {
             *this->Temporal::time = seconds + 60 * minutes + 60 * 60 * hours + 24 * 60 * 60 * days;
         }
 
-        Duration::Duration(const Datetime &datetime1, const Datetime &datetime2) {
-            this->Temporal::time = new std::time_t;
+        Duration::Duration(const Datetime &datetime1, const Datetime &datetime2) : Temporal() {
             *this->Temporal::time = *datetime1.time - *datetime2.time;
         }
 

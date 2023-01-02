@@ -8,7 +8,7 @@ namespace utils {
         }
 
         Period::Period(const Datetime &datetime1, const Datetime &datetime2) {
-            this->start = new Datetime();
+            this->start = new Datetime(datetime1);
             this->end = new Datetime();
 
             if (datetime1 > datetime2) {
