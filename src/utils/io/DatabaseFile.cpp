@@ -1,4 +1,4 @@
-#include <sstream>
+#include <iostream>
 #include "DatabaseFile.h"
 #include "corrupted_database.h"
 
@@ -63,19 +63,23 @@ namespace utils {
 
             // Read values
             std::vector<std::string> values;
-            while (std::getline(this->file, buffer)) {
-                if (!buffer.empty()) {
-                    values = this->tokenize(buffer);
-                    if (keys.size() != values.size()) throw exceptions::corrupted_database(this->path);
+            try {
+                while (std::getline(this->file, buffer)) {
+                    if (!buffer.empty()) {
+                        values = this->tokenize(buffer);
+                        if (keys.size() != values.size()) throw exceptions::corrupted_database(this->path);
 
-                    std::map<std::string, std::string> record;
-                    for (
-                        size_t i = 0; i < keys.size(); i++
-                        ) {
-                        record.emplace(keys[i], values[i]);
+                        std::map<std::string, std::string> record;
+                        for (
+                            size_t i = 0; i < keys.size(); i++
+                            ) {
+                            record.emplace(keys[i], values[i]);
+                        }
+                        this->data.emplace_back(record);
                     }
-                    this->data.emplace_back(record);
                 }
+            } catch (std::ios_base::failure &e) {
+                this->file.clear();
             }
 
             this->file.close();
