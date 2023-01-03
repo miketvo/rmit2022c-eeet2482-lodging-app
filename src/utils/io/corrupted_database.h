@@ -2,6 +2,7 @@
 #define RMIT2022C_EEET2482_LODGING_APP_SRC_UTILS_IO_CORRUPTED_DATABASE_H_
 
 #include <stdexcept>
+#include <string>
 
 namespace utils {
     namespace io {
