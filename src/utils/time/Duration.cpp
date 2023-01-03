@@ -28,19 +28,19 @@ namespace utils {
         }
 
 
-        double Duration::to_seconds() {
+        double Duration::to_seconds() const {
             return static_cast<double>(*this->Temporal::time);
         }
 
-        double Duration::to_minutes() {
+        double Duration::to_minutes() const {
             return this->to_seconds() / 60;
         }
 
-        double Duration::to_hours() {
+        double Duration::to_hours() const {
             return this->to_minutes() / 60;
         }
 
-        double Duration::to_days() {
+        double Duration::to_days() const {
             return this->to_hours() / 24;
         }
 

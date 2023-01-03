@@ -20,10 +20,10 @@ namespace utils {
             unsigned long long hours();
             unsigned long long days();
 
-            double to_seconds();
-            double to_minutes();
-            double to_hours();
-            double to_days();
+            double to_seconds() const;
+            double to_minutes() const;
+            double to_hours() const;
+            double to_days() const;
 
             Duration operator-(const Duration &duration);
             Duration operator-=(const Duration &duration);

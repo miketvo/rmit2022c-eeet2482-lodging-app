@@ -80,8 +80,9 @@ int main() {
     std::cout << (test6 - test6_mod / 2).strf("test6 - 2d:12h:20m:48s * 2 = %Y-%m-%d %H:%M:%S\n");
     test6 -= test6_mod / 2;
     test6_mod /= 4;
-    std::cout << (utils::time::Datetime("2020-01-01 00:00:00", "%Y-%m-%d %H:%M:%S") + test6_mod * 2).strf("2020-01-01 00:00:00 + 2d:12h:20m:48s * 2 = %Y-%m-%d %H:%M:%S\n");
-    if (test6 != utils::time::Datetime("2020-01-01 00:00:00", "%Y-%m-%d %H:%M:%S") + test6_mod * 2) return 1;
+    utils::time::Datetime test7 = utils::time::Datetime("2020-01-01 00:00:00", "%Y-%m-%d %H:%M:%S") + test6_mod * 2;
+    std::cout << test7.strf("2020-01-01 00:00:00 + 2d:12h:20m:48s * 2 = %Y-%m-%d %H:%M:%S\n");
+    if (test6 != test7) return 1;
     // =================================================================================================================
 
 
