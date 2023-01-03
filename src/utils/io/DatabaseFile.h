@@ -52,7 +52,7 @@ namespace utils {
 
             /**
              * @brief Reads data into this DatabaseFile from its associated file.
-             * @return true if data have been read successfully, false if this DatabaseFile does have an associated file.
+             * @return true if data have been read successfully, false if this DatabaseFile doesn't have an associated file.
              * @throw std::fstream::failure if file I/O operation failed.
              * @throw utils::io::exceptions::corrupted_database if encounters a malformed database entry.
              */
