@@ -1,12 +1,12 @@
 #ifndef RMIT2022C_EEET2482_LODGING_APP_SRC_APPLICATION_H_
 #define RMIT2022C_EEET2482_LODGING_APP_SRC_APPLICATION_H_
 
+#include "entities/Account/Account.h"
+#include "entities/Admin/Admin.h"
+#include "entities/House.h"
+#include "entities/Member/Member.h"
 #include <string>
 #include <vector>
-#include "entities/Account.h"
-#include "entities/House.h"
-#include "entities/Member.h"
-#include "entities/Admin.h"
 
 enum LoginType { GUEST, MEMBER, ADMIN };
 
