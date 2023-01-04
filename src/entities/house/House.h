@@ -6,7 +6,7 @@
 #include "./HouseReview.h"
 #include <vector>
 
-namespace House {
+namespace house {
     class House {
       private:
         std::string city;
