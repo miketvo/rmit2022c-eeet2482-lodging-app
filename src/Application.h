@@ -2,9 +2,9 @@
 #define RMIT2022C_EEET2482_LODGING_APP_SRC_APPLICATION_H_
 
 #include "entities/Account/Account.h"
-#include "entities/Admin/Admin.h"
+#include "entities/Account/Admin.h"
 #include "entities/House.h"
-#include "entities/Member/Member.h"
+#include "entities/account/Member.h"
 #include <string>
 #include <vector>
 

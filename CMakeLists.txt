@@ -7,8 +7,10 @@ add_executable(
     lodging
     src/main.cpp
     src/Application.cpp src/Application.h
-    src/entities/House.cpp src/entities/House.h src/entities/Member/Member.cpp src/entities/Member/Member.h
-        src/entities/Admin/Admin.cpp src/entities/Admin/Admin.h src/entities/Account/Account.cpp src/entities/Account/Account.h
+    src/entities/House.cpp src/entities/House.h
+    src/entities/account/Member.cpp src/entities/account/Member.h
+    src/entities/account/Account.cpp src/entities/account/Account.h
+    src/entities/account/Admin.cpp src/entities/account/Admin.h
     src/utils/io/DatabaseFile.cpp src/utils/io/DatabaseFile.h
 )
 

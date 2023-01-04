@@ -1,2 +1,0 @@
-#include "Member.h"
-account::Member::Member(long long int id, const std::string &username, const std::string &password, long long int memberId, const std::string &firstName, const std::string &lastName, const std::string &phoneNumber, int creditPoint, House *ownedHouse) : Account(id, username, password), memberID(memberId), firstName(firstName), lastName(lastName), phoneNumber(phoneNumber), creditPoint(creditPoint), ownedHouse(ownedHouse) {}
