@@ -1,5 +1,7 @@
 #include <iostream>
 #include "Application.h"
+#include "utils/io/DatabaseFile.h"
+#include "entities/account/Admin.h"
 
 
 void Application::init_database() {
@@ -7,6 +9,14 @@ void Application::init_database() {
 }
 
 void Application::load_database() {
+#ifdef OS_UNIX
+    this->database_path = "~/.lodging/";
+    std::cout << database_path;
+#endif
+#ifdef OS_WINDOWS
+    this->database_path = "~/AppData/Local/lodging/";
+#endif
+    utils::DatabaseFile databaseFile(this->database_path + "houses.dat");
 
 }
 
@@ -18,7 +28,7 @@ void Application::reset_database() {
 
 }
 
-bool Application::login(Account account) {
+bool Application::login(account::Account account) {
     return false;
 }
 
@@ -38,7 +48,7 @@ bool Application::register_member() {
     return false;
 }
 
-void Application::unregister_member(Member member) {
+void Application::unregister_member(const account::Member& member) {
 
 }
 
@@ -64,5 +74,8 @@ void Application::main_loop() {
     std::cout << "s3963207, Do Le long An" << "\n";
     std::cout << "s3963207, Do Le long An" << "\n";
     std::cout << "s3963207, Do Le long An" << "\n";
-    std::cout << "s3963207, Do Le long An" << "\n\n\n";
+    std::cout << "s3963207, Do Le long An" << "\n\n";
+
+    Application::init_database();
+    Application::load_database();
 }
