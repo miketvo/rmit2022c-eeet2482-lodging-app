@@ -10,7 +10,7 @@ namespace account {
     class Admin : public Account {
       private:
       public:
-        Admin();
+        Admin() = default;
 
         std::map<std::string, std::string> to_map() override;
     };

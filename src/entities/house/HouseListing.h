@@ -9,7 +9,7 @@ namespace house {
     class HouseListing {
       private:
       public:
-        HouseListing();
+        HouseListing() = default;
     };
 
 } // house

@@ -2,6 +2,8 @@
 
 namespace account {
 
-    // TODO: Implement
+    std::map<std::string, std::string> Admin::to_map() {
+        return Account::to_map();
+    }
 
 } // account

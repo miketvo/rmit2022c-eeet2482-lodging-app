@@ -5,16 +5,20 @@
 #include <vector>
 #include "../account/Member.h"
 
+namespace account {
+    class Member;
+}
+
 namespace house {
 
     class House {
       private:
         std::string city;
-        account::Member owner;
+        account::Member *owner;
         short rating;
 
       private:
-        House();
+        House() = default;
 
         std::map<std::string, std::string> to_map();
     };

@@ -8,4 +8,9 @@ namespace account {
         this->password = password;
     }
 
+
+    std::map<std::string, std::string> Account::to_map() {
+        return {};
+    }
+
 } // account

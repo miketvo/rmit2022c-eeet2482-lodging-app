@@ -6,6 +6,10 @@
 #include "Account.h"
 #include "../house/House.h"
 
+namespace house {
+    class House;
+}
+
 namespace account {
 
     class Member : public Account {
@@ -13,11 +17,11 @@ namespace account {
         std::string first_name;
         std::string last_name;
         std::string phone_number;
-        unsigned credits;
         house::House *house;
+        unsigned credits;
 
       public:
-        Member();
+        Member() = default;
         Member(const std::string &id,
                const std::string &username,
                const std::string &password,

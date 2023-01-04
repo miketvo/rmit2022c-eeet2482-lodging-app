@@ -8,11 +8,11 @@ namespace house {
 
     class HouseOccupancy {
       private:
-        house::House house;
-        account::Member member;
+        house::House *house;
+        account::Member *member;
 
       public:
-        HouseOccupancy();
+        HouseOccupancy() = default;
     };
 
 } // house

@@ -1,10 +1,10 @@
 #ifndef RMIT2022C_EEET2482_LODGING_APP_SRC_APPLICATION_H_
 #define RMIT2022C_EEET2482_LODGING_APP_SRC_APPLICATION_H_
 
-#include "entities/House/House.h"
-#include "entities/account/Admin.h"
 #include <string>
 #include <vector>
+#include "entities/House/House.h"
+#include "entities/account/Admin.h"
 
 enum LoginType { GUEST, MEMBER, ADMIN };
 
@@ -27,10 +27,10 @@ class Application {
     void member_menu();
     void admin_menu();
     bool register_member();
-    void unregister_member(account::Member member);
+    void unregister_member(const account::Member& member);
   public:
     Application();
-    Application(const std::string &database_path);
+    explicit Application(const std::string &database_path);
 
     void main_loop();
 };

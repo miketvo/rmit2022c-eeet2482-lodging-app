@@ -8,16 +8,16 @@
 namespace house {
 
     class HouseReview : public utils::Review {
-      protected:
-        house::House house;
-        account::Member reviewer;
+      private:
+        house::House *house;
 
       public:
-        HouseReview(const std::string &id, const std::string &comment, short rating) : utils::Review(id, comment, rating);
+        HouseReview() = default;
+        HouseReview(const std::string &id, const std::string &comment, short rating);
 
         std::map<std::string, std::string> to_map() override;
     };
 
-} // namespace house
+} // house
 
 #endif//RMIT2022C_EEET2482_LODGING_APP_SRC_ENTITIES_HOUSE_REVIEW_H_

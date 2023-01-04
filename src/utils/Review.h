@@ -3,17 +3,19 @@
 
 #include <map>
 #include <string>
+#include "../entities/account/Member.h"
 
 namespace utils {
 
     class Review {
-      private:
+      protected:
+        short rating;
         std::string id;
         std::string comment;
-        short rating;
+        account::Member *reviewer;
 
       public:
-        Review(std::string id = "", std::string comment = "", short rating = 0);
+        explicit Review(const std::string &id = "", const std::string &comment = "", short rating = 0);
 
         virtual std::map<std::string, std::string> to_map();
     };

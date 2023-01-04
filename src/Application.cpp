@@ -1,5 +1,7 @@
 #include <iostream>
 #include "Application.h"
+#include "utils/io/DatabaseFile.h"
+#include "entities/account/Admin.h"
 
 
 void Application::init_database() {
@@ -26,7 +28,7 @@ void Application::reset_database() {
 
 }
 
-bool Application::login(Account account) {
+bool Application::login(account::Account account) {
     return false;
 }
 
@@ -46,7 +48,7 @@ bool Application::register_member() {
     return false;
 }
 
-void Application::unregister_member(Member member) {
+void Application::unregister_member(const account::Member& member) {
 
 }
 

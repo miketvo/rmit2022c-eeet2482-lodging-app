@@ -15,7 +15,7 @@ namespace account {
         std::string password;
 
       public:
-        Account();
+        Account() = default;
         Account(const std::string &id, const std::string &username, const std::string &password);
 
         virtual std::map<std::string, std::string> to_map();
