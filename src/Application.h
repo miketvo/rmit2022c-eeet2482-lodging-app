@@ -15,7 +15,7 @@ class Application {
     bool quit;
     std::string database_path;
     LoginType login_type;
-    std::vector<House::House> houses;
+    std::vector<house::House> houses;
     std::vector<Member> members;
     std::vector<std::string> cities;
     Admin admin;

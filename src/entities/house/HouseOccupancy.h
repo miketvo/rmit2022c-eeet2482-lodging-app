@@ -1,21 +1,18 @@
-//
-// Created by Dole longAn on 4/1/2023.
-//
-
-#ifndef RMIT2022C_EEET2482_LODGING_APP_HOUSEOCCUPANCY_H
-#define RMIT2022C_EEET2482_LODGING_APP_HOUSEOCCUPANCY_H
+#ifndef RMIT2022C_EEET2482_LODGING_APP_SRC_ENTITIES_HOUSE_HOUSEOCCUPANCY_H_
+#define RMIT2022C_EEET2482_LODGING_APP_SRC_ENTITIES_HOUSE_HOUSEOCCUPANCY_H_
 
 #include "../Member.h"
 #include "House.h"
-#include "../Member.h"
 
-namespace House {
+namespace house {
+
     class HouseOccupancy {
       private:
-        House house;
+        house::House house;
         Member member;
 
     };
-}
 
-#endif//RMIT2022C_EEET2482_LODGING_APP_HOUSEOCCUPANCY_H
+} // house
+
+#endif //RMIT2022C_EEET2482_LODGING_APP_SRC_ENTITIES_HOUSE_HOUSEOCCUPANCY_H_

@@ -33,7 +33,7 @@ void Application::init_database() {
 #endif
 #ifdef OS_WINDOWS
     fs::path osWin = "~/AppData/Local/lodging/";
-    if(fs::is_directory(osWin)) {
+    if (fs::is_directory(osWin)) {
         std::cout << "this path found";
     } else {
         std::cout << "this path not found";
