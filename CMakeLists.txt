@@ -17,7 +17,12 @@ add_executable(
     src/entities/account/Admin.cpp src/entities/account/Admin.h
     src/utils/Review.cpp src/utils/Review.h
     src/utils/io/DatabaseFile.cpp src/utils/io/DatabaseFile.h
-    src/utils/io/corrupted_database.cpp src/utils/io/corrupted_database.h)
+    src/utils/io/corrupted_database.cpp src/utils/io/corrupted_database.h
+    src/utils/time/Temporal.cpp src/utils/time/Temporal.h
+    src/utils/time/Datetime.cpp src/utils/time/Datetime.h
+    src/utils/time/Duration.cpp src/utils/time/Duration.h
+    src/utils/time/Period.cpp src/utils/time/Period.h
+)
 
 
 #=======#
@@ -30,10 +35,11 @@ add_subdirectory(test)
 add_test(main.test lodging)
 
 ## Unit tests
-add_test(DatabaseFile.test test/DatabaseFile.test)
-add_test(DatabaseFile.data.csv.test test/DatabaseFile.test test/data/bos2021ModC.csv)
-add_test(DatabaseFile.data.tsv.test test/DatabaseFile.test test/data/bos2021ModC.tsv "\t")
-add_test(DatabaseFile.data.psv.test test/DatabaseFile.test test/data/bos2021ModC.dat "|")
-add_test(DatabaseFile.data.corrupted-dtb.test test/DatabaseFile.test test/data/corrupted.dtb)  # Throws utils::exceptions::corrupted_database
+add_test(io.test test/io.test)
+add_test(io.data.csv.test test/io.test test/data/bos2021ModC.csv)
+add_test(io.data.tsv.test test/io.test test/data/bos2021ModC.tsv "\t")
+add_test(io.data.psv.test test/io.test test/data/bos2021ModC.dat "|")
+add_test(io.data.corrupted-dtb.test test/io.test test/data/corrupted.dtb)  # Throws utils::exceptions::corrupted_database
+add_test(time.test test/time.test)
 
-set_property(TEST DatabaseFile.data.corrupted-dtb.test PROPERTY WILL_FAIL true)
+set_property(TEST io.data.corrupted-dtb.test PROPERTY WILL_FAIL true)
