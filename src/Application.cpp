@@ -1,12 +1,56 @@
+#if defined(_WIN32)
+#define PLATFORM_DECTECTED
+#define OS_WINDOWS
+#else
+#define PLATFORM_DECTECTED
+#define OS_UNIX
+#endif
+#ifndef PLATFORM_DECTECTED
+#error Could not detect operating system platform
+#endif
+
 #include <iostream>
 #include "Application.h"
-
+#include "utils/io/DatabaseFile.h"
+#include <filesystem>
+#include <fstream>
+#include <string>
+#ifdef OS_UNIX
+namespace fs = std::__fs::filesystem;
+#endif
+#ifdef OS_WINDOWS
+namespace fs = std::filesystem;
+#endif
 
 void Application::init_database() {
+#ifdef OS_UNIX
+    fs::path osUnix = "~/.lodging/";
+    if(!fs::is_directory(osUnix)) {
+        std::cout << "this path found";
+    } else {
+        std::cout << "this path not found";
+    }
+#endif
+#ifdef OS_WINDOWS
+    fs::path osWin = "~/AppData/Local/lodging/";
+    if(fs::is_directory(osWin)) {
+        std::cout << "this path found";
+    } else {
+        std::cout << "this path not found";
+    }
+#endif
 
 }
 
 void Application::load_database() {
+#ifdef OS_UNIX
+    this->database_path = "~/.lodging/";
+    std::cout << database_path;
+#endif
+#ifdef OS_WINDOWS
+    this->database_path = "~/AppData/Local/lodging/";
+#endif
+    utils::DatabaseFile databaseFile(this->database_path + "houses.dat");
 
 }
 
@@ -64,5 +108,8 @@ void Application::main_loop() {
     std::cout << "s3963207, Do Le long An" << "\n";
     std::cout << "s3963207, Do Le long An" << "\n";
     std::cout << "s3963207, Do Le long An" << "\n";
-    std::cout << "s3963207, Do Le long An" << "\n\n\n";
+    std::cout << "s3963207, Do Le long An" << "\n\n";
+
+    Application::init_database();
+    Application::load_database();
 }

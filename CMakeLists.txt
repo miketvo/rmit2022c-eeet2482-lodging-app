@@ -7,10 +7,10 @@ add_executable(
     lodging
     src/main.cpp
     src/Application.cpp src/Application.h
-    src/entities/House.cpp src/entities/House.h src/entities/Member.cpp src/entities/Member.h
+        src/entities/House/House.cpp src/entities/House/House.h src/entities/Member.cpp src/entities/Member.h
     src/entities/Admin.cpp src/entities/Admin.h src/entities/Account.cpp src/entities/Account.h
     src/utils/io/DatabaseFile.cpp src/utils/io/DatabaseFile.h
-)
+        src/entities/House/HouseReview.h src/entities/House/HouseOccupancy.h src/entities/House/HouseListing.h)
 
 
 #=======#

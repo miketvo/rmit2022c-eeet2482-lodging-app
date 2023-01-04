@@ -1,12 +1,12 @@
 #ifndef RMIT2022C_EEET2482_LODGING_APP_SRC_APPLICATION_H_
 #define RMIT2022C_EEET2482_LODGING_APP_SRC_APPLICATION_H_
 
+#include "entities/Account.h"
+#include "entities/Admin.h"
+#include "entities/House/House.h"
+#include "entities/Member.h"
 #include <string>
 #include <vector>
-#include "entities/Account.h"
-#include "entities/House.h"
-#include "entities/Member.h"
-#include "entities/Admin.h"
 
 enum LoginType { GUEST, MEMBER, ADMIN };
 
@@ -15,7 +15,7 @@ class Application {
     bool quit;
     std::string database_path;
     LoginType login_type;
-    std::vector<House> houses;
+    std::vector<House::House> houses;
     std::vector<Member> members;
     std::vector<std::string> cities;
     Admin admin;
