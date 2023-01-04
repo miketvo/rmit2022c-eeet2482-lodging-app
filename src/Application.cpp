@@ -9,18 +9,19 @@
 #error Could not detect operating system platform
 #endif
 
-#include <iostream>
-#include "Application.h"
-#include "utils/io/DatabaseFile.h"
-#include <filesystem>
-#include <fstream>
-#include <string>
 #ifdef OS_UNIX
 namespace fs = std::__fs::filesystem;
 #endif
 #ifdef OS_WINDOWS
 namespace fs = std::filesystem;
 #endif
+
+#include <iostream>
+#include "Application.h"
+#include "utils/io/DatabaseFile.h"
+#include <filesystem>
+#include <fstream>
+#include <string>
 
 void Application::init_database() {
 #ifdef OS_UNIX
