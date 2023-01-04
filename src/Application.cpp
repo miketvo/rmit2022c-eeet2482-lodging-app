@@ -16,7 +16,7 @@ void Application::load_database() {
 #ifdef OS_WINDOWS
     this->database_path = "~/AppData/Local/lodging/";
 #endif
-    utils::DatabaseFile databaseFile(this->database_path + "houses.dat");
+    utils::io::DatabaseFile databaseFile(this->database_path + "houses.dat");
 
 }
 
