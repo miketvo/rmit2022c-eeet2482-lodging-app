@@ -3,7 +3,7 @@
 
 #include <string>
 #include <vector>
-#include "entities/House/House.h"
+#include "entities/house/House.h"
 #include "entities/account/Admin.h"
 
 enum LoginType { GUEST, MEMBER, ADMIN };
