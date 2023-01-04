@@ -2,17 +2,19 @@
 #define RMIT2022C_EEET2482_LODGING_APP_SRC_OCCUPANT_REVIEW_H_
 
 #include <iostream>
+#include "../../utils/Review.h"
 #include "Member.h"
-#include "../../utils/Review/Review.h"
 
 namespace account {
   class OccupantReview : public utils::Review{
     protected:
-      Member reviewer, reviewee;
+      account::Member reviewer, reviewee;
 
     public:
-      OccupantReview(std::string id , std::string comment , int rating ) : utils::Review(id, comment, rating){};
-      void show_occupant_review();
+      OccupantReview();
+      OccupantReview(const std::string &id, const std::string &comment, short rating);
+
+      std::map<std::string, std::string> to_map() override;
   };
 } // namespace account
 
