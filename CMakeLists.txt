@@ -10,12 +10,8 @@ add_executable(
     src/entities/house/House.cpp src/entities/house/House.h
     src/entities/house/HouseOccupancy.cpp src/entities/house/HouseOccupancy.h
     src/entities/house/HouseListing.cpp src/entities/house/HouseListing.h
-    src/entities/Member.cpp src/entities/Member.h
-    src/entities/Admin.cpp src/entities/Admin.h src/entities/Account.cpp src/entities/Account.h
-    src/entities/HouseReview.h src/entities/HouseReview.cpp
-    src/entities/OccupantReview.cpp src/entities/OccupantReview.h
-    src/utils/Review/Review.cpp src/utils/Review/Review.h
-    src/entities/House.cpp src/entities/House.h
+    src/entities/house/OccupantReview.cpp src/entities/house/OccupantReview.h
+    src/entities/account/HouseReview.h src/entities/account/HouseReview.cpp
     src/entities/account/Member.cpp src/entities/account/Member.h
     src/entities/account/Account.cpp src/entities/account/Account.h
     src/entities/account/Admin.cpp src/entities/account/Admin.h
