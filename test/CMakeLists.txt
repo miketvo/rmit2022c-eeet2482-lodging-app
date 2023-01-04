@@ -19,4 +19,5 @@ add_executable(
     DatabaseFile.test EXCLUDE_FROM_ALL
     utils/io/DatabaseFile.test.cpp
     ../src/utils/io/DatabaseFile.cpp ../src/utils/io/DatabaseFile.h
+    ../src/utils/io/corrupted_database.cpp ../src/utils/io/corrupted_database.h
 )
