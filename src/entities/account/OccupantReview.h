@@ -16,6 +16,8 @@ namespace account {
       OccupantReview(const std::string &id, const std::string &comment, short rating);
 
       std::map<std::string, std::string> to_map() override;
+
+      friend class Member;
   };
 
 } // account
