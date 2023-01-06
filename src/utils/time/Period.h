@@ -35,8 +35,6 @@ namespace utils {
             unsigned long long minutes() const;
             unsigned long long hours() const;
             unsigned long long days() const;
-
-            friend void swap(Period a, Period b);
         };
 
     } // time
