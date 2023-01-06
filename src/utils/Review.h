@@ -1,10 +1,13 @@
 #ifndef RMIT2022C_EEET2482_LODGING_APP_SRC_UTILS_REVIEW_H_
 #define RMIT2022C_EEET2482_LODGING_APP_SRC_UTILS_REVIEW_H_
 
+#include "../entities/account/Member.h"
 #include <map>
 #include <string>
-#include "../entities/account/Member.h"
 
+namespace account {
+    class Member;
+}
 namespace utils {
 
     class Review {
@@ -20,7 +23,6 @@ namespace utils {
         virtual std::map<std::string, std::string> to_map();
     };
 
-} // utils
-
+}// namespace utils
 
 #endif//RMIT2022C_EEET2482_LODGING_APP_SRC_UTILS_REVIEW_H_
