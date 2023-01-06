@@ -4,9 +4,9 @@
 #         build.sh -c
 # Options:
 #   -m Specify build mode. Accepted values are
-#       'debug', 'debug-test',
-#       'release', 'release-test',
-#       'minsizerel', and 'minsizerel-test'
+#       'debug', 'debug-tests',
+#       'release', 'release-tests',
+#       'minsizerel', and 'minsizerel-tests'
 #   -c Clean built files. Use in conjunction with '-m' to clean built files in a specific build folder.
 #   -h Display help and exit.
 #
@@ -24,9 +24,9 @@ while getopts m:hc flag; do
     echo "        build.sh -c"
     echo "Options:"
     echo "  -m Specify build mode. Accepted values are"
-    echo "      'debug', 'debug-test',"
-    echo "      'release', 'release-test',"
-    echo "      'minsizerel', and 'minsizerel-test'"
+    echo "      'debug', 'debug-tests',"
+    echo "      'release', 'release-tests',"
+    echo "      'minsizerel', and 'minsizerel-tests'"
     echo "  -c Clean built files. Use in conjunction with '-m' to clean built files in a specific build folder."
     echo "  -h Display this help and exit."
     exit 0

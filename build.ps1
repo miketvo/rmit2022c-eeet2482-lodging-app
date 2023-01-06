@@ -3,9 +3,9 @@
 #         build.ps1 -c
 # Options:
 #   -m Specify build mode. Accepted values are
-#       'debug', 'debug-test',
-#       'release', 'release-test',
-#       'minsizerel', and 'minsizerel-test'
+#       'debug', 'debug-tests',
+#       'release', 'release-tests',
+#       'minsizerel', and 'minsizerel-tests'
 #   -c Clean built files. Use in conjunction with '-m' to clean built files in a specific build folder.
 #   -h Display help and exit.
 #
@@ -21,9 +21,9 @@ if ($h.IsPresent) {
     Write-Output "        build.ps1 -c"
     Write-Output "Options:"
     Write-Output "  -m Specify build mode. Accepted values are"
-    Write-Output "      'debug', 'debug-test',"
-    Write-Output "      'release', 'release-test',"
-    Write-Output "      'minsizerel', and 'minsizerel-test'"
+    Write-Output "      'debug', 'debug-tests',"
+    Write-Output "      'release', 'release-tests',"
+    Write-Output "      'minsizerel', and 'minsizerel-tests'"
     Write-Output "  -c Clean built files. Use in conjunction with '-m' to clean built files in a specific build folder."
     Write-Output "  -h Display this help and exit."
     exit 0
