@@ -13,17 +13,15 @@ namespace account {
         this->house = nullptr;
     }
 
-    Member::Member(const std::string &id,
-                   const std::string &username,
-                   const std::string &password,
-                   const std::string &first_name,
-                   const std::string &last_name,
-                   const std::string &phone_number,
-                   unsigned int credits)
-        : Account(id, username, password) {
-
-        this->credits = 500;
-        this->id = id;
+    Member::Member(
+        const std::string &username,
+        const std::string &password,
+        const std::string &first_name,
+        const std::string &last_name,
+        const std::string &phone_number,
+        unsigned int credits
+    ) : Account(username, password) {
+        this->credits = credits;
         this->first_name = first_name;
         this->last_name = last_name;
         this->phone_number = phone_number;
@@ -31,8 +29,26 @@ namespace account {
         this->house = nullptr;
     }
 
+
+    unsigned int Member::get_credits() const {
+        return credits;
+    }
+
+    const std::string &Member::get_first_name() const {
+        return first_name;
+    }
+
+    const std::string &Member::get_last_name() const {
+        return last_name;
+    }
+
+    const std::string &Member::get_phone_number() const {
+        return phone_number;
+    }
+
+
     //Get the Rating Score
-    double Member::getReviewRate() {
+    double Member::get_rating() {
         // Case: If there is no one rate this member account
         if (reviews.empty()) {
             return 0;
@@ -45,34 +61,30 @@ namespace account {
         }
 
         //Then, calculate the average rating score for the member
-        double averageRatingScore = (double) rv / (double) reviews.size();
+        double rating = (double) rv / (double) reviews.size();
 
         std::stringstream sts;
-        sts << std::fixed << std::setprecision(1) << averageRatingScore;
-        sts >> averageRatingScore;
+        sts << std::fixed << std::setprecision(1) << rating;
+        sts >> rating;
 
-        return averageRatingScore;
+        return rating;
     }
 
-    //View the member info:
-    void Member::viewInfo() {
-        std::cout << "\n Username: " << username << "\n";
-        std::cout << "First name: " << first_name << "\n";
-        std::cout << "Last Name: " << last_name << "\n";
-        std::cout << "Phone Number: " << phone_number << "\n";
-        std::cout << "Credits: " << credits << "\n";
-        std::cout << "Review Rate: " << getReviewRate() << "\n";
 
-        if (house != nullptr) {
-            std::cout << "Owned House Location: "
-                      << "\n";
-            // display here will be getHouseDetail() from House e.x: house->getHouseDetail()
-        }
-        std::cout << "\n";
+    void Member::from_map(std::map<std::string, std::string> map) {
+        Account::from_map(map);
+        this->first_name = map["first_name"];
+        this->last_name = map["last_name"];
+        this->phone_number = map["phone_number"];
+        this->credits = std::stoul(map["credits"]);
     }
 
-    // Database Related Function
     std::map<std::string, std::string> Member::to_map() {
-        return Account::to_map();
+        std::map<std::string, std::string> map = Account::to_map();
+        map.emplace("first_name", this->first_name);
+        map.emplace("last_name", this->last_name);
+        map.emplace("phone_number", this->phone_number);
+        map.emplace("credits", std::to_string(this->credits));
+        return map;
     }
 }// namespace account

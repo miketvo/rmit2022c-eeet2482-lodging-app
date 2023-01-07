@@ -1,16 +1,23 @@
 #ifndef RMIT2022C_EEET2482_LODGING_APP_SRC_ENTITIES_ACCOUNT_MEMBER_H_
 #define RMIT2022C_EEET2482_LODGING_APP_SRC_ENTITIES_ACCOUNT_MEMBER_H_
 
-#include <iostream>
-#include <vector>
 #include "../../utils/Review.h"
+#include "../../utils/time/Period.h"
 #include "../house/House.h"
 #include "Account.h"
 #include "OccupantReview.h"
+#include <iostream>
+#include <vector>
 
+namespace utils {
+    namespace time {
+        class Period;
+    }
+}
 
 namespace house {
     class House;
+    class HouseRequest;
 }
 
 namespace account {
@@ -24,51 +31,31 @@ namespace account {
         std::string phone_number;
         house::House *house;
         std::vector<OccupantReview *> reviews;
+        std::vector<house::HouseRequest*> requests;
 
       public:
         Member();
-        Member(const std::string &id,
-               const std::string &username,
-               const std::string &password,
-               const std::string &first_name,
-               const std::string &last_name,
-               const std::string &phone_number,
-               unsigned int credits);
+        Member(
+            const std::string &username,
+            const std::string &password,
+            const std::string &first_name,
+            const std::string &last_name,
+            const std::string &phone_number,
+            unsigned int credits = 500
+        );
 
+
+        unsigned int get_credits() const;
+        const std::string &get_first_name() const;
+        const std::string &get_last_name() const;
+        const std::string &get_phone_number() const;
+        double get_rating();
+
+
+        void from_map(std::map<std::string, std::string> map) override;
         std::map<std::string, std::string> to_map() override;
-
-        //Function: View the Member Info
-        void viewInfo();
-
-        //Function: Calculate the total rating score from occupant reviewers then get the average rating score
-        //=> Get the Rating Score of Each Owner
-        double getReviewRate();
-
-        //        Function: List House Info from the Owner
-        void listHouseDetails();
-
-        //Function: Unlist the House from the list when the Owner doesn't want to
-        bool unlistHouse();
-
-        //Function: Get the available house lists
-        void availableHouse();
-
-        //Function: Get the available request from own House
-        void listRequest();
-
-        //Function: Accept the request from the Occupier
-        bool acceptRequest(); // Need requestID => Request Class
-
-        //Function: Reject the request from the Occupier
-        bool rejectRequest(); // Need requestID => Request Class
-
-        //Function: View the Reviews list from the occupied House
-        void viewOccupiedHouseReview(house::House *house, int score, std::string cmt);
-
-        // Function: View a specific Occupier review
-        void viewOccupyReview(int occupierID, int score, std::string cmt);
     };
 
-}// namespace account
+} // account
 
 #endif//RMIT2022C_EEET2482_LODGING_APP_SRC_ENTITIES_ACCOUNT_MEMBER_H_

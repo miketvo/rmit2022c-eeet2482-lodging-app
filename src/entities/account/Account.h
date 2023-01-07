@@ -9,14 +9,18 @@ namespace account {
 
     class Account {
       protected:
-        std::string id;
         std::string username;
         std::string password;
 
       public:
-        Account() = default;
-        Account(const std::string &id, const std::string &username, const std::string &password);
+        Account();
+        Account(const std::string &username, const std::string &password);
 
+        std::string get_username() const;
+
+        bool authenticate(const std::string &pwd) const;
+
+        virtual void from_map(std::map<std::string, std::string> map);
         virtual std::map<std::string, std::string> to_map();
     };
 

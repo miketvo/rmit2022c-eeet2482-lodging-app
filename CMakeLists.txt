@@ -41,5 +41,6 @@ add_test(io.data.tsv.test test/io.test test/data/bos2021ModC.tsv "\t")
 add_test(io.data.psv.test test/io.test test/data/bos2021ModC.dat "|")
 add_test(io.data.corrupted-dtb.test test/io.test test/data/corrupted.dtb)  # Throws utils::exceptions::corrupted_database
 add_test(time.test test/time.test)
+add_test(houses.test test/houses.test)
 
 set_property(TEST io.data.corrupted-dtb.test PROPERTY WILL_FAIL true)
