@@ -21,7 +21,7 @@ namespace utils {
         }
 
         Temporal::Temporal(Temporal &&source) noexcept : Temporal() {
-            swap(*this, source);
+            *this->time = *source.time;
         }
 
         Temporal &Temporal::operator=(const Temporal &source) {
@@ -30,7 +30,7 @@ namespace utils {
         }
 
         Temporal &Temporal::operator=(Temporal &&source) noexcept {
-            swap(*this, source);
+            if (this != &source) *this->time = *source.time;
             return *this;
         }
 
@@ -81,11 +81,6 @@ namespace utils {
 
         bool Temporal::operator<=(const Temporal &temporal) const {
             return *this->time <= *temporal.time;
-        }
-
-
-        void swap(Temporal a, Temporal b) {
-            std::swap(a.time, b.time);
         }
     } // time
 } // utils

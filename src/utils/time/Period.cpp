@@ -1,4 +1,3 @@
-#include <iostream>
 #include <algorithm>
 #include "Period.h"
 
@@ -30,7 +29,8 @@ namespace utils {
         }
 
         Period::Period(Period &&source) noexcept : Period() {
-            swap(*this, source);
+            *this->start = *source.start;
+            *this->end = *source.end;
         }
 
         Period &Period::operator=(const Period &source) {
@@ -42,7 +42,10 @@ namespace utils {
         }
 
         Period &Period::operator=(Period &&source) noexcept {
-            swap(*this, source);
+            if (this != &source) {
+                *this->start = *source.start;
+                *this->end = *source.end;
+            }
             return *this;
         }
 
@@ -86,11 +89,6 @@ namespace utils {
 
         unsigned long long Period::days() const {
             return this->duration().days();
-        }
-
-        void swap(Period a, Period b) {
-            std::swap(a.start, b.start);
-            std::swap(a.end, b.end);
         }
     } // time
 } // utils

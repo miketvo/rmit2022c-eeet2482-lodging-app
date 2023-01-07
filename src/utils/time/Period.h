@@ -2,7 +2,6 @@
 #define RMIT2022C_EEET2482_LODGING_APP_SRC_UTILS_TIME_PERIOD_H_
 
 #include <ctime>
-#include "Datetime.h"
 #include "Duration.h"
 
 namespace utils {
@@ -36,11 +35,9 @@ namespace utils {
             unsigned long long minutes() const;
             unsigned long long hours() const;
             unsigned long long days() const;
-
-            friend void swap(Period a, Period b);
         };
 
     } // time
-} // duration
+} // utils
 
 #endif //RMIT2022C_EEET2482_LODGING_APP_SRC_UTILS_TIME_PERIOD_H_

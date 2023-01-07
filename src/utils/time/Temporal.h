@@ -33,8 +33,6 @@ namespace utils {
             bool operator!=(const Temporal &temporal) const;
             bool operator>=(const Temporal &temporal) const;
             bool operator<=(const Temporal &temporal) const;
-
-            friend void swap(Temporal a, Temporal b);
         };
 
     } // time
