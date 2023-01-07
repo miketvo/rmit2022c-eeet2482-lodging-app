@@ -11,7 +11,6 @@
 #define PLATFORM_DETECTED 1
 #include <sys/ioctl.h>
 #endif
-
 #ifndef PLATFORM_DETECTED
 #error Could not detect operating system platform
 #endif
@@ -26,7 +25,7 @@ void Application::init_database() {
         std::errc::no_such_file_or_directory;
         std::cout << "The Path is invalid!" << std::endl;
 #endif
-#ifdef defined(WIN32) || defined(_WIN32) || defined(__WIN32__) || defined(__NT__)
+#if defined(WIN32) || defined(_WIN32) || defined(__WIN32__) || defined(_WIN64) || defined(__CYGWIN__)
     const char* dir = "~/AppData/Local/lodging/";
     if (stat(dir, &sb) == 0)
         cout << "The path is valid!";
@@ -40,7 +39,7 @@ void Application::load_database() {
     this->database_path = "~/.lodging/";
     std::cout << database_path;
 #endif
-#ifdef defined(WIN32) || defined(_WIN32) || defined(__WIN32__) || defined(__NT__)
+#if defined(WIN32) || defined(_WIN32) || defined(__WIN32__) || defined(_WIN64) || defined(__CYGWIN__)
     this->database_path = "~/AppData/Local/lodging/";
 #endif
     utils::io::DatabaseFile databaseFile(this->database_path + "houses.dat");
@@ -99,10 +98,15 @@ void Application::main_loop() {
     std::cout << "Instructors: Mr. Linh Tran & Phong Ngo" << "\n";
     std::cout << "Group: Group 9" << "\n";
     std::cout << "s3963207, Do Le long An" << "\n";
-    std::cout << "s3963207, Do Le long An" << "\n";
-    std::cout << "s3963207, Do Le long An" << "\n";
-    std::cout << "s3963207, Do Le long An" << "\n\n";
+    std::cout << "s3817747, Hoang Ngoc Duan" << "\n";
+    std::cout << "s3941773, Nguyen Phuong Nam" << "\n";
+    std::cout << "s3877562, Vo Tuong Minh" << "\n\n";
 
     Application::init_database();
     Application::load_database();
+
+    // MAIN MENU
+    std::cout << "* \t\t\t VACATION HOUSE EXCHANGE APPLICATION \t\t\t" << std::endl;
+
+
 }
