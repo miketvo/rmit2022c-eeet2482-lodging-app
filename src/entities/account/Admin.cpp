@@ -2,8 +2,8 @@
 
 namespace account {
 
-    Admin::Admin() : Account("admin", "admin", "") {}
+    Admin::Admin() : Account("admin", "") {}
 
-    Admin::Admin(const std::string &password) : Account("admin", "admin", password) {}
+    Admin::Admin(const std::string &password) : Account("admin", password) {}
 
 } // account
