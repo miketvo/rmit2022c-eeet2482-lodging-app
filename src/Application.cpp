@@ -2,6 +2,7 @@
 #include "entities/account/Admin.h"
 #include "utils/io/DatabaseFile.h"
 #include <iostream>
+#include <string>
 
 void Application::init_database() {
 }
@@ -53,7 +54,10 @@ void Application::guest_menu() {
 }
 
 void Application::member_menu() {
-    while (1) {
+    std::cout << "Enter password: ";
+    std::string password;
+    getline(std::cin, password);
+    while (password == "password") {
         std::cout << "\n This is your menu:\n"
                      "1. View information.\n"
                      "2. List all house are available to be occupied.\n"
@@ -135,6 +139,8 @@ Application::Application(const std::string &database_path) {
 }
 
 void Application::main_loop() {
+    std::string buffer;
+
     std::cout << "EEET2482/COSC2082 ASSIGNMENT"
               << "\n";
     std::cout << "VACATION HOUSE EXCHANGE APPLICATION"
@@ -158,8 +164,8 @@ void Application::main_loop() {
                   << " 2. Member "
                   << " 3. Admin\n";
         std::cout << "Enter your choice: ";
-        int choice;
-        std::cin >> choice;
+        std::getline(std::cin, buffer);
+        int choice = std::stoi(buffer);
 
         switch (choice) {
             case 1:
@@ -170,6 +176,8 @@ void Application::main_loop() {
                 break;
             case 3:
                 Application::admin_menu();
+                break;
+            default:
                 break;
         }
         break;
