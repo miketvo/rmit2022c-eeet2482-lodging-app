@@ -17,7 +17,9 @@ namespace account {
         Account();
         Account(const std::string &id, const std::string &username, const std::string &password);
 
-        bool authenticate(const std::string &pwd);
+        std::string get_username() const;
+
+        bool authenticate(const std::string &pwd) const;
 
         virtual void from_map(std::map<std::string, std::string> map);
         virtual std::map<std::string, std::string> to_map();

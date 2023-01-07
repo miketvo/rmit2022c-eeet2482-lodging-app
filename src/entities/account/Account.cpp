@@ -16,7 +16,12 @@ namespace account {
     }
 
 
-    bool Account::authenticate(const std::string &pwd) {
+    std::string Account::get_username() const {
+        return this->username;
+    }
+
+
+    bool Account::authenticate(const std::string &pwd) const {
         return this->password == pwd;
     }
 

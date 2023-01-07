@@ -23,7 +23,7 @@ class Application {
     void load_database();
     void save_database();
     void reset_database();
-    bool login(account::Account account);
+    bool login(const account::Account &account);
     void guest_menu();
     void member_menu();
     void admin_menu();

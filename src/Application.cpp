@@ -72,8 +72,15 @@ void Application::reset_database() {
     // TODO: Implement this
 }
 
-bool Application::login(account::Account account) {
-    // TODO: Implement this
+bool Application::login(const account::Account &account) {
+    std::string buffer;
+
+    std::cout << "Enter password for " << account.get_username() << ": ";
+    std::getline(std::cin, buffer);
+
+    if (account.authenticate(buffer)) return true;
+
+    std::cout << "Wrong password entered!\n";
     return false;
 }
 
@@ -104,7 +111,17 @@ void Application::guest_menu() {
 }
 
 void Application::member_menu() {
-    bool back = false;
+    bool back = true;
+    std::string buffer;
+
+    std::cout << "Enter your username: ";
+    std::getline(std::cin, buffer);
+    for (const auto& member : this->members) {
+        if (member.get_username() == buffer) {
+            back = !this->login(member);
+        }
+    }
+    if (back) std::cout << "No user with user name '" << buffer << "' found!\n";
 
     while (!back) {
         std::cout << "\nMember menu:\n"
@@ -148,21 +165,22 @@ void Application::member_menu() {
 }
 
 void Application::admin_menu() {
-    bool back = false;
+    if (this->login(this->admin)) {
+        bool back = false;
 
-    while (!back) {
-        std::cout << "\nAdmin menu:\n"
-                     "=============================================\n"
-                     "0. Back.\n"
-                     "1. View all house details and member details.\n";
+        while (!back) {
+            std::cout << "\nAdmin menu:\n"
+                         "=============================================\n"
+                         "0. Back.\n"
+                         "1. View all house details and member details.\n";
 
-        switch (Application::prompt_choice(1, 2)) {
-            case 1:
-                // todo View all house details and member details
-                break;
-            case 0:
-                back = true;
-                break;
+            switch (Application::prompt_choice(1, 2)) {
+                case 1:
+                    // todo View all house details and member details
+                    break;
+                case 0:back = true;
+                    break;
+            }
         }
     }
 }
