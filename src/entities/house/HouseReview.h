@@ -4,18 +4,21 @@
 #include <iostream>
 #include "../../utils/Review.h"
 #include "House.h"
+#include "../account/Member.h"
 
 namespace house {
-
+    class Member;
     class HouseReview : public utils::Review {
       private:
-        house::House *house;
+        house::House *house{};
+        Member *reviewer;
 
       public:
         HouseReview() = default;
         HouseReview(const std::string &id, const std::string &comment, short rating);
 
         std::map<std::string, std::string> to_map() override;
+        friend class Member;
     };
 
 } // house
