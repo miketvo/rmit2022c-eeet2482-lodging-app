@@ -32,13 +32,14 @@ namespace account {
 
       public:
         Member();
-        Member(const std::string &id,
-               const std::string &username,
-               const std::string &password,
-               const std::string &first_name,
-               const std::string &last_name,
-               const std::string &phone_number,
-               unsigned int credits);
+        Member(
+            const std::string &username,
+            const std::string &password,
+            const std::string &first_name,
+            const std::string &last_name,
+            const std::string &phone_number,
+            unsigned int credits
+        );
 
         //Function: Calculate the total rating score from occupant reviewers then get the average rating score
         //=> Get the Rating Score of Each Owner
@@ -74,6 +75,6 @@ namespace account {
         std::map<std::string, std::string> to_map() override;
     };
 
-}// namespace account
+} // account
 
 #endif//RMIT2022C_EEET2482_LODGING_APP_SRC_ENTITIES_ACCOUNT_MEMBER_H_

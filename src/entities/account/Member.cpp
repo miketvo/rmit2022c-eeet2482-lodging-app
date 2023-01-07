@@ -13,17 +13,15 @@ namespace account {
         this->house = nullptr;
     }
 
-    Member::Member(const std::string &id,
-                   const std::string &username,
-                   const std::string &password,
-                   const std::string &first_name,
-                   const std::string &last_name,
-                   const std::string &phone_number,
-                   unsigned int credits)
-        : Account(id, username, password) {
-
+    Member::Member(
+        const std::string &username,
+        const std::string &password,
+        const std::string &first_name,
+        const std::string &last_name,
+        const std::string &phone_number,
+        unsigned int credits
+    ) : Account(username, password) {
         this->credits = 500;
-        this->id = id;
         this->first_name = first_name;
         this->last_name = last_name;
         this->phone_number = phone_number;

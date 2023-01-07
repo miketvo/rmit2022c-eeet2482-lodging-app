@@ -9,13 +9,12 @@ namespace account {
 
     class Account {
       protected:
-        std::string id;
         std::string username;
         std::string password;
 
       public:
         Account();
-        Account(const std::string &id, const std::string &username, const std::string &password);
+        Account(const std::string &username, const std::string &password);
 
         std::string get_username() const;
 
