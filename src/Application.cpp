@@ -115,12 +115,32 @@ void Application::main_loop() {
     Application::load_database();
 
     // MAIN MENU
-    std::cout << "* \t\t\t VACATION HOUSE EXCHANGE APPLICATION \t\t\t*\n\n" << std::endl;
-    std::cout << "--> MAIN MENU\n\n";
-    std::cout << "--> 1. Guest\n";
-    std::cout << "--> 2. Admin\n";
-    std::cout << "--> 3. Member\n";
-    std::cout << "--> 4. Exit";
+    while(1) {
+        std::cout << "* \t\t\t VACATION HOUSE EXCHANGE APPLICATION \t\t\t*\n\n"
+                  << std::endl;
+        std::cout << "--> MAIN MENU\n\n";
+        std::cout << "--> 1. Guest\n";
+        std::cout << "--> 2. Admin\n";
+        std::cout << "--> 3. Member\n";
+        std::cout << "--> 4. Exit";
 
+    std::cout << "Enter your choice: ";
+    std::getline(std::cin, buffer);
+    int choice = std::stoi(buffer);
 
+    switch (choice) {
+        case 1:
+            Application::guest_menu();
+            break;
+        case 2:
+            Application::member_menu();
+            break;
+        case 3:
+            Application::admin_menu();
+            break;
+        default:
+            break;
+    }
+    break;
+    }
 }
