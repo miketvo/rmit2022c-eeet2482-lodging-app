@@ -1,12 +1,12 @@
 #ifndef RMIT2022C_EEET2482_LODGING_APP_SRC_ENTITIES_ACCOUNT_MEMBER_H_
 #define RMIT2022C_EEET2482_LODGING_APP_SRC_ENTITIES_ACCOUNT_MEMBER_H_
 
+#include <iostream>
+#include <vector>
 #include "../../utils/Review.h"
 #include "../house/House.h"
 #include "Account.h"
 #include "OccupantReview.h"
-#include <iostream>
-#include <vector>
 
 
 namespace house {
@@ -18,15 +18,15 @@ namespace account {
 
     class Member : public Account {
       private:
+        unsigned credits;
         std::string first_name;
         std::string last_name;
         std::string phone_number;
         house::House *house;
-        std::vector<OccupantReview*> reviewList;
-        unsigned credits;
+        std::vector<OccupantReview *> reviews;
 
       public:
-        Member() = default;
+        Member();
         Member(const std::string &id,
                const std::string &username,
                const std::string &password,
