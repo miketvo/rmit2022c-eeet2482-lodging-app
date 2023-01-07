@@ -106,7 +106,12 @@ void Application::main_loop() {
     Application::load_database();
 
     // MAIN MENU
-    std::cout << "* \t\t\t VACATION HOUSE EXCHANGE APPLICATION \t\t\t" << std::endl;
+    std::cout << "* \t\t\t VACATION HOUSE EXCHANGE APPLICATION \t\t\t\n\n" << std::endl;
+    std::cout << "--> MAIN MENU\n\n";
+    std::cout << "--> 1. Guest\n";
+    std::cout << "--> 2. Admin\n";
+    std::cout << "--> 3. Member\n";
+    std::cout << "--> 4. Exit";
 
 
 }
