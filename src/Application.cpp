@@ -1,6 +1,7 @@
 #include <iostream>
 #include <sys/stat.h>
 #include "Application.h"
+#include "utils/io/DatabaseFile.h"
 #include "entities/account/Admin.h"
 
 #if defined(WIN32) || defined(_WIN32) || defined(__WIN32__) || defined(_WIN64) || defined(__CYGWIN__)
@@ -37,11 +38,34 @@ void Application::init_database() {
 }
 
 void Application::load_database() {
-    // TODO: Implement this
+    utils::io::DatabaseFile file;
+    std::vector<std::map<std::string, std::string>> data;
+
+    file.read(this->database_path + "admin.dat");
+    file >> data;
+    for ()
+
+    file.read(this->database_path + "members.dat");
+    file >> data;
+
+    file.read(this->database_path + "houses.dat");
+    file >> data;
+
+    file.read(this->database_path + "requests.dat");
+    file >> data;
+
+    file.read(this->database_path + "house_reviews.dat");
+    file >> data;
+
+    file.read(this->database_path + "occupant_reviews.dat");
+    file >> data;
+
+    file.read(this->database_path + "cities.dat");
+    file >> data;
 }
 
 void Application::save_database() {
-    // TODO: Implement this
+
 }
 
 void Application::reset_database() {

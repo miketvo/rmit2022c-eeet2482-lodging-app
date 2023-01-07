@@ -11,11 +11,11 @@ enum LoginType { NONE, GUEST, MEMBER, ADMIN };
 class Application {
   private:
     bool quit;
-    std::string database_path;
     LoginType login_type;
+    std::string database_path;
+    std::vector<std::string> cities;
     std::vector<house::House> houses;
     std::vector<account::Member> members;
-    std::vector<std::string> cities;
     account::Admin admin;
 
     bool detected_database();
