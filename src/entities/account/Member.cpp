@@ -70,6 +70,14 @@ namespace account {
         return rating;
     }
 
+    //View the member info:
+    void Member::viewInfo() {
+        std::cout << "\n Username: " << username << "\n";
+        std::cout << "First name: " << first_name << "\n";
+        std::cout << "Last Name: " << last_name << "\n";
+        std::cout << "Phone Number: " << phone_number << "\n";
+        std::cout << "Credits: " << credits << "\n";
+        std::cout << "Review Rate: " << getReviewRate() << "\n";
 
     void Member::from_map(std::map<std::string, std::string> map) {
         Account::from_map(map);
@@ -79,6 +87,55 @@ namespace account {
         this->credits = std::stoul(map["credits"]);
     }
 
+    // Create a House for the Owner
+    void Member::ownHouse(house::House *newHouse) {
+        if (newHouse == nullptr) {
+            std::cout << "No house"
+                      << "\n";
+        } else {
+            house = newHouse;
+            newHouse->owner = this;
+        }
+    }
+
+    //Function: Get the available request from own House
+    void Member::listRequest(){
+        if (requests.empty()) {
+            std::cout << "\n You don't not have any request" << "\n";
+        }
+
+        std::cout << "Requests:" << "\n";
+        for (int i = 0; i < requests.size(); i++) {
+            auto request = requests[i];
+            std::cout<< "Member: " << request->requester->first_name << "\n";
+        }
+    }
+
+    //Add a Review into Review List
+    void Member::addToMemberReviewList(OccupantReview *review){
+       reviews.push_back(review);
+    }
+
+    // View the Reviews list from the occupied House
+    void Member::reviewHouse(house::House *house, int score, std::string cmt) {
+       auto *review = new OccupantReview(this->username, std::move(cmt), score );
+       addToMemberReviewList(review);
+    }
+
+    //Minus the credit point when transaction
+    void Member::minus(int cre){
+        if(cre > credits){
+            std::cout << "Your credits is not enough" << "\n";
+        }
+        credits -= cre;
+    }
+
+    //Add the credit point when transaction
+    void Member::add(int cre){
+        credits += cre;
+    }
+
+    // Database Related Function
     std::map<std::string, std::string> Member::to_map() {
         return Account::to_map();
     }

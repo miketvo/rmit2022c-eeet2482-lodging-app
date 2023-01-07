@@ -17,6 +17,7 @@ namespace utils {
 
 namespace house {
     class House;
+    class HouseRequest;
 }
 
 namespace account {
@@ -25,12 +26,12 @@ namespace account {
     class Member : public Account {
       private:
         unsigned credits;
-      private:
         std::string first_name;
         std::string last_name;
         std::string phone_number;
         house::House *house;
         std::vector<OccupantReview *> reviews;
+        std::vector<house::HouseRequest*> requests;
 
       public:
         Member();
