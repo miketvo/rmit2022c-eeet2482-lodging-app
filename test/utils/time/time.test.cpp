@@ -71,6 +71,8 @@ int main() {
     if (test5.duration().to_seconds() != 65931622) return 1;
 
     utils::time::Datetime test6("2020-01-01 00:00:00", "%Y-%m-%d %H:%M:%S");
+    utils::time::Datetime test7("2020-01-01 00:00:00", "%Y-%m-%d %H:%M:%S");
+
     std::cout << test6.strf("test6: %Y-%m-%d %H:%M:%S\n");
     utils::time::Duration test6_mod(2, 12, 20, 48);
     std::cout << (test6 + test6_mod).strf("test6 + 2d:12h:20m:48s = %Y-%m-%d %H:%M:%S\n");
@@ -80,8 +82,9 @@ int main() {
     std::cout << (test6 - test6_mod / 2).strf("test6 - 2d:12h:20m:48s * 2 = %Y-%m-%d %H:%M:%S\n");
     test6 -= test6_mod / 2;
     test6_mod /= 4;
-    utils::time::Datetime test7 = utils::time::Datetime("2020-01-01 00:00:00", "%Y-%m-%d %H:%M:%S") + test6_mod * 2;
-    std::cout << test7.strf("2020-01-01 00:00:00 + 2d:12h:20m:48s * 2 = %Y-%m-%d %H:%M:%S\n");
+    test7 += test6_mod * 2;
+
+    std::cout << test7.strf("test7: 2020-01-01 00:00:00 + 2d:12h:20m:48s * 2 = %Y-%m-%d %H:%M:%S\n");
     if (test6 != test7) return 1;
     // =================================================================================================================
 
