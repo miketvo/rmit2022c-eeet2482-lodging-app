@@ -17,7 +17,7 @@ namespace house {
         account::Member *occupant;
         utils::time::Period period;
       public:
-        HouseOccupancy() = default;
+        HouseOccupancy();
         HouseOccupancy(House* house,
                        account::Member *occupant,
                        utils::time::Period period);

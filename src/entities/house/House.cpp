@@ -4,6 +4,15 @@
 
 namespace house {
 
+    House::House() {
+        this->city = "";
+        this->owner = nullptr;
+        this->rating = 0;
+        this->reviews = {};
+        this->listing = nullptr;
+        this->occupancy = nullptr;
+    }
+
     House::House(std::string city,
                  account::Member *owner,
                  short rating,
