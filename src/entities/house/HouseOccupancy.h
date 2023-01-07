@@ -3,16 +3,22 @@
 
 #include "House.h"
 #include "HouseRequest.h"
+#include "../account/Member.h"
+#include "../../utils/time/Period.h"
 #include <vector>
 
 namespace house {
 
     class HouseOccupancy {
       private:
-
+        House* house;
+        account::Member *occupant;
+        utils::time::Period period;
       public:
-        HouseOccupancy() = default;
-
+        HouseOccupancy();
+        HouseOccupancy(House* house,
+                       account::Member *occupant,
+                       utils::time::Period period);
     };
 
 } // house
