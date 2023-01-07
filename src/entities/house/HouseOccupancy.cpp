@@ -4,6 +4,12 @@
 
 namespace house {
 
+    HouseOccupancy::HouseOccupancy() {
+        this->house = nullptr;
+        this->occupant = nullptr;
+        this->period = utils::time::Period();
+    }
+
     HouseOccupancy::HouseOccupancy(House *house,
                                    account::Member *occupant,
                                    utils::time::Period period) {

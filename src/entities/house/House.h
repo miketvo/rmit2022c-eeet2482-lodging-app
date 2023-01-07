@@ -24,7 +24,7 @@ namespace house {
         HouseListing* listing;
         HouseOccupancy *occupancy;
       public:
-        House() = default;
+        House();
 
         House(std::string city,
               account::Member *owner,
