@@ -1,14 +1,19 @@
 #ifndef RMIT2022C_EEET2482_LODGING_APP_SRC_ENTITIES_ACCOUNT_MEMBER_H_
 #define RMIT2022C_EEET2482_LODGING_APP_SRC_ENTITIES_ACCOUNT_MEMBER_H_
 
-#include <iostream>
-#include <vector>
 #include "../../utils/Review.h"
+#include "../../utils/time/Period.h"
 #include "../house/House.h"
 #include "Account.h"
 #include "OccupantReview.h"
+#include <iostream>
+#include <vector>
 
-
+namespace utils {
+    namespace time {
+        class Period;
+    }
+}// namespace utils
 namespace house {
     class House;
 }
@@ -35,17 +40,15 @@ namespace account {
                const std::string &phone_number,
                unsigned int credits);
 
-        std::map<std::string, std::string> to_map() override;
-
-        //Function: View the Member Info
-        void viewInfo();
-
         //Function: Calculate the total rating score from occupant reviewers then get the average rating score
         //=> Get the Rating Score of Each Owner
         double getReviewRate();
 
-        //        Function: List House Info from the Owner
-        void listHouseDetails();
+        //Function: View the Member Info
+        void viewInfo();
+
+        //Function: List a House from the Owner
+        void listHouse(utils::time::Period *start, utils::time::Period *end, unsigned int credits, double rating);
 
         //Function: Unlist the House from the list when the Owner doesn't want to
         bool unlistHouse();
@@ -57,16 +60,18 @@ namespace account {
         void listRequest();
 
         //Function: Accept the request from the Occupier
-        bool acceptRequest(); // Need requestID => Request Class
+        bool acceptRequest();// Need requestID => Request Class
 
         //Function: Reject the request from the Occupier
-        bool rejectRequest(); // Need requestID => Request Class
+        bool rejectRequest();// Need requestID => Request Class
 
         //Function: View the Reviews list from the occupied House
         void viewOccupiedHouseReview(house::House *house, int score, std::string cmt);
 
         // Function: View a specific Occupier review
         void viewOccupyReview(int occupierID, int score, std::string cmt);
+
+        std::map<std::string, std::string> to_map() override;
     };
 
 }// namespace account

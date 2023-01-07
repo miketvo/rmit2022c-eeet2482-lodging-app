@@ -71,6 +71,11 @@ namespace account {
         std::cout << "\n";
     }
 
+    // List a House from the Owner to be used in a particular period (start-end time)
+    // with consuming point per day with or without minimum occupier rating
+    void listHouse(utils::time::Period *start, utils::time::Period *end, unsigned int credits, double rating ){
+
+    }
     // Database Related Function
     std::map<std::string, std::string> Member::to_map() {
         return Account::to_map();
