@@ -11,7 +11,7 @@ namespace house {
       private:
         account::Member *requester;
       public:
-        HouseRequest() = default;
+        HouseRequest();
         explicit HouseRequest(account::Member *requester);
 
         friend class account::Member;

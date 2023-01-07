@@ -19,6 +19,7 @@ namespace house {
                  std::vector<HouseReview*> reviews,
                  HouseListing* listing,
                  HouseOccupancy* occupancy) {
+
         this->city = std::move(city);
         this->owner = owner;
         this->rating = rating;
@@ -35,5 +36,6 @@ namespace house {
     std::map<std::string, std::string> House::to_map() {
         return {};
     }
+
 
 } // house
