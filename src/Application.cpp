@@ -113,7 +113,7 @@ void Application::main_loop() {
 
     Application::init_database();
     Application::load_database();
-
+    std::string buffer;
     // MAIN MENU
     while(1) {
         std::cout << "* \t\t\t VACATION HOUSE EXCHANGE APPLICATION \t\t\t*\n\n"
