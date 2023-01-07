@@ -38,7 +38,7 @@ namespace account {
             const std::string &first_name,
             const std::string &last_name,
             const std::string &phone_number,
-            unsigned int credits
+            unsigned int credits = 500
         );
 
         //Function: Calculate the total rating score from occupant reviewers then get the average rating score

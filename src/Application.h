@@ -28,12 +28,10 @@ class Application {
     void member_menu();
     void admin_menu();
     bool register_member();
-    void unregister_member(const account::Member& member);
 
     static int prompt_choice(unsigned min, unsigned max);
   public:
     Application();
-    explicit Application(const std::string &database_path);
 
     void main_loop();
 };

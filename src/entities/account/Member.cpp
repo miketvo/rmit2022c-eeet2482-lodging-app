@@ -21,7 +21,7 @@ namespace account {
         const std::string &phone_number,
         unsigned int credits
     ) : Account(username, password) {
-        this->credits = 500;
+        this->credits = credits;
         this->first_name = first_name;
         this->last_name = last_name;
         this->phone_number = phone_number;
