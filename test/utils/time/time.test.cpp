@@ -1,5 +1,6 @@
 #include <iostream>
 #include <iomanip>
+#include <sstream>  // Needed for Unix systems
 #include "../../../src/utils/time/Datetime.h"
 
 int main() {
