@@ -186,11 +186,43 @@ void Application::admin_menu() {
 }
 
 bool Application::register_member() {
-    return false;
-}
+    std::string username, password, first_name, last_name, phone_number;
 
-void Application::unregister_member(const account::Member& member) {
+    std::cout << "Enter your new username: ";
+    std::getline(std::cin, username);
+    std::cout << "Enter your new password: ";
+    std::getline(std::cin, password);
 
+    for (const auto& member : this->members) {
+        if (member.get_username() == username) {
+            std::cout << "Error: Username '" << username << "' already exists.\n";
+            return false;
+        }
+    }
+
+    if (password.empty()) {
+        std::cout << "Error: Your password cannot be empty.\n";
+        return false;
+    }
+
+    for (auto c : password) {
+        if (c == ' ') {
+            std::cout << "Error: Your password cannot contain space character.\n";
+            return false;
+        }
+    }
+
+    std::cout << "Enter your first name: ";
+    std::getline(std::cin, first_name);
+
+    std::cout << "Enter your last name: ";
+    std::getline(std::cin, last_name);
+
+    std::cout << "Enter your phone number: ";
+    std::getline(std::cin, phone_number);
+
+    this->members.emplace_back(username, password, first_name, last_name, phone_number);
+    return true;
 }
 
 
@@ -232,12 +264,6 @@ Application::Application() {
     this->database_path = "./data/";
 }
 
-Application::Application(const std::string &database_path) {
-    this->quit = false;
-    this->database_path = database_path;
-    this->login_type = NONE;
-}
-
 
 void Application::main_loop() {
     std::cout <<
@@ -264,10 +290,11 @@ void Application::main_loop() {
                   "\nMAIN MENU\n" <<
                   "=========================\n" <<
                   "--> 0. Exit\n" <<
-                  "--> 1. Guest\n" <<
-                  "--> 2. Member\n" <<
-                  "--> 3. Admin\n" <<
-                  "--> 4. Reset application\n";
+                  "--> 1. Login as Guest\n" <<
+                  "--> 2. Login as existing Member\n" <<
+                  "--> 3. Register as new Member\n" <<
+                  "--> 4. Login as Admin\n" <<
+                  "--> 5. Reset application\n";
 
         switch (Application::prompt_choice(1, 5)) {
             case 1:
@@ -277,9 +304,14 @@ void Application::main_loop() {
                 this->member_menu();
                 break;
             case 3:
-                this->admin_menu();
+                if (!this->register_member()) {
+                    std::cout << "Could not create your Member account.\n";
+                }
                 break;
             case 4:
+                this->admin_menu();
+                break;
+            case 5:
                 this->reset_database();
                 break;
             case 0:
