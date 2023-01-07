@@ -1,5 +1,6 @@
 #include <iostream>
 #include <sys/stat.h>
+#include <iomanip>
 #include "Application.h"
 #include "utils/io/DatabaseFile.h"
 #include "entities/account/Admin.h"
@@ -38,15 +39,21 @@ void Application::init_database() {
 }
 
 void Application::load_database() {
-    utils::io::DatabaseFile file;
     std::vector<std::map<std::string, std::string>> data;
+    data.clear();
 
-    file.read(this->database_path + "admin.dat");
-    file >> data;
-    this->admin.from_map(data[0]);
+    utils::io::DatabaseFile admin_dtb(this->database_path + "admin.dat");
+    admin_dtb.read();
+    this->admin.from_map(admin_dtb[0]);
 
-//    file.read(this->database_path + "members.dat");
-//    file >> data;
+    utils::io::DatabaseFile members_dtb(this->database_path + "members.dat");
+    members_dtb.read();
+    members_dtb >> data;
+    for (auto& record : data) {
+        std::cout << record["username"];
+        this->members.emplace_back();
+        this->members.back().from_map(record);
+    }
 //
 //    file.read(this->database_path + "houses.dat");
 //    file >> data;
@@ -113,12 +120,15 @@ void Application::guest_menu() {
 void Application::member_menu() {
     bool back = true;
     std::string buffer;
+    account::Member *current_member;
 
     std::cout << "Enter your username: ";
     std::getline(std::cin, buffer);
-    for (const auto& member : this->members) {
+    for (auto& member : this->members) {
         if (member.get_username() == buffer) {
             back = !this->login(member);
+            current_member = &member;
+            break;
         }
     }
     if (back) std::cout << "No user with user name '" << buffer << "' found!\n";
@@ -137,7 +147,13 @@ void Application::member_menu() {
 
         switch (Application::prompt_choice(1, 3)) {
             case 1:
-                // todo list house details
+                std::cout <<
+                          "\nUsername: " << current_member->get_username() << "\n"
+                          "First name: " << current_member->get_first_name() << "\n" <<
+                          "Last name: " << current_member->get_last_name() << "\n" <<
+                          "Phone number: " << current_member->get_phone_number() << "\n" <<
+                          "Credits: " << current_member->get_credits() << "\n" <<
+                          "Rating: " << std::fixed << std::setprecision(1) << current_member->get_rating() << "\n\n";
                 break;
             case 2:
                 // todo register accout
@@ -304,9 +320,7 @@ void Application::main_loop() {
                 this->member_menu();
                 break;
             case 3:
-                if (!this->register_member()) {
-                    std::cout << "Could not create your Member account.\n";
-                }
+                if (!this->register_member()) std::cout << "Could not create your Member account.\n";
                 break;
             case 4:
                 this->admin_menu();

@@ -29,8 +29,26 @@ namespace account {
         this->house = nullptr;
     }
 
+
+    unsigned int Member::get_credits() const {
+        return credits;
+    }
+
+    const std::string &Member::get_first_name() const {
+        return first_name;
+    }
+
+    const std::string &Member::get_last_name() const {
+        return last_name;
+    }
+
+    const std::string &Member::get_phone_number() const {
+        return phone_number;
+    }
+
+
     //Get the Rating Score
-    double Member::getReviewRate() {
+    double Member::get_rating() {
         // Case: If there is no one rate this member account
         if (reviews.empty()) {
             return 0;
@@ -43,38 +61,24 @@ namespace account {
         }
 
         //Then, calculate the average rating score for the member
-        double averageRatingScore = (double) rv / (double) reviews.size();
+        double rating = (double) rv / (double) reviews.size();
 
         std::stringstream sts;
-        sts << std::fixed << std::setprecision(1) << averageRatingScore;
-        sts >> averageRatingScore;
+        sts << std::fixed << std::setprecision(1) << rating;
+        sts >> rating;
 
-        return averageRatingScore;
+        return rating;
     }
 
-    //View the member info:
-    void Member::viewInfo() {
-        std::cout << "\n Username: " << username << "\n";
-        std::cout << "First name: " << first_name << "\n";
-        std::cout << "Last Name: " << last_name << "\n";
-        std::cout << "Phone Number: " << phone_number << "\n";
-        std::cout << "Credits: " << credits << "\n";
-        std::cout << "Review Rate: " << getReviewRate() << "\n";
 
-        if (house != nullptr) {
-            std::cout << "Owned House Location: "
-                      << "\n";
-            // display here will be getHouseDetail() from House e.x: house->getHouseDetail()
-        }
-        std::cout << "\n";
+    void Member::from_map(std::map<std::string, std::string> map) {
+        Account::from_map(map);
+        this->first_name = map["first_name"];
+        this->last_name = map["last_name"];
+        this->phone_number = map["phone_number"];
+        this->credits = std::stoul(map["credits"]);
     }
 
-    // List a House from the Owner to be used in a particular period (start-end time)
-    // with consuming point per day with or without minimum occupier rating
-    void listHouse(utils::time::Period *start, utils::time::Period *end, unsigned int credits, double rating ){
-
-    }
-    // Database Related Function
     std::map<std::string, std::string> Member::to_map() {
         return Account::to_map();
     }
