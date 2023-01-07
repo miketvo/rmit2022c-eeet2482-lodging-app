@@ -80,6 +80,11 @@ namespace account {
     }
 
     std::map<std::string, std::string> Member::to_map() {
-        return Account::to_map();
+        std::map<std::string, std::string> map = Account::to_map();
+        map.emplace("first_name", this->first_name);
+        map.emplace("last_name", this->last_name);
+        map.emplace("phone_number", this->phone_number);
+        map.emplace("credits", std::to_string(this->credits));
+        return map;
     }
 }// namespace account
