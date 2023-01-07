@@ -1,5 +1,3 @@
-#include "HouseReview.h"
-
 namespace house {
 
-} // house
+}// namespace house

@@ -8,9 +8,9 @@
 namespace account {
 
     class Admin : public Account {
-      private:
       public:
         Admin() = default;
+        explicit Admin(const std::string &password);
 
         std::map<std::string, std::string> to_map() override;
     };
