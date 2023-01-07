@@ -1,6 +1,13 @@
+#include <iostream>
 #include "Account.h"
 
 namespace account {
+
+    Account::Account() {
+        this->id = "";
+        this->username = "";
+        this->password = "";
+    }
 
     Account::Account(const std::string &id, const std::string &username, const std::string &password) {
         this->id = id;
@@ -9,8 +16,16 @@ namespace account {
     }
 
 
-    std::map<std::string, std::string> Account::to_map() {
-        return {};
+    bool Account::authenticate(const std::string &pwd) {
+        return this->password == pwd;
     }
 
-} // account
+
+    std::map<std::string, std::string> Account::to_map() {
+        std::map<std::string, std::string> map;
+        map.emplace("id", this->id);
+        map.emplace("username", this->username);
+        map.emplace("password", this->password);
+        return map;
+    }
+}// namespace account

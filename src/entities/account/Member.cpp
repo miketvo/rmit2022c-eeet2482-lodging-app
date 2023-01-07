@@ -1,10 +1,17 @@
-#include "Member.h"
 #include <algorithm>
 #include <iomanip>
 #include <sstream>
-#include <vector>
+#include "Member.h"
 
 namespace account {
+
+    Member::Member() {
+        this->credits = 500;
+        this->first_name = "";
+        this->last_name = "";
+        this->phone_number = "";
+        this->house = nullptr;
+    }
 
     Member::Member(const std::string &id,
                    const std::string &username,
@@ -15,31 +22,30 @@ namespace account {
                    unsigned int credits)
         : Account(id, username, password) {
 
+        this->credits = 500;
         this->id = id;
         this->first_name = first_name;
         this->last_name = last_name;
         this->phone_number = phone_number;
         this->credits = credits;
         this->house = nullptr;
-
-        reviewList.clear();
     }
 
     //Get the Rating Score
     double Member::getReviewRate() {
         // Case: If there is no one rate this member account
-        if (reviewList.empty()) {
+        if (reviews.empty()) {
             return 0;
         }
 
         //Using the loop to find out the score from the reviewList
-        double reviews = 0;
-        for (auto &review : reviewList) {
-            reviews += review->rating;// For this, declare Member as friend of Occupant Review for access
+        double rv = 0;
+        for (auto &review : reviews) {
+            rv += review->rating;// For this, declare Member as friend of Occupant Review for access
         }
 
         //Then, calculate the average rating score for the member
-        double averageRatingScore = (double) reviews / (double) reviewList.size();
+        double averageRatingScore = (double) rv / (double) reviews.size();
 
         std::stringstream sts;
         sts << std::fixed << std::setprecision(1) << averageRatingScore;
