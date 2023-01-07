@@ -11,7 +11,7 @@ namespace utils {
         Datetime::Datetime(const std::tm &time) : Temporal() {
             auto *temp = new std::tm;
             *temp = time;
-            *this->Temporal::time = std::mktime(temp);
+            *this->time = std::mktime(temp);
             delete temp;
         }
 
@@ -21,7 +21,7 @@ namespace utils {
 
             buffer << time_str;
             buffer >> std::get_time(temp, fmt);
-            *this->Temporal::time = std::mktime(temp);
+            *this->time = std::mktime(temp);
 
             delete temp;
         }
