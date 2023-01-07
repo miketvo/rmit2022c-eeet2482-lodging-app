@@ -3,10 +3,15 @@
 #include "utils/io/DatabaseFile.h"
 #include "entities/account/Admin.h"
 #include <sys/stat.h>
+#include <sys/types.h>
 
-#if defined(WIN32) || defined(_WIN32) || defined(__WIN32__) || defined(__NT__)
+#if defined(WIN32) || defined(_WIN32) || defined(__WIN32__) || defined(_WIN64) || defined(__CYGWIN__)
 #define PLATFORM_DETECTED 1
 #include <windows.h>
+#include <conio.h>
+#include <unistd.h>
+#include <cstdio>
+#include <cstdlib>
 #elif defined(__APPLE__) || defined(linux)
 #define PLATFORM_DETECTED 1
 #include <sys/ioctl.h>
@@ -19,18 +24,19 @@ void Application::init_database() {
     struct stat sb;
 #if defined(__APPLE__) || defined(linux)
     const char* dir = "~/.lodging/";
-    if (stat(dir, &sb) == 0)
-        std::cout << "The path is valid!";
+    const int status = mkdir(dir);
+    if (status)
+        std::cout << "The path is valid!" << std::endl;
     else
-        std::errc::no_such_file_or_directory;
         std::cout << "The Path is invalid!" << std::endl;
 #endif
 #if defined(WIN32) || defined(_WIN32) || defined(__WIN32__) || defined(_WIN64) || defined(__CYGWIN__)
     const char* dir = "~/AppData/Local/lodging/";
-    if (stat(dir, &sb) == 0)
-        std::cout << "The path is valid!";
+    const int status = mkdir(dir);
+    if (status)
+        std::cout << "The path is valid!" << std::endl;
     else
-        std::cout << "The Path is invalid!" std::endl;
+        std::cout << "The Path is invalid!" << std::endl;
 #endif
 }
 
@@ -42,7 +48,10 @@ void Application::load_database() {
 #if defined(WIN32) || defined(_WIN32) || defined(__WIN32__) || defined(_WIN64) || defined(__CYGWIN__)
     this->database_path = "~/AppData/Local/lodging/";
 #endif
-    utils::io::DatabaseFile databaseFile(this->database_path + "houses.dat");
+//    utils::io::DatabaseFile databaseFile(this->database_path + "houses.dat");
+    utils::io::DatabaseFile databaseFile;
+    databaseFile.read("houses.dat");
+//    databaseFile >>
 
 }
 
