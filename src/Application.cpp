@@ -74,20 +74,25 @@ void Application::load_database() {
 }
 
 void Application::save_database() {
+    utils::io::DatabaseFile admin_dtb(this->database_path + "admin.dat");
     std::vector<std::map<std::string, std::string>> admins;
     std::map<std::string, std::string> admin;
     admin.emplace("username", "admin");
     admin.emplace("password", "admin");
     admins.push_back(admin);
-
-    utils::io::DatabaseFile admin_dtb(this->database_path + "admin.dat");
     admin_dtb << admins;
     admin_dtb.write();
 
     utils::io::DatabaseFile members_dtb(this->database_path + "members.dat");
+    std::vector<std::map<std::string, std::string>> members;
+    for (auto member : this->members) members.push_back(member.to_map());
+    members_dtb << members;
     members_dtb.write();
 
     utils::io::DatabaseFile houses_dtb(this->database_path + "houses.dat");
+    std::vector<std::map<std::string, std::string>> houses;
+    for (auto house : this->houses) houses.push_back(house.to_map());
+    houses_dtb << houses;
     houses_dtb.write();
 
     utils::io::DatabaseFile requests_dtb(this->database_path + "requests.dat");
