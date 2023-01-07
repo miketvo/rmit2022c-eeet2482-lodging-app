@@ -28,9 +28,9 @@ void Application::init_database() {
 #if defined(WIN32) || defined(_WIN32) || defined(__WIN32__) || defined(_WIN64) || defined(__CYGWIN__)
     const char* dir = "~/AppData/Local/lodging/";
     if (stat(dir, &sb) == 0)
-        cout << "The path is valid!";
+        std::cout << "The path is valid!";
     else
-        cout << "The Path is invalid!" std::endl;
+        std::cout << "The Path is invalid!" std::endl;
 #endif
 }
 
@@ -106,7 +106,7 @@ void Application::main_loop() {
     Application::load_database();
 
     // MAIN MENU
-    std::cout << "* \t\t\t VACATION HOUSE EXCHANGE APPLICATION \t\t\t\n\n" << std::endl;
+    std::cout << "* \t\t\t VACATION HOUSE EXCHANGE APPLICATION \t\t\t*\n\n" << std::endl;
     std::cout << "--> MAIN MENU\n\n";
     std::cout << "--> 1. Guest\n";
     std::cout << "--> 2. Admin\n";
