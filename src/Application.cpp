@@ -24,7 +24,7 @@ void Application::init_database() {
     struct stat sb;
 #if defined(__APPLE__) || defined(linux)
     const char* dir = "~/.lodging/";
-    const int status = mkdir(dir);
+    const int status = mkdir(dir, 0777);
     if (status)
         std::cout << "The path is valid!" << std::endl;
     else
@@ -50,7 +50,7 @@ void Application::load_database() {
 #endif
 //    utils::io::DatabaseFile databaseFile(this->database_path + "houses.dat");
     utils::io::DatabaseFile databaseFile;
-    databaseFile.read("houses.dat");
+//    databaseFile.read("houses.dat");
 //    databaseFile >>
 
 }
