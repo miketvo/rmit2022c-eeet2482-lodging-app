@@ -21,6 +21,12 @@ namespace account {
     }
 
 
+    void Account::from_map(std::map<std::string, std::string> map) {
+        this->id = map["id"];
+        this->username = map["username"];
+        this->password = map["password"];
+    }
+
     std::map<std::string, std::string> Account::to_map() {
         std::map<std::string, std::string> map;
         map.emplace("id", this->id);

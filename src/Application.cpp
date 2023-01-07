@@ -43,25 +43,25 @@ void Application::load_database() {
 
     file.read(this->database_path + "admin.dat");
     file >> data;
-    for ()
+    this->admin.from_map(data[0]);
 
-    file.read(this->database_path + "members.dat");
-    file >> data;
-
-    file.read(this->database_path + "houses.dat");
-    file >> data;
-
-    file.read(this->database_path + "requests.dat");
-    file >> data;
-
-    file.read(this->database_path + "house_reviews.dat");
-    file >> data;
-
-    file.read(this->database_path + "occupant_reviews.dat");
-    file >> data;
-
-    file.read(this->database_path + "cities.dat");
-    file >> data;
+//    file.read(this->database_path + "members.dat");
+//    file >> data;
+//
+//    file.read(this->database_path + "houses.dat");
+//    file >> data;
+//
+//    file.read(this->database_path + "requests.dat");
+//    file >> data;
+//
+//    file.read(this->database_path + "house_reviews.dat");
+//    file >> data;
+//
+//    file.read(this->database_path + "occupant_reviews.dat");
+//    file >> data;
+//
+//    file.read(this->database_path + "cities.dat");
+//    file >> data;
 }
 
 void Application::save_database() {
@@ -211,7 +211,7 @@ int Application::prompt_choice(unsigned min, unsigned max) {
 Application::Application() {
     this->quit = false;
     this->login_type = NONE;
-    this->database_path = "data";
+    this->database_path = "./data/";
 }
 
 Application::Application(const std::string &database_path) {

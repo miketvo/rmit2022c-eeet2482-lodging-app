@@ -19,6 +19,7 @@ namespace account {
 
         bool authenticate(const std::string &pwd);
 
+        virtual void from_map(std::map<std::string, std::string> map);
         virtual std::map<std::string, std::string> to_map();
     };
 
