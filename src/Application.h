@@ -6,7 +6,7 @@
 #include "entities/house/House.h"
 #include "entities/account/Admin.h"
 
-enum LoginType { GUEST, MEMBER, ADMIN };
+enum LoginType { NONE, GUEST, MEMBER, ADMIN };
 
 class Application {
   private:
@@ -18,6 +18,7 @@ class Application {
     std::vector<std::string> cities;
     account::Admin admin;
 
+    bool detected_database();
     void init_database();
     void load_database();
     void save_database();
@@ -28,6 +29,8 @@ class Application {
     void admin_menu();
     bool register_member();
     void unregister_member(const account::Member& member);
+
+    static int prompt_choice(unsigned min, unsigned max);
   public:
     Application();
     explicit Application(const std::string &database_path);
