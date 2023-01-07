@@ -2,18 +2,45 @@
 #include "Application.h"
 #include "utils/io/DatabaseFile.h"
 #include "entities/account/Admin.h"
+#include <sys/stat.h>
 
+#if defined(WIN32) || defined(_WIN32) || defined(__WIN32__) || defined(__NT__)
+#define PLATFORM_DETECTED 1
+#include <windows.h>
+#elif defined(__APPLE__) || defined(linux)
+#define PLATFORM_DETECTED 1
+#include <sys/ioctl.h>
+#endif
+
+#ifndef PLATFORM_DETECTED
+#error Could not detect operating system platform
+#endif
 
 void Application::init_database() {
-
+    struct stat sb;
+#if defined(__APPLE__) || defined(linux)
+    const char* dir = "~/.lodging/";
+    if (stat(dir, &sb) == 0)
+        std::cout << "The path is valid!";
+    else
+        std::errc::no_such_file_or_directory;
+        std::cout << "The Path is invalid!" << std::endl;
+#endif
+#ifdef defined(WIN32) || defined(_WIN32) || defined(__WIN32__) || defined(__NT__)
+    const char* dir = "~/AppData/Local/lodging/";
+    if (stat(dir, &sb) == 0)
+        cout << "The path is valid!";
+    else
+        cout << "The Path is invalid!" std::endl;
+#endif
 }
 
 void Application::load_database() {
-#ifdef OS_UNIX
+#if defined(__APPLE__) || defined(linux)
     this->database_path = "~/.lodging/";
     std::cout << database_path;
 #endif
-#ifdef OS_WINDOWS
+#ifdef defined(WIN32) || defined(_WIN32) || defined(__WIN32__) || defined(__NT__)
     this->database_path = "~/AppData/Local/lodging/";
 #endif
     utils::io::DatabaseFile databaseFile(this->database_path + "houses.dat");
