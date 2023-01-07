@@ -23,6 +23,10 @@ namespace house {
                        std::vector<house::HouseRequest*> requests,
                        unsigned long rent_per_day,
                        short int min_occupier_rating = -10);
+        House *getHouse() const;
+        const std::vector<HouseRequest *> &getRequests() const;
+        unsigned long getRentPerDay() const;
+        short getMinOccupierRating() const;
     };
 
 } // house

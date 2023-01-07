@@ -36,8 +36,12 @@ namespace house {
         std::map<std::string, std::string> to_map();
 
         bool is_available();
-
-
+        const std::string &getCity() const;
+        account::Member *getOwner() const;
+        short getRating() const;
+        const std::vector<HouseReview *> &getReviews() const;
+        HouseListing *getListing() const;
+        HouseOccupancy *getOccupancy() const;
 
         friend class account::Member;
     };

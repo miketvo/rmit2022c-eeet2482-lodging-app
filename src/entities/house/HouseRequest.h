@@ -13,6 +13,7 @@ namespace house {
       public:
         HouseRequest();
         explicit HouseRequest(account::Member *requester);
+        account::Member *getRequester() const;
 
         friend class account::Member;
     };

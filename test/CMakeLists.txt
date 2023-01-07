@@ -35,4 +35,8 @@ add_executable(
         ../src/entities/house/HouseListing.cpp ../src/entities/house/HouseListing.h
         ../src/entities/house/HouseOccupancy.cpp ../src/entities/house/HouseOccupancy.h
         ../src/entities/house/HouseRequest.cpp ../src/entities/house/HouseRequest.h
+        ../src/utils/time/Temporal.cpp ../src/utils/time/Temporal.h
+        ../src/utils/time/Datetime.cpp ../src/utils/time/Datetime.h
+        ../src/utils/time/Duration.cpp ../src/utils/time/Duration.h
+        ../src/utils/time/Period.cpp ../src/utils/time/Period.h
 )

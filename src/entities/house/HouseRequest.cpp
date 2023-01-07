@@ -10,5 +10,8 @@ namespace house {
     }
     HouseRequest::HouseRequest(account::Member *requester){
         this->requester = requester;
+    }
+    account::Member *HouseRequest::getRequester() const {
+        return requester;
     };
 }

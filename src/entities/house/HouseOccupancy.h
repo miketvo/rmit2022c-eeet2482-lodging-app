@@ -5,6 +5,7 @@
 #include "HouseRequest.h"
 #include "../account/Member.h"
 #include "../../utils/time/Period.h"
+#include "../../utils/time/Datetime.h"
 #include <vector>
 
 namespace house {
@@ -20,7 +21,12 @@ namespace house {
         HouseOccupancy();
         HouseOccupancy(House* house,
                        account::Member *occupant,
-                       utils::time::Period period);
+                       const utils::time::Datetime& start,
+                       const utils::time::Datetime& end
+                       );
+        House *getHouse() const;
+        account::Member *getOccupant() const;
+        const utils::time::Period &getPeriod() const;
     };
 
 } // house
