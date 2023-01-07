@@ -36,6 +36,10 @@ namespace house {
         std::map<std::string, std::string> to_map();
 
         bool is_available();
+
+
+
+        friend class account::Member;
     };
 
 } // house

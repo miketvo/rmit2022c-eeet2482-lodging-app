@@ -16,6 +16,7 @@ namespace utils {
 }// namespace utils
 namespace house {
     class House;
+    class HouseRequest;
 }
 
 namespace account {
@@ -29,6 +30,7 @@ namespace account {
         std::string phone_number;
         house::House *house;
         std::vector<OccupantReview *> reviews;
+        std::vector<house::HouseRequest*> requests;
 
       public:
         Member();
@@ -48,11 +50,11 @@ namespace account {
         //Function: View the Member Info
         void viewInfo();
 
-        //Function: List a House from the Owner
-        void listHouse(utils::time::Period *start, utils::time::Period *end, unsigned int credits, double rating);
+        //Function: Create a House for the Owner
+        void ownHouse(house::House *house);
 
         //Function: Unlist the House from the list when the Owner doesn't want to
-        bool unlistHouse();
+        void unlistHouse();
 
         //Function: Get the available house lists
         void availableHouse();
@@ -66,13 +68,23 @@ namespace account {
         //Function: Reject the request from the Occupier
         bool rejectRequest();// Need requestID => Request Class
 
+        // Add review into occupier review list
+        void addToMemberReviewList(OccupantReview *review);
+
         //Function: View the Reviews list from the occupied House
-        void viewOccupiedHouseReview(house::House *house, int score, std::string cmt);
+        void reviewHouse(house::House *house, int score, std::string cmt);
 
         // Function: View a specific Occupier review
         void viewOccupyReview(int occupierID, int score, std::string cmt);
 
+        //Function: Minus the credit point when doing transaction
+        void minus(int cre);
+
+        //Function: Add the credit point when doing transaction
+        void add(int cre);
+
         std::map<std::string, std::string> to_map() override;
+
     };
 
 } // account

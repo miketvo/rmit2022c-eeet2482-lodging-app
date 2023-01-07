@@ -1,7 +1,7 @@
+#include "Member.h"
 #include <algorithm>
 #include <iomanip>
 #include <sstream>
-#include "Member.h"
 
 namespace account {
 
@@ -69,11 +69,54 @@ namespace account {
         std::cout << "\n";
     }
 
-    // List a House from the Owner to be used in a particular period (start-end time)
-    // with consuming point per day with or without minimum occupier rating
-    void listHouse(utils::time::Period *start, utils::time::Period *end, unsigned int credits, double rating ){
-
+    // Create a House for the Owner
+    void Member::ownHouse(house::House *newHouse) {
+        if (newHouse == nullptr) {
+            std::cout << "No house"
+                      << "\n";
+        } else {
+            house = newHouse;
+            newHouse->owner = this;
+        }
     }
+
+    //Function: Get the available request from own House
+    void Member::listRequest(){
+        if (requests.empty()) {
+            std::cout << "\n You don't not have any request" << "\n";
+        }
+
+        std::cout << "Requests:" << "\n";
+        for (int i = 0; i < requests.size(); i++) {
+            auto request = requests[i];
+            std::cout<< "Member: " << request->requester->first_name << "\n";
+        }
+    }
+
+    //Add a Review into Review List
+    void Member::addToMemberReviewList(OccupantReview *review){
+       reviews.push_back(review);
+    }
+
+    // View the Reviews list from the occupied House
+    void Member::reviewHouse(house::House *house, int score, std::string cmt) {
+       auto *review = new OccupantReview(this->username, std::move(cmt), score );
+       addToMemberReviewList(review);
+    }
+
+    //Minus the credit point when transaction
+    void Member::minus(int cre){
+        if(cre > credits){
+            std::cout << "Your credits is not enough" << "\n";
+        }
+        credits -= cre;
+    }
+
+    //Add the credit point when transaction
+    void Member::add(int cre){
+        credits += cre;
+    }
+
     // Database Related Function
     std::map<std::string, std::string> Member::to_map() {
         return Account::to_map();
