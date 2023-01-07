@@ -11,23 +11,27 @@
 
 namespace house {
 
+    class HouseOccupancy;
+    class HouseListing;
+    class HouseReview;
+
     class House {
       private:
         std::string city;
         account::Member *owner;
         short int rating;
-        std::vector<HouseReview> reviews;
-        HouseListing listing;
-        HouseOccupancy occupancy;
+        std::vector<HouseReview*> reviews;
+        HouseListing* listing;
+        HouseOccupancy *occupancy;
       public:
         House() = default;
 
         House(std::string city,
               account::Member *owner,
               short int rating,
-              std::vector<HouseReview> reviews,
-              HouseListing listing,
-              HouseOccupancy occupancy);
+              std::vector<HouseReview*> reviews,
+              HouseListing* listing,
+              HouseOccupancy* occupancy);
 
         std::map<std::string, std::string> to_map();
 

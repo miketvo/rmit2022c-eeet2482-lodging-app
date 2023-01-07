@@ -1,18 +1,19 @@
 #include "House.h"
 #include <iostream>
+#include <utility>
 
 namespace house {
 
     House::House(std::string city,
                  account::Member *owner,
                  short rating,
-                 std::vector<HouseReview> reviews,
-                 HouseListing listing,
-                 HouseOccupancy occupancy) {
-        this->city = city;
+                 std::vector<HouseReview*> reviews,
+                 HouseListing* listing,
+                 HouseOccupancy* occupancy) {
+        this->city = std::move(city);
         this->owner = owner;
         this->rating = rating;
-        this->reviews = reviews;
+        this->reviews = std::move(reviews);
         this->listing = listing;
         this->occupancy = occupancy;
     }

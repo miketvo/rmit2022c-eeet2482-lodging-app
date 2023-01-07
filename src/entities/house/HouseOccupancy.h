@@ -9,13 +9,15 @@
 
 namespace house {
 
+    class House;
+
     class HouseOccupancy {
       private:
         House* house;
         account::Member *occupant;
         utils::time::Period period;
       public:
-        HouseOccupancy();
+        HouseOccupancy() = default;
         HouseOccupancy(House* house,
                        account::Member *occupant,
                        utils::time::Period period);
