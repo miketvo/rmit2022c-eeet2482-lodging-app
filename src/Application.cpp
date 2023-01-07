@@ -1,27 +1,66 @@
-#include "Application.h"
-#include "entities/account/Admin.h"
-#include "utils/io/DatabaseFile.h"
 #include <iostream>
-#include <string>
+#include "Application.h"
+#include "utils/io/DatabaseFile.h"
+#include "entities/account/Admin.h"
+#include <sys/stat.h>
+#include <sys/types.h>
+
+#if defined(WIN32) || defined(_WIN32) || defined(__WIN32__) || defined(_WIN64) || defined(__CYGWIN__)
+#define PLATFORM_DETECTED 1
+#include <windows.h>
+#include <conio.h>
+#include <unistd.h>
+#include <cstdio>
+#include <cstdlib>
+#elif defined(__APPLE__) || defined(linux)
+#define PLATFORM_DETECTED 1
+#include <sys/ioctl.h>
+#endif
+#ifndef PLATFORM_DETECTED
+#error Could not detect operating system platform
+#endif
 
 void Application::init_database() {
+    struct stat sb;
+#if defined(__APPLE__) || defined(linux)
+    const char* dir = "~/.lodging/";
+    const int status = mkdir(dir, 0777);
+    if (status)
+        std::cout << "The path is valid!" << std::endl;
+    else
+        std::cout << "The Path is invalid!" << std::endl;
+#endif
+#if defined(WIN32) || defined(_WIN32) || defined(__WIN32__) || defined(_WIN64) || defined(__CYGWIN__)
+    const char* dir = "~/AppData/Local/lodging/";
+    const int status = mkdir(dir);
+    if (status)
+        std::cout << "The path is valid!" << std::endl;
+    else
+        std::cout << "The Path is invalid!" << std::endl;
+#endif
 }
 
 void Application::load_database() {
-#ifdef OS_UNIX
+#if defined(__APPLE__) || defined(linux)
     this->database_path = "~/.lodging/";
     std::cout << database_path;
 #endif
-#ifdef OS_WINDOWS
+#if defined(WIN32) || defined(_WIN32) || defined(__WIN32__) || defined(_WIN64) || defined(__CYGWIN__)
     this->database_path = "~/AppData/Local/lodging/";
 #endif
-    utils::io::DatabaseFile databaseFile(this->database_path + "houses.dat");
+//    utils::io::DatabaseFile databaseFile(this->database_path + "houses.dat");
+    utils::io::DatabaseFile databaseFile;
+//    databaseFile.read("houses.dat");
+//    databaseFile >>
+
 }
 
 void Application::save_database() {
+
 }
 
 void Application::reset_database() {
+
 }
 
 bool Application::login(account::Account account) {
@@ -29,102 +68,25 @@ bool Application::login(account::Account account) {
 }
 
 void Application::guest_menu() {
-    while (1) {
-        std::cout << "\n This is your menu:\n"
-                     "1. View all house details.\n"
-                     "2. Register as member account.\n"
-                     "3. Exit.\n"
-                     "Enter your choice: ";
-        int choice;
-        std::cin >> choice;
-        switch (choice) {
-            case 1:
-                // todo list house details
-                std::cout << "House details \n";
-                break;
-            case 2:
-                // todo register accout
-                std::cout << "Registered...\n";
-                break;
-            case 3:
-                return;
-        }
-        break;
-    }
+
 }
 
 void Application::member_menu() {
-    std::cout << "Enter password: ";
-    std::string password;
-    getline(std::cin, password);
-    while (password == "password") {
-        std::cout << "\n This is your menu:\n"
-                     "1. View information.\n"
-                     "2. List all house are available to be occupied.\n"
-                     "3. Search all available houses. \n"
-                     "4. Request house to occupy. \n"
-                     "5. Accept/Decline incoming requests. \n"
-                     "6. Rate occupied house. \n"
-                     "7. Rate occupiers who had used my house. \n"
-                     "8. Exit. \n"
-                     "Enter your choice: ";
-        int choice;
-        std::cin >> choice;
-        switch (choice) {
-            case 1:
-                // todo list house details
-                break;
-            case 2:
-                // todo register accout
-                break;
-            case 3:
-                // todo Search all available houses
-                break;
-            case 4:
-                // todo Request house to occupy
-                break;
-            case 5:
-                // todo Accept/Decline incoming requests
-                break;
-            case 6:
-                // todo Rate occupied house
-                break;
-            case 7:
-                // todo Rate occupiers who had used my house
-                break;
-            case 8:
-                return;
-                break;
-        }
-        break;
-    }
+
 }
 
 void Application::admin_menu() {
-    while (1) {
-        std::cout << "\n This is your menu:\n"
-                     "1. View all house details and member details.\n"
-                     "2. Exit.\n"
-                     "Enter your choice: ";
-        int choice;
-        std::cin >> choice;
-        switch (choice) {
-            case 1:
-                // todo View all house details and member details
-                break;
-            case 2:
-                return;
-        }
-        break;
-    }
+
 }
 
 bool Application::register_member() {
     return false;
 }
 
-void Application::unregister_member(const account::Member &member) {
+void Application::unregister_member(const account::Member& member) {
+
 }
+
 
 Application::Application() {
     this->quit = false;
@@ -138,51 +100,47 @@ Application::Application(const std::string &database_path) {
     this->login_type = GUEST;
 }
 
+
 void Application::main_loop() {
-    std::string buffer;
-
-    std::cout << "EEET2482/COSC2082 ASSIGNMENT"
-              << "\n";
-    std::cout << "VACATION HOUSE EXCHANGE APPLICATION"
-              << "\n\n";
-    std::cout << "Instructors: Mr. Linh Tran & Phong Ngo"
-              << "\n";
-    std::cout << "Group: Group 9"
-              << "\n";
-    std::cout << "s3963207, Do Le long An"
-              << "\n";
-    std::cout << "s3963207, Do Le long An"
-              << "\n";
-    std::cout << "s3963207, Do Le long An"
-              << "\n";
-    std::cout << "s3963207, Do Le long An"
-              << "\n\n";
-
-    while (1) {
-        std::cout << "Use the app as: "
-                  << " 1. Guest "
-                  << " 2. Member "
-                  << " 3. Admin\n";
-        std::cout << "Enter your choice: ";
-        std::getline(std::cin, buffer);
-        int choice = std::stoi(buffer);
-
-        switch (choice) {
-            case 1:
-                Application::guest_menu();
-                break;
-            case 2:
-                Application::member_menu();
-                break;
-            case 3:
-                Application::admin_menu();
-                break;
-            default:
-                break;
-        }
-        break;
-    }
+    std::cout << "EEET2482/COSC2082 ASSIGNMENT" << "\n";
+    std::cout << "VACATION HOUSE EXCHANGE APPLICATION" << "\n\n";
+    std::cout << "Instructors: Mr. Linh Tran & Phong Ngo" << "\n";
+    std::cout << "Group: Group 9" << "\n";
+    std::cout << "s3963207, Do Le long An" << "\n";
+    std::cout << "s3817747, Hoang Ngoc Duan" << "\n";
+    std::cout << "s3941773, Nguyen Phuong Nam" << "\n";
+    std::cout << "s3877562, Vo Tuong Minh" << "\n\n";
 
     Application::init_database();
     Application::load_database();
+    std::string buffer;
+    // MAIN MENU
+    while(1) {
+        std::cout << "* \t\t\t VACATION HOUSE EXCHANGE APPLICATION \t\t\t*\n\n"
+                  << std::endl;
+        std::cout << "--> MAIN MENU\n\n";
+        std::cout << "--> 1. Guest\n";
+        std::cout << "--> 2. Admin\n";
+        std::cout << "--> 3. Member\n";
+        std::cout << "--> 4. Exit";
+
+    std::cout << "Enter your choice: ";
+    std::getline(std::cin, buffer);
+    int choice = std::stoi(buffer);
+
+    switch (choice) {
+        case 1:
+            Application::guest_menu();
+            break;
+        case 2:
+            Application::member_menu();
+            break;
+        case 3:
+            Application::admin_menu();
+            break;
+        default:
+            break;
+    }
+    break;
+    }
 }

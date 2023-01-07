@@ -18,7 +18,7 @@ namespace house {
         account::Member *owner;
         short rating;
 
-      private:
+      public:
         House() = default;
 
         std::map<std::string, std::string> to_map();
