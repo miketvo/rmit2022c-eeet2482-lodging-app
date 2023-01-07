@@ -1,13 +1,8 @@
 #ifndef RMIT2022C_EEET2482_LODGING_APP_SRC_OCCUPANT_REVIEW_H_
 #define RMIT2022C_EEET2482_LODGING_APP_SRC_OCCUPANT_REVIEW_H_
 
-#include <iostream>
-
 #include "Member.h"
-
-namespace utils {
-    class Review;
-}
+#include <iostream>
 
 namespace account {
     class Member;

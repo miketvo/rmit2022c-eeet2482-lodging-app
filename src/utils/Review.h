@@ -1,13 +1,13 @@
 #ifndef RMIT2022C_EEET2482_LODGING_APP_SRC_UTILS_REVIEW_H_
 #define RMIT2022C_EEET2482_LODGING_APP_SRC_UTILS_REVIEW_H_
 
-#include "../entities/account/Member.h"
 #include <map>
 #include <string>
 
 namespace account {
     class Member;
 }
+
 namespace utils {
 
     class Review {
