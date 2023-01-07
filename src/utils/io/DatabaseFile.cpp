@@ -57,7 +57,11 @@ namespace utils {
             std::string buffer;
 
             // Read keys
-            std::getline(this->file, buffer);
+            try {
+                std::getline(this->file, buffer);
+            } catch (std::fstream::failure &e) {
+                return false;
+            }
             if (buffer.empty()) throw exceptions::corrupted_database(this->path);
             std::vector<std::string> keys = this->tokenize(buffer);
 
@@ -92,7 +96,11 @@ namespace utils {
         }
 
         bool DatabaseFile::write() {
-            if (this->data.empty()) return false;
+            if (this->data.empty()) {
+                this->file.open(this->path, std::ios::out);
+                this->file.close();
+                return false;
+            }
 
             std::string buffer;
             this->file.open(this->path, std::ios::out);

@@ -36,6 +36,8 @@ void Application::init_database() {
     if (status != 0) {
         throw std::runtime_error("Unable to create database directory.\n");
     }
+
+    this->save_database();
 }
 
 void Application::load_database() {
@@ -72,7 +74,48 @@ void Application::load_database() {
 }
 
 void Application::save_database() {
+    std::vector<std::map<std::string, std::string>> admins;
+    std::map<std::string, std::string> admin;
+    admin.emplace("username", "admin");
+    admin.emplace("password", "admin");
+    admins.push_back(admin);
 
+    utils::io::DatabaseFile admin_dtb(this->database_path + "admin.dat");
+    admin_dtb << admins;
+    admin_dtb.write();
+
+    utils::io::DatabaseFile members_dtb(this->database_path + "members.dat");
+    members_dtb.write();
+
+    utils::io::DatabaseFile houses_dtb(this->database_path + "houses.dat");
+    houses_dtb.write();
+
+    utils::io::DatabaseFile requests_dtb(this->database_path + "requests.dat");
+    requests_dtb.write();
+
+    utils::io::DatabaseFile house_reviews_dtb(this->database_path + "house_reviews.dat");
+    house_reviews_dtb.write();
+
+    utils::io::DatabaseFile occupant_reviews_dtb(this->database_path + "occupant_reviews.dat");
+    occupant_reviews_dtb.write();
+
+    std::vector<std::map<std::string, std::string>> cities;
+
+    std::map<std::string, std::string> hanoi;
+    hanoi.emplace("name", "Ha Noi");
+    cities.push_back(hanoi);
+
+    std::map<std::string, std::string> danang;
+    danang.emplace("name", "Da Nang");
+    cities.push_back(danang);
+
+    std::map<std::string, std::string> saigon;
+    saigon.emplace("name", "Sai Gon");
+    cities.push_back(saigon);
+
+    utils::io::DatabaseFile cities_dtb(this->database_path + "cities.dat");
+    cities_dtb << cities;
+    cities_dtb.write();
 }
 
 void Application::reset_database() {
