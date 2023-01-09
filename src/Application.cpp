@@ -197,22 +197,29 @@ void Application::add_house(account::Member &current_member) {
     }
     if (!back) {
         std::cout << "Please enter the new location of your house: \n";
-        std::cout << "1. Ha Noi \n"
-                  << "2. Hue \n"
-                  << "3. Sai Gon \n"
-                  << "Please enter your choice: ";
+        std::cout
+                << "0. Back \n"
+                << "1. Ha Noi \n"
+                << "2. Hue \n"
+                << "3. Sai Gon \n"
+                << "Please enter your choice: ";
         switch (Application::prompt_choice(1, 3)) {
+            case 0:
+                back = true;
+                break;
             case 1:
                 city = "Ha Noi";
+                this->houses.emplace_back(city, buffer, id);
                 break;
             case 2:
                 city = "Hue";
+                this->houses.emplace_back(city, buffer, id);
                 break;
             case 3:
                 city = "Sai Gon";
+                this->houses.emplace_back(city, buffer, id);
                 break;
         }
-        this->houses.emplace_back(city, buffer, id);
     }
 }
 
