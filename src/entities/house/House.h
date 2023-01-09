@@ -26,9 +26,9 @@ namespace house {
       public:
         House();
 
-        House(std::string city,
+        House(std::string &city,
               account::Member *owner,
-              short int rating,
+              short int &rating,
               std::vector<HouseReview*> reviews,
               HouseListing* listing,
               HouseOccupancy* occupancy);

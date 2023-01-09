@@ -36,14 +36,14 @@ namespace house {
         this->city = city;
     };
 
-    House::House(std::string city,
+    House::House(std::string &city,
                  account::Member *owner,
-                 short rating,
+                 short &rating,
                  std::vector<HouseReview*> reviews,
                  HouseListing* listing,
                  HouseOccupancy* occupancy) {
 
-        this->city = std::move(city);
+        this->city = city;
         this->owner = owner;
         this->rating = rating;
         this->reviews = std::move(reviews);
