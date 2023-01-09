@@ -40,7 +40,9 @@ namespace house {
                  short rating,
                  std::vector<HouseReview*> reviews,
                  HouseListing* listing,
-                 HouseOccupancy* occupancy) {
+                 HouseOccupancy* occupancy,
+                 const utils::time::Datetime& start,
+                 const utils::time::Datetime& end) {
 
         this->city = std::move(city);
         this->owner = owner;
@@ -48,7 +50,10 @@ namespace house {
         this->reviews = std::move(reviews);
         this->listing = listing;
         this->occupancy = occupancy;
+        this->period.set_start(start);
+        this->period.set_end(end);
     }
+
     bool House::is_available() {
         if (this->occupancy != nullptr) {
             return true;

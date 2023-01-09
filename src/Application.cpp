@@ -205,11 +205,6 @@ void Application::member_menu() {
                           "Rating: " << std::fixed << std::setprecision(1) << current_member->get_rating() << "\n\n";
                 break;
             case 2:
-                for (auto& member : this->members){
-                    if(member.get_username() == buffer){
-                        member.add_house();
-                    }
-                }
                 break;
             case 3:
                 // todo Search all available houses

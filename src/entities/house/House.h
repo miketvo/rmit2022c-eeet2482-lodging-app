@@ -23,6 +23,7 @@ namespace house {
         std::vector<HouseReview*> reviews;
         HouseListing* listing;
         HouseOccupancy *occupancy;
+        utils::time::Period period;
       public:
         House();
 
@@ -31,7 +32,9 @@ namespace house {
               short int rating,
               std::vector<HouseReview*> reviews,
               HouseListing* listing,
-              HouseOccupancy* occupancy);
+              HouseOccupancy* occupancy,
+              const utils::time::Datetime& start,
+              const utils::time::Datetime& end);
 
         std::map<std::string, std::string> to_map();
         void from_map(std::map<std::string, std::string> map);
@@ -46,6 +49,7 @@ namespace house {
 
         friend class account::Member;
         void setCity(std::string city);
+        const utils::time::Period &getPeriod() const;
     };
 
 } // house
