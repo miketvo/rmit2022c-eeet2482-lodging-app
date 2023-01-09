@@ -169,9 +169,14 @@ void Application::add_house(){
     std::string city;
     std::cout << "Please enter the location of your houses: \n";
     std::getline(std::cin, city);
-    std::cout << city;
     std::string buffer;
     account::Member *current_member;
+    for (auto& member : this->members) {
+        if (member.get_username() == buffer) {
+            current_member = &member;
+            break;
+        }
+    }
     this->houses.emplace_back(city, current_member);
 }
 
