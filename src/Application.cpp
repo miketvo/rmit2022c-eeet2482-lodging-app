@@ -277,7 +277,7 @@ void Application::admin_menu() {
 
             switch (Application::prompt_choice(1, 2)) {
                 case 1:
-                    // todo View all house details and member details
+                    // View all house details and member details
                     for (auto member : this->members) {
                         std::map<std::string, std::string> member_map;
                         member_map = member.to_map();
