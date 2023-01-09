@@ -52,7 +52,6 @@ void Application::load_database() {
     members_dtb.read();
     members_dtb >> data_member;
     for (auto& record : data_member) {
-//        std::cout << record["username"];
         this->members.emplace_back();
         this->members.back().from_map(record);
     }
@@ -64,7 +63,6 @@ void Application::load_database() {
     houses_dtb.read();
     houses_dtb >> data_houses;
     for (auto& record : data_houses) {
-        //        std::cout << record["username"];
         this->houses.emplace_back();
         this->houses.back().from_map(record);
     }
@@ -175,12 +173,29 @@ void Application::guest_menu() {
 }
 
 void Application::add_house(account::Member &current_member){
+    int choice;
     std::string city;
-    std::cout << "Please enter the location of your houses: \n";
-    std::getline(std::cin, city);
-
+    std::string ID = std::to_string(this->houses.size() + 1);
     std::string buffer;
     buffer = current_member.get_username();
+    std::cout << ID;
+    std::cout << "Please enter the location of your houses: \n";
+    std::cout << "1. Ha Noi \n"
+            << "2. Hue \n"
+            << "3. Sai Gon \n"
+            << "Please enter your choice: ";
+    std::cin >> choice;
+    switch(choice){
+        case 1:
+            city = "Ha Noi";
+            break;
+        case 2:
+            city = "Hue";
+            break;
+        case 3:
+            city = "Sai Gon";
+            break;
+    }
     this->houses.emplace_back(city, buffer);
 }
 
