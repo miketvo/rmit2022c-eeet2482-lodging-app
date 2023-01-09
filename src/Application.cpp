@@ -220,7 +220,16 @@ void Application::member_menu() {
                           "Rating: " << std::fixed << std::setprecision(1) << current_member->get_rating() << "\n\n";
                 break;
             case 2:
-                Application::add_house();
+                for (auto& member : this->members) {
+                    if (member.get_username() == buffer) {
+                        current_member = &member;
+
+                        std::string city;
+                        std::cout << "Please enter city: \n";
+                        std::getline(std::cin, city);
+                        this->houses.emplace_back(city, current_member);
+                    }
+                }
                 break;
             case 3:
                 // todo Search all available houses
