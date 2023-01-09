@@ -170,7 +170,9 @@ void Application::add_house(){
     std::cout << "Please enter the location of your houses: \n";
     std::getline(std::cin, city);
     std::cout << city;
-    this->houses.emplace_back(city);
+    std::string buffer;
+    account::Member *current_member;
+    this->houses.emplace_back(city, current_member);
 }
 
 void Application::member_menu() {
