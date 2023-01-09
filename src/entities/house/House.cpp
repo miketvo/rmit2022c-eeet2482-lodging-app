@@ -16,10 +16,10 @@ namespace house {
         return city;
     }
     account::Member *House::getOwner() const {
-        return this->owner->;
+        return this->owner;
     }
-    std::string House::getRating() const {
-        return std::to_string(rating);
+    short House::getRating() const {
+        return rating;
     }
     const std::vector<HouseReview *> &House::getReviews() const {
         return reviews;
@@ -30,6 +30,10 @@ namespace house {
     HouseOccupancy *House::getOccupancy() const {
         return occupancy;
     }
+
+    void House::setCity(std::string city){
+        this->city = city;
+    };
 
     House::House(std::string city,
                  account::Member *owner,

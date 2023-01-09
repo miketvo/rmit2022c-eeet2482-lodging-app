@@ -155,7 +155,7 @@ void Application::guest_menu() {
                 std::cout << "House details \n";
                 break;
             case 2:
-                // todo register account
+                // todo register accout
                 std::cout << "Registered...\n";
                 break;
             case 0:
@@ -186,12 +186,13 @@ void Application::member_menu() {
                      "===============================================\n"
                      "0. Back. \n"
                      "1. View information.\n"
-                     "2. List all house are available to be occupied.\n"
-                     "3. Search all available houses. \n"
-                     "4. Request house to occupy. \n"
-                     "5. Accept/Decline incoming requests. \n"
-                     "6. Rate occupied house. \n"
-                     "7. Rate occupiers who had used my house. \n";
+                     "2. Add house to my renting list.\n"
+                     "3. List all house are available to be occupied.\n"
+                     "4. Search all available houses. \n"
+                     "5. Request house to occupy. \n"
+                     "6. Accept/Decline incoming requests. \n"
+                     "7. Rate occupied house. \n"
+                     "8. Rate occupiers who had used my house. \n";
 
         switch (Application::prompt_choice(1, 3)) {
             case 1:
@@ -204,7 +205,11 @@ void Application::member_menu() {
                           "Rating: " << std::fixed << std::setprecision(1) << current_member->get_rating() << "\n\n";
                 break;
             case 2:
-                // todo list all available house to be occupied
+                for (auto& member : this->members){
+                    if(member.get_username() == buffer){
+                        member.add_house();
+                    }
+                }
                 break;
             case 3:
                 // todo Search all available houses
@@ -288,7 +293,6 @@ bool Application::register_member() {
     std::getline(std::cin, phone_number);
 
     this->members.emplace_back(username, password, first_name, last_name, phone_number);
-
     return true;
 }
 
