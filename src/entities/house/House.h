@@ -23,14 +23,12 @@ namespace house {
         std::vector<HouseReview*> reviews;
         HouseListing* listing;
         HouseOccupancy *occupancy;
-        utils::time::Period period;
+//        utils::time::Period period;
       public:
         House();
 
         House(std::string &city,
-              account::Member *owner,
-              const utils::time::Datetime& start,
-              const utils::time::Datetime& end);
+              account::Member *owner);
 
         std::map<std::string, std::string> to_map();
         void from_map(std::map<std::string, std::string> map);

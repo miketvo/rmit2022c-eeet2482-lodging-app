@@ -33,14 +33,12 @@ namespace house {
     };
 
     House::House(std::string &city,
-                 account::Member *owner,
-                 const utils::time::Datetime& start,
-                 const utils::time::Datetime& end) {
+                 account::Member *owner) {
 
         this->city = city;
         this->owner = owner;
-        this->period.set_start(start);
-        this->period.set_end(end);
+//        this->period.set_start(start);
+//        this->period.set_end(end);
     }
     bool House::is_available() {
         if (this->occupancy != nullptr) {
