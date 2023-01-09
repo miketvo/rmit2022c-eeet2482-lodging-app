@@ -176,9 +176,6 @@ void Application::add_house(account::Member &current_member){
     int choice;
     std::string city;
     std::cout << "Please enter the location of your houses: \n";
-    std::getline(std::cin, city);
-
-    std::cout << "Please enter the location of your houses: \n";
     std::cout << "1. Ha Noi \n"
             << "2. Hue \n"
             << "3. Sai Gon \n"
@@ -195,6 +192,7 @@ void Application::add_house(account::Member &current_member){
             city = "Sai Gon";
             break;
     }
+    std::getline(std::cin, city);
     std::string buffer;
     buffer = current_member.get_username();
     std::string id = current_member.get_id();
