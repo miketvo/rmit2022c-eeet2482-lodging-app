@@ -34,11 +34,12 @@ namespace house {
               HouseOccupancy* occupancy);
 
         std::map<std::string, std::string> to_map();
+        void from_map(std::map<std::string, std::string> map);
 
         bool is_available();
         const std::string &getCity() const;
         account::Member *getOwner() const;
-        short getRating() const;
+        std::string getRating() const;
         const std::vector<HouseReview *> &getReviews() const;
         HouseListing *getListing() const;
         HouseOccupancy *getOccupancy() const;
