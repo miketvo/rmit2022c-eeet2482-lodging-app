@@ -50,7 +50,7 @@ namespace account {
         const std::string &get_last_name() const;
         const std::string &get_phone_number() const;
         double get_rating();
-
+        void add_house();
 
         void from_map(std::map<std::string, std::string> map) override;
         std::map<std::string, std::string> to_map() override;

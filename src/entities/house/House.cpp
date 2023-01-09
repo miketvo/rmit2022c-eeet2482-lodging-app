@@ -58,13 +58,13 @@ namespace house {
     void House::from_map(std::map<std::string, std::string> map) {
         this->city = map["city"];
         this->owner->get_username() = map["owner"];
-        this->getRating() = map["rating"];
+        std::to_string(this->rating) = map["rating"];
     }
     std::map<std::string, std::string> House::to_map() {
         std::map<std::string, std::string> map;
         map.emplace("city", this->city);
         map.emplace("owner", this->owner->get_username());
-        map.emplace("rating", this->getRating());
+        map.emplace("rating", std::to_string(this->rating));
         return {};
     }
 

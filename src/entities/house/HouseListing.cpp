@@ -43,7 +43,7 @@ namespace house {
         std::map<std::string, std::string> map;
         map.emplace("city", this->house->getCity());
         map.emplace("owner", this->house->getOwner()->get_username());
-        map.emplace("rating", this->house->getRating());
+        map.emplace("rating", std::to_string(this->house->getRating()));
         map.emplace("rent_per_day", std::to_string(this->rent_per_day));
         map.emplace("min_occupier_rating", this->getMinOccupierRating());
         return {};
