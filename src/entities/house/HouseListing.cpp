@@ -5,8 +5,15 @@
 namespace house {
     HouseListing::HouseListing() {
         this->house = nullptr;
+        this->requests = {};
         this->rent_per_day = 0;
         this->min_occupier_rating = -10;
+    }
+    void HouseListing::setRentPerDay(unsigned long rentPerDay) {
+        rent_per_day = rentPerDay;
+    }
+    void HouseListing::setMinOccupierRating(short minOccupierRating) {
+        min_occupier_rating = minOccupierRating;
     }
     House *HouseListing::getHouse() const {
         return house;
