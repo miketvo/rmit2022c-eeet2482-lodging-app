@@ -174,17 +174,18 @@ void Application::guest_menu() {
     }
 }
 
-void Application::add_house(account::Member &current_member){
+void Application::add_house(account::Member &current_member, int id){
     std::string city;
     std::cout << "Please enter the location of your houses: \n";
+//    this->prompt_city();
     std::getline(std::cin, city);
-
     std::string buffer;
     buffer = current_member.get_username();
-    this->houses.emplace_back(city, buffer);
+    this->houses.emplace_back(city, buffer, id);
 }
 
 void Application::member_menu() {
+    int index = 1;
     bool back = true;
     std::string buffer;
     account::Member *current_member;
@@ -197,6 +198,7 @@ void Application::member_menu() {
             current_member = &member;
             break;
         }
+        index++;
     }
     if (back) std::cout << "No user with user name '" << buffer << "' found!\n";
 
@@ -224,7 +226,7 @@ void Application::member_menu() {
                           "Rating: " << std::fixed << std::setprecision(1) << current_member->get_rating() << "\n\n";
                 break;
             case 2:
-                Application::add_house(*current_member);
+                Application::add_house(*current_member, index);
                 break;
             case 3:
                 // todo Search all available houses
