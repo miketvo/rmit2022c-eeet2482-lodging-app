@@ -20,22 +20,25 @@ namespace house {
         std::string city;
         account::Member *owner;
         short int rating;
-        std::vector<HouseReview*> reviews;
-        HouseListing* listing;
+        std::vector<HouseReview *> reviews;
+        HouseListing *listing;
         HouseOccupancy *occupancy;
+
       public:
         House();
 
         House(std::string city,
               account::Member *owner,
               short int rating,
-              std::vector<HouseReview*> reviews,
-              HouseListing* listing,
-              HouseOccupancy* occupancy);
+              std::vector<HouseReview *> reviews,
+              HouseListing *listing,
+              HouseOccupancy *occupancy);
 
         std::map<std::string, std::string> to_map();
 
         bool is_available();
+        void setCity(std::string city);
+        void setOwner(std::string *owner);
         const std::string &getCity() const;
         account::Member *getOwner() const;
         short getRating() const;
@@ -46,6 +49,6 @@ namespace house {
         friend class account::Member;
     };
 
-} // house
+}// namespace house
 
-#endif //RMIT2022C_EEET2482_LODGING_APP_SRC_ENTITIES_HOUSE_HOUSE_H_
+#endif//RMIT2022C_EEET2482_LODGING_APP_SRC_ENTITIES_HOUSE_HOUSE_H_

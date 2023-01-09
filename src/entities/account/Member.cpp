@@ -46,6 +46,14 @@ namespace account {
         return phone_number;
     }
 
+    void Member::add_house() {
+        house::House house;
+        std::string city;
+        std::cout << "Please enter the city of your house: ";
+        getline(std::cin, city);
+        house.setCity(city);
+    }
+
 
     //Get the Rating Score
     double Member::get_rating() {

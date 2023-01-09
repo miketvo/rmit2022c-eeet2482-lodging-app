@@ -31,6 +31,15 @@ namespace house {
         return occupancy;
     }
 
+    void House::setCity(std::string city){
+        this->city = city;
+    };
+
+    void House::setOwner(std::string *owner){
+        this->owner = &owner;
+    }
+
+
     House::House(std::string city,
                  account::Member *owner,
                  short rating,
@@ -51,6 +60,7 @@ namespace house {
         }
         return false;
     }
+
     std::map<std::string, std::string> House::to_map() {
         return {};
     }
