@@ -45,13 +45,6 @@ namespace account {
     const std::string &Member::get_phone_number() const {
         return phone_number;
     }
-
-    void Member::add_house() {
-        std::string city;
-        std::cout << "House location: \n";
-        getline(std::cin, city);
-        this->house->setCity(city);
-    }
     //Get the Rating Score
     double Member::get_rating() {
         // Case: If there is no one rate this member account

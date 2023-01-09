@@ -12,6 +12,7 @@ namespace house {
         this->listing = nullptr;
         this->occupancy = nullptr;
     }
+
     const std::string &House::getCity() const {
         return city;
     }
