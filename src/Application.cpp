@@ -1,6 +1,8 @@
 #include <iostream>
 #include <sys/stat.h>
 #include <iomanip>
+#include <cstdint>
+
 #include "Application.h"
 #include "utils/io/DatabaseFile.h"
 #include "entities/account/Admin.h"
@@ -162,7 +164,7 @@ void Application::guest_menu() {
                 std::cout << "House details \n";
                 break;
             case 2:
-                // todo register accout
+                // todo register account
                 std::cout << "Registered...\n";
                 break;
             case 0:
@@ -276,8 +278,26 @@ void Application::admin_menu() {
             switch (Application::prompt_choice(1, 2)) {
                 case 1:
                     // todo View all house details and member details
-
-                    break;
+                    for (auto member : this->members) {
+                        std::map<std::string, std::string> member_map;
+                        member_map = member.to_map();
+                        std::cout << "======================================\n" <<
+                            member.get_username() + "'s DETAILED INFO:\n" <<
+                            "======================================\n";
+                        for(auto it = member_map.cbegin(); it != member_map.cend(); ++it)
+                        {
+                            std::cout << it->first << " " << it->second << "\n";
+                            if (it->first == "username") {
+                                for (auto house : this->houses) {
+                                    if(house.getHouseOwner() == it->second) {
+                                        std::cout << "house's location: " << house.getCity() << "\n";
+                                        // todo implement more house info later
+                                    }
+                                }
+                            }
+                        }
+                        std::cout << std::endl;
+                    };
                 case 0:
                     back = true;
                     break;
@@ -359,7 +379,6 @@ int Application::prompt_choice(unsigned min, unsigned max) {
 
     return choice;
 }
-
 
 Application::Application() {
     this->quit = false;

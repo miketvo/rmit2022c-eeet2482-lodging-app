@@ -16,6 +16,9 @@ namespace house {
     account::Member *House::getOwner() const {
         return this->owner;
     }
+    const std::string &House::getHouseOwner() const {
+        return this->houseOwner;
+    }
     short House::getRating() const {
         return rating;
     }
@@ -28,10 +31,6 @@ namespace house {
     HouseOccupancy *House::getOccupancy() const {
         return occupancy;
     }
-
-    void House::setCity(std::string city){
-        this->city = city;
-    };
 
     House::House(std::string &city,
                  std::string &houseOwner,
@@ -62,6 +61,5 @@ namespace house {
 //        map.emplace("owner", this->owner->get_username());
         return map;
     }
-
 
 } // house

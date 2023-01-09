@@ -48,6 +48,10 @@ namespace account {
     const std::string &Member::get_phone_number() const {
         return phone_number;
     }
+
+    const std::string &Member::get_id() const {
+        return this->memberID;
+    }
     //Get the Rating Score
     double Member::get_rating() {
         // Case: If there is no one rate this member account
@@ -89,8 +93,5 @@ namespace account {
         map.emplace("phone_number", this->phone_number);
         map.emplace("credits", std::to_string(this->credits));
         return map;
-    }
-    std::string Member::get_id() {
-        return this->memberID;
     }
 }// namespace account
