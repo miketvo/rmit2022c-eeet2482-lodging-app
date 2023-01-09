@@ -16,10 +16,10 @@ namespace house {
         return city;
     }
     account::Member *House::getOwner() const {
-        return this->owner;
+        return this->owner->;
     }
-    short House::getRating() const {
-        return rating;
+    std::string House::getRating() const {
+        return std::to_string(rating);
     }
     const std::vector<HouseReview *> &House::getReviews() const {
         return reviews;
@@ -51,7 +51,16 @@ namespace house {
         }
         return false;
     }
+    void House::from_map(std::map<std::string, std::string> map) {
+        this->city = map["city"];
+        this->owner->get_username() = map["owner"];
+        this->getRating() = map["rating"];
+    }
     std::map<std::string, std::string> House::to_map() {
+        std::map<std::string, std::string> map;
+        map.emplace("city", this->city);
+        map.emplace("owner", this->owner->get_username());
+        map.emplace("rating", this->getRating());
         return {};
     }
 

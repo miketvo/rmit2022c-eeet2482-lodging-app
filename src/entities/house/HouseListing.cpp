@@ -2,6 +2,7 @@
 
 #include <utility>
 
+
 namespace house {
     HouseListing::HouseListing() {
         this->house = nullptr;
@@ -24,8 +25,9 @@ namespace house {
     unsigned long HouseListing::getRentPerDay() const {
         return rent_per_day;
     }
-    short HouseListing::getMinOccupierRating() const {
-        return min_occupier_rating;
+    std::string HouseListing::getMinOccupierRating() {
+        if (this->min_occupier_rating<0) { min_occupier_rating = -min_occupier_rating; }
+        return "-"+std::to_string(min_occupier_rating);
     }
 
     HouseListing::HouseListing(House *house,
@@ -36,5 +38,14 @@ namespace house {
         this->requests = std::move(requests);
         this->rent_per_day = rent_per_day;
         this->min_occupier_rating = min_occupier_rating;
+    }
+    std::map<std::string, std::string> HouseListing::to_map() {
+        std::map<std::string, std::string> map;
+        map.emplace("city", this->house->getCity());
+        map.emplace("owner", this->house->getOwner()->get_username());
+        map.emplace("rating", this->house->getRating());
+        map.emplace("rent_per_day", std::to_string(this->rent_per_day));
+        map.emplace("min_occupier_rating", this->getMinOccupierRating());
+        return {};
     }
 } // house

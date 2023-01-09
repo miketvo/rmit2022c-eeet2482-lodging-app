@@ -155,7 +155,7 @@ void Application::guest_menu() {
                 std::cout << "House details \n";
                 break;
             case 2:
-                // todo register accout
+                // todo register account
                 std::cout << "Registered...\n";
                 break;
             case 0:
@@ -204,7 +204,7 @@ void Application::member_menu() {
                           "Rating: " << std::fixed << std::setprecision(1) << current_member->get_rating() << "\n\n";
                 break;
             case 2:
-                // todo register accout
+                // todo list all available house to be occupied
                 break;
             case 3:
                 // todo Search all available houses
@@ -241,8 +241,10 @@ void Application::admin_menu() {
             switch (Application::prompt_choice(1, 2)) {
                 case 1:
                     // todo View all house details and member details
+
                     break;
-                case 0:back = true;
+                case 0:
+                    back = true;
                     break;
             }
         }
@@ -286,6 +288,7 @@ bool Application::register_member() {
     std::getline(std::cin, phone_number);
 
     this->members.emplace_back(username, password, first_name, last_name, phone_number);
+
     return true;
 }
 
