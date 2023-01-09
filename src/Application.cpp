@@ -1,9 +1,9 @@
-#include "Application.h"
-#include "entities/account/Admin.h"
-#include "utils/io/DatabaseFile.h"
-#include <iomanip>
 #include <iostream>
 #include <sys/stat.h>
+#include <iomanip>
+#include "Application.h"
+#include "utils/io/DatabaseFile.h"
+#include "entities/account/Admin.h"
 
 #if defined(WIN32) || defined(_WIN32) || defined(__WIN32__) || defined(_WIN64) || defined(__CYGWIN__)
 #define PLATFORM_DETECTED 1
@@ -66,18 +66,18 @@ void Application::load_database() {
         this->houses.emplace_back();
         this->houses.back().from_map(record);
     }
-    //
-    //    file.read(this->database_path + "requests.dat");
-    //    file >> data;
-    //
-    //    file.read(this->database_path + "house_reviews.dat");
-    //    file >> data;
-    //
-    //    file.read(this->database_path + "occupant_reviews.dat");
-    //    file >> data;
-    //
-    //    file.read(this->database_path + "cities.dat");
-    //    file >> data;
+//
+//    file.read(this->database_path + "requests.dat");
+//    file >> data;
+//
+//    file.read(this->database_path + "house_reviews.dat");
+//    file >> data;
+//
+//    file.read(this->database_path + "occupant_reviews.dat");
+//    file >> data;
+//
+//    file.read(this->database_path + "cities.dat");
+//    file >> data;
 }
 
 void Application::save_database() {
@@ -162,7 +162,7 @@ void Application::guest_menu() {
                 std::cout << "House details \n";
                 break;
             case 2:
-                // todo register accout
+                // todo register account
                 std::cout << "Registered...\n";
                 break;
             case 0:
@@ -254,13 +254,13 @@ void Application::member_menu() {
 
         switch (Application::prompt_choice(1, 3)) {
             case 1:
-                std::cout << "\nUsername: " << current_member->get_username() << "\n"
-                                                                                 "First name: "
-                          << current_member->get_first_name() << "\n"
-                          << "Last name: " << current_member->get_last_name() << "\n"
-                          << "Phone number: " << current_member->get_phone_number() << "\n"
-                          << "Credits: " << current_member->get_credits() << "\n"
-                          << "Rating: " << std::fixed << std::setprecision(1) << current_member->get_rating() << "\n\n";
+                std::cout <<
+                          "\nUsername: " << current_member->get_username() << "\n"
+                          "First name: " << current_member->get_first_name() << "\n" <<
+                          "Last name: " << current_member->get_last_name() << "\n" <<
+                          "Phone number: " << current_member->get_phone_number() << "\n" <<
+                          "Credits: " << current_member->get_credits() << "\n" <<
+                          "Rating: " << std::fixed << std::setprecision(1) << current_member->get_rating() << "\n\n";
                 break;
             case 2:
                 Application::add_house(*current_member);
@@ -299,9 +299,27 @@ void Application::admin_menu() {
 
             switch (Application::prompt_choice(1, 2)) {
                 case 1:
-                    // todo View all house details and member details
-
-                    break;
+                    // View all house details and member details
+                    for (auto member : this->members) {
+                        std::map<std::string, std::string> member_map;
+                        member_map = member.to_map();
+                        std::cout << "======================================\n" <<
+                            member.get_username() + "'s DETAILED INFO:\n" <<
+                            "======================================\n";
+                        for(auto it = member_map.cbegin(); it != member_map.cend(); ++it)
+                        {
+                            std::cout << it->first << " " << it->second << "\n";
+                            if (it->first == "username") {
+                                for (auto house : this->houses) {
+                                    if(house.getHouseOwner() == it->second) {
+                                        std::cout << "house's location: " << house.getCity() << "\n";
+                                        // todo implement more house info later
+                                    }
+                                }
+                            }
+                        }
+                        std::cout << std::endl;
+                    };
                 case 0:
                     back = true;
                     break;
@@ -346,7 +364,7 @@ bool Application::register_member() {
     std::cout << "Enter your phone number: ";
     std::getline(std::cin, phone_number);
 
-    memberID = std::to_string(this->members.size() + 1);
+    memberID = std::to_string(this->members.size()+1);
 
     this->members.emplace_back(memberID, username, password, first_name, last_name, phone_number);
     return true;
@@ -390,17 +408,18 @@ Application::Application() {
 }
 
 void Application::main_loop() {
-    std::cout << "======================================\n"
-              << "EEET2482/COSC2082 ASSIGNMENT\n"
-              << "VACATION HOUSE EXCHANGE APPLICATION\n"
-              << "\n"
-              << "Instructors: Mr. Linh Tran & Phong Ngo\n"
-              << "Group: Group 9\n"
-              << "s3963207, Do Le long An\n"
-              << "s3817747, Hoang Ngoc Duan\n"
-              << "s3941773, Nguyen Phuong Nam\n"
-              << "s3877562, Vo Tuong Minh"
-              << "\n======================================\n\n";
+    std::cout <<
+              "======================================\n" <<
+              "EEET2482/COSC2082 ASSIGNMENT\n" <<
+              "VACATION HOUSE EXCHANGE APPLICATION\n" <<
+              "\n" <<
+              "Instructors: Mr. Linh Tran & Phong Ngo\n" <<
+              "Group: Group 9\n" <<
+              "s3963207, Do Le long An\n" <<
+              "s3817747, Hoang Ngoc Duan\n" <<
+              "s3941773, Nguyen Phuong Nam\n" <<
+              "s3877562, Vo Tuong Minh" <<
+              "\n======================================\n\n";
 
     if (!this->detected_database()) {
         this->init_database();
@@ -409,14 +428,15 @@ void Application::main_loop() {
 
     // Main application loop
     while (!this->quit) {
-        std::cout << "\nMAIN MENU\n"
-                  << "=========================\n"
-                  << "--> 0. Exit\n"
-                  << "--> 1. Login as Guest\n"
-                  << "--> 2. Login as existing Member\n"
-                  << "--> 3. Register as new Member\n"
-                  << "--> 4. Login as Admin\n"
-                  << "--> 5. Reset application\n";
+        std::cout <<
+                  "\nMAIN MENU\n" <<
+                  "=========================\n" <<
+                  "--> 0. Exit\n" <<
+                  "--> 1. Login as Guest\n" <<
+                  "--> 2. Login as existing Member\n" <<
+                  "--> 3. Register as new Member\n" <<
+                  "--> 4. Login as Admin\n" <<
+                  "--> 5. Reset application\n";
 
         switch (Application::prompt_choice(1, 5)) {
             case 1:
