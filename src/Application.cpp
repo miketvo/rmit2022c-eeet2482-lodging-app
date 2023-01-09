@@ -41,8 +41,8 @@ void Application::init_database() {
 }
 
 void Application::load_database() {
-    std::vector<std::map<std::string, std::string>> data;
-    data.clear();
+    std::vector<std::map<std::string, std::string>> data_member;
+    data_member.clear();
 
     utils::io::DatabaseFile admin_dtb(this->database_path + "admin.dat");
     admin_dtb.read();
@@ -50,15 +50,24 @@ void Application::load_database() {
 
     utils::io::DatabaseFile members_dtb(this->database_path + "members.dat");
     members_dtb.read();
-    members_dtb >> data;
-    for (auto& record : data) {
-        std::cout << record["username"];
+    members_dtb >> data_member;
+    for (auto& record : data_member) {
+//        std::cout << record["username"];
         this->members.emplace_back();
         this->members.back().from_map(record);
     }
-//
-//    file.read(this->database_path + "houses.dat");
-//    file >> data;
+
+    std::vector<std::map<std::string, std::string>> data_houses;
+    data_houses.clear();
+
+    utils::io::DatabaseFile houses_dtb(this->database_path + "houses.dat");
+    houses_dtb.read();
+    houses_dtb >> data_houses;
+    for (auto& record : data_houses) {
+        //        std::cout << record["username"];
+        this->houses.emplace_back();
+        this->houses.back().from_map(record);
+    }
 //
 //    file.read(this->database_path + "requests.dat");
 //    file >> data;
@@ -165,19 +174,14 @@ void Application::guest_menu() {
     }
 }
 
-void Application::add_house(){
+void Application::add_house(account::Member &current_member){
     std::string city;
     std::cout << "Please enter the location of your houses: \n";
     std::getline(std::cin, city);
+
     std::string buffer;
-    account::Member *current_member;
-    for (auto& member : this->members) {
-        if (member.get_username() == buffer) {
-            current_member = &member;
-            break;
-        }
-    }
-    this->houses.emplace_back(city, current_member);
+    buffer = current_member.get_username();
+    this->houses.emplace_back(city, buffer);
 }
 
 void Application::member_menu() {
@@ -220,16 +224,7 @@ void Application::member_menu() {
                           "Rating: " << std::fixed << std::setprecision(1) << current_member->get_rating() << "\n\n";
                 break;
             case 2:
-                for (auto& member : this->members) {
-                    if (member.get_username() == buffer) {
-                        current_member = &member;
-
-                        std::string city;
-                        std::cout << "Please enter city: \n";
-                        std::getline(std::cin, city);
-                        this->houses.emplace_back(city, current_member);
-                    }
-                }
+                Application::add_house(*current_member);
                 break;
             case 3:
                 // todo Search all available houses

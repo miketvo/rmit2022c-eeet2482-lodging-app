@@ -18,6 +18,7 @@ namespace house {
     class House {
       private:
         std::string city;
+        std::string houseOwner;
         account::Member *owner;
         short int rating;
         std::vector<HouseReview*> reviews;
@@ -28,7 +29,7 @@ namespace house {
         House();
 
         House(std::string &city,
-              account::Member *owner);
+              std::string &houseOwner);
 
         std::map<std::string, std::string> to_map();
         void from_map(std::map<std::string, std::string> map);

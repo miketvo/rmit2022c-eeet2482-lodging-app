@@ -44,7 +44,6 @@ namespace account {
             unsigned int credits = 500
         );
 
-
         unsigned int get_credits() const;
         const std::string &get_first_name() const;
         const std::string &get_last_name() const;

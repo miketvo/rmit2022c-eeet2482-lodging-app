@@ -6,7 +6,7 @@ namespace house {
 
     House::House() {
         this->city = "";
-        this->owner = nullptr;
+        this->houseOwner = "";
     }
 
     const std::string &House::getCity() const {
@@ -33,10 +33,10 @@ namespace house {
     };
 
     House::House(std::string &city,
-                 account::Member *owner) {
+                 std::string &houseOwner) {
 
         this->city = city;
-        this->owner = owner;
+        this->houseOwner = houseOwner;
 //        this->period.set_start(start);
 //        this->period.set_end(end);
     }
@@ -48,12 +48,13 @@ namespace house {
     }
     void House::from_map(std::map<std::string, std::string> map) {
         this->city = map["city"];
-        this->owner->get_username() = map["owner"];
+        this->houseOwner = map["houseOwner"];
     }
     std::map<std::string, std::string> House::to_map() {
         std::map<std::string, std::string> map;
         map.emplace("city", this->city);
-        map.emplace("owner", this->owner->get_username());
+        map.emplace("houseOwner", this->houseOwner);
+//        map.emplace("owner", this->owner->get_username());
         return map;
     }
 
