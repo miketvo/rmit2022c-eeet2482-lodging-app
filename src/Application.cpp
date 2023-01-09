@@ -165,6 +165,21 @@ void Application::guest_menu() {
     }
 }
 
+void Application::add_house(){
+    std::string city;
+    std::cout << "Please enter the location of your houses: \n";
+    std::getline(std::cin, city);
+    std::string buffer;
+    account::Member *current_member;
+    for (auto& member : this->members) {
+        if (member.get_username() == buffer) {
+            current_member = &member;
+            break;
+        }
+    }
+    this->houses.emplace_back(city, current_member);
+}
+
 void Application::member_menu() {
     bool back = true;
     std::string buffer;
@@ -205,6 +220,7 @@ void Application::member_menu() {
                           "Rating: " << std::fixed << std::setprecision(1) << current_member->get_rating() << "\n\n";
                 break;
             case 2:
+                Application::add_house();
                 break;
             case 3:
                 // todo Search all available houses

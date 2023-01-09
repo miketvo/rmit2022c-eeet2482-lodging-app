@@ -34,6 +34,7 @@ class Application {
     Application();
 
     void main_loop();
+    void add_house();
 };
 
 #endif //RMIT2022C_EEET2482_LODGING_APP_SRC_APPLICATION_H_

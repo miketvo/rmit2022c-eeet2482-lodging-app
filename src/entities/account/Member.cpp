@@ -45,7 +45,6 @@ namespace account {
     const std::string &Member::get_phone_number() const {
         return phone_number;
     }
-
     //Get the Rating Score
     double Member::get_rating() {
         // Case: If there is no one rate this member account

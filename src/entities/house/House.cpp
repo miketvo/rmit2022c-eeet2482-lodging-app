@@ -7,11 +7,8 @@ namespace house {
     House::House() {
         this->city = "";
         this->owner = nullptr;
-        this->rating = 0;
-        this->reviews = {};
-        this->listing = nullptr;
-        this->occupancy = nullptr;
     }
+
     const std::string &House::getCity() const {
         return city;
     }
@@ -35,25 +32,16 @@ namespace house {
         this->city = city;
     };
 
-    House::House(std::string city,
+    House::House(std::string &city,
                  account::Member *owner,
-                 short rating,
-                 std::vector<HouseReview*> reviews,
-                 HouseListing* listing,
-                 HouseOccupancy* occupancy,
                  const utils::time::Datetime& start,
                  const utils::time::Datetime& end) {
 
-        this->city = std::move(city);
+        this->city = city;
         this->owner = owner;
-        this->rating = rating;
-        this->reviews = std::move(reviews);
-        this->listing = listing;
-        this->occupancy = occupancy;
         this->period.set_start(start);
         this->period.set_end(end);
     }
-
     bool House::is_available() {
         if (this->occupancy != nullptr) {
             return true;
@@ -63,14 +51,12 @@ namespace house {
     void House::from_map(std::map<std::string, std::string> map) {
         this->city = map["city"];
         this->owner->get_username() = map["owner"];
-        std::to_string(this->rating) = map["rating"];
     }
     std::map<std::string, std::string> House::to_map() {
         std::map<std::string, std::string> map;
         map.emplace("city", this->city);
         map.emplace("owner", this->owner->get_username());
-        map.emplace("rating", std::to_string(this->rating));
-        return {};
+        return map;
     }
 
 

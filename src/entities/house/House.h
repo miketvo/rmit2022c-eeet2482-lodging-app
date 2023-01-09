@@ -27,12 +27,8 @@ namespace house {
       public:
         House();
 
-        House(std::string city,
+        House(std::string &city,
               account::Member *owner,
-              short int rating,
-              std::vector<HouseReview*> reviews,
-              HouseListing* listing,
-              HouseOccupancy* occupancy,
               const utils::time::Datetime& start,
               const utils::time::Datetime& end);
 
@@ -49,7 +45,6 @@ namespace house {
 
         friend class account::Member;
         void setCity(std::string city);
-        const utils::time::Period &getPeriod() const;
     };
 
 } // house
