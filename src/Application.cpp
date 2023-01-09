@@ -1,6 +1,7 @@
 #include <iostream>
 #include <sys/stat.h>
 #include <iomanip>
+#include <algorithm>
 #include "Application.h"
 #include "utils/io/DatabaseFile.h"
 #include "entities/account/Admin.h"
@@ -174,18 +175,18 @@ void Application::guest_menu() {
     }
 }
 
-void Application::add_house(account::Member &current_member, int id){
+void Application::add_house(account::Member &current_member){
     std::string city;
     std::cout << "Please enter the location of your houses: \n";
 //    this->prompt_city();
     std::getline(std::cin, city);
     std::string buffer;
     buffer = current_member.get_username();
+    std::string id = current_member.get_id();
     this->houses.emplace_back(city, buffer, id);
 }
 
 void Application::member_menu() {
-    int index = 1;
     bool back = true;
     std::string buffer;
     account::Member *current_member;
@@ -198,7 +199,6 @@ void Application::member_menu() {
             current_member = &member;
             break;
         }
-        index++;
     }
     if (back) std::cout << "No user with user name '" << buffer << "' found!\n";
 
@@ -226,7 +226,7 @@ void Application::member_menu() {
                           "Rating: " << std::fixed << std::setprecision(1) << current_member->get_rating() << "\n\n";
                 break;
             case 2:
-                Application::add_house(*current_member, index);
+                Application::add_house(*current_member);
                 break;
             case 3:
                 // todo Search all available houses
@@ -274,7 +274,7 @@ void Application::admin_menu() {
 }
 
 bool Application::register_member() {
-    std::string username, password, first_name, last_name, phone_number;
+    std::string username, password, first_name, last_name, phone_number, memberID;
 
     std::cout << "Enter your new username: ";
     std::getline(std::cin, username);
@@ -309,7 +309,9 @@ bool Application::register_member() {
     std::cout << "Enter your phone number: ";
     std::getline(std::cin, phone_number);
 
-    this->members.emplace_back(username, password, first_name, last_name, phone_number);
+    memberID = std::to_string(this->members.size()+1);
+
+    this->members.emplace_back(memberID, username, password, first_name, last_name, phone_number);
     return true;
 }
 

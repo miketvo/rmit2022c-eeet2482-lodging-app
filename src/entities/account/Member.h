@@ -26,6 +26,7 @@ namespace account {
     class Member : public Account {
       private:
         unsigned credits;
+        std::string memberID;
         std::string first_name;
         std::string last_name;
         std::string phone_number;
@@ -36,6 +37,7 @@ namespace account {
       public:
         Member();
         Member(
+            const std::string &memberID,
             const std::string &username,
             const std::string &password,
             const std::string &first_name,
@@ -52,6 +54,7 @@ namespace account {
 
         void from_map(std::map<std::string, std::string> map) override;
         std::map<std::string, std::string> to_map() override;
+        std::string get_id();
     };
 
 } // account

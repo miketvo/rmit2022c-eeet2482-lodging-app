@@ -17,7 +17,7 @@ namespace house {
 
     class House {
       private:
-        int houseID;
+        std::string houseID;
         std::string city;
         std::string houseOwner;
         account::Member *owner;
@@ -31,7 +31,7 @@ namespace house {
 
         House(std::string &city,
               std::string &houseOwner,
-              int &houseID);
+              std::string &houseID);
 
         std::map<std::string, std::string> to_map();
         void from_map(std::map<std::string, std::string> map);

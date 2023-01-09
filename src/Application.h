@@ -28,7 +28,7 @@ class Application {
     void member_menu();
     void admin_menu();
     bool register_member();
-    void add_house(account::Member &current_member, int id);
+    void add_house(account::Member &current_member);
 
     static int prompt_choice(unsigned min, unsigned max);
   public:
