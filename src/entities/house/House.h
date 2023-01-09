@@ -45,7 +45,7 @@ namespace house {
         HouseOccupancy *getOccupancy() const;
 
         friend class account::Member;
-        void setCity(std::string city);
+        const std::string get_house_id() const;
     };
 
 } // house

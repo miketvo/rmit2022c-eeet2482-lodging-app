@@ -29,8 +29,8 @@ namespace house {
         return occupancy;
     }
 
-    void House::setCity(std::string city){
-        this->city = city;
+    const std::string House::get_house_id() const{
+        return houseID;
     };
 
     House::House(std::string &city,
