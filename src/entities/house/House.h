@@ -17,33 +17,36 @@ namespace house {
 
     class House {
       private:
+        std::string houseID;
         std::string city;
+        std::string houseOwner;
         account::Member *owner;
         short int rating;
         std::vector<HouseReview*> reviews;
         HouseListing* listing;
         HouseOccupancy *occupancy;
+//        utils::time::Period period;
       public:
         House();
 
-        House(std::string city,
-              account::Member *owner,
-              short int rating,
-              std::vector<HouseReview*> reviews,
-              HouseListing* listing,
-              HouseOccupancy* occupancy);
+        House(std::string &city,
+              std::string &houseOwner,
+              std::string &houseID);
 
         std::map<std::string, std::string> to_map();
+        void from_map(std::map<std::string, std::string> map);
 
         bool is_available();
         const std::string &getCity() const;
         account::Member *getOwner() const;
+        const std::string &getHouseOwner() const;
         short getRating() const;
         const std::vector<HouseReview *> &getReviews() const;
         HouseListing *getListing() const;
         HouseOccupancy *getOccupancy() const;
 
         friend class account::Member;
+        const std::string get_house_id() const;
     };
 
 } // house

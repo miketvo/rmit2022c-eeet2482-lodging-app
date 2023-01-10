@@ -41,8 +41,8 @@ void Application::init_database() {
 }
 
 void Application::load_database() {
-    std::vector<std::map<std::string, std::string>> data;
-    data.clear();
+    std::vector<std::map<std::string, std::string>> data_member;
+    data_member.clear();
 
     utils::io::DatabaseFile admin_dtb(this->database_path + "admin.dat");
     admin_dtb.read();
@@ -50,15 +50,22 @@ void Application::load_database() {
 
     utils::io::DatabaseFile members_dtb(this->database_path + "members.dat");
     members_dtb.read();
-    members_dtb >> data;
-    for (auto& record : data) {
-        std::cout << record["username"];
+    members_dtb >> data_member;
+    for (auto &record : data_member) {
         this->members.emplace_back();
         this->members.back().from_map(record);
     }
-//
-//    file.read(this->database_path + "houses.dat");
-//    file >> data;
+
+    std::vector<std::map<std::string, std::string>> data_houses;
+    data_houses.clear();
+
+    utils::io::DatabaseFile houses_dtb(this->database_path + "houses.dat");
+    houses_dtb.read();
+    houses_dtb >> data_houses;
+    for (auto &record : data_houses) {
+        this->houses.emplace_back();
+        this->houses.back().from_map(record);
+    }
 //
 //    file.read(this->database_path + "requests.dat");
 //    file >> data;
@@ -155,11 +162,62 @@ void Application::guest_menu() {
                 std::cout << "House details \n";
                 break;
             case 2:
-                // todo register accout
+                // todo register account
                 std::cout << "Registered...\n";
                 break;
             case 0:
                 back = true;
+                break;
+        }
+    }
+}
+
+void Application::add_house(account::Member &current_member) {
+    bool back = false;
+    std::string city;
+    std::string buffer;
+    buffer = current_member.get_username();
+    std::string id = current_member.get_id();
+    for (int i = 0; i < this->houses.size(); i++) {
+        if (current_member.get_id() == this->houses[i].get_house_id()) {
+            std::cout << "You can't add house anymore, do you want to remove your current house:\n"
+                      << "1. Yes\n"
+                      << "2. No\n"
+                      << "Please enter you choice: ";
+            switch (Application::prompt_choice(1, 2)) {
+                case 1:
+                    this->houses.erase(this->houses.begin() + i);
+                    std::cout << "You have successfully removed your current house !!! \n";
+                    break;
+                case 2:
+                    back = true;
+                    break;
+            }
+        }
+    }
+    if (!back) {
+        std::cout << "Please enter the new location of your house: \n";
+        std::cout
+                << "0. Back \n"
+                << "1. Ha Noi \n"
+                << "2. Hue \n"
+                << "3. Sai Gon \n"
+                << "Please enter your choice: ";
+        switch (Application::prompt_choice(1, 3)) {
+            case 0:
+                back = true;
+                break;
+            case 1:
+                city = "Ha Noi";
+                this->houses.emplace_back(city, buffer, id);
+                break;
+            case 2:
+                city = "Hue";
+                this->houses.emplace_back(city, buffer, id);
+                break;
+            case 3:
+                city = "Sai Gon";
+                this->houses.emplace_back(city, buffer, id);
                 break;
         }
     }
@@ -172,7 +230,7 @@ void Application::member_menu() {
 
     std::cout << "Enter your username: ";
     std::getline(std::cin, buffer);
-    for (auto& member : this->members) {
+    for (auto &member : this->members) {
         if (member.get_username() == buffer) {
             back = !this->login(member);
             current_member = &member;
@@ -186,12 +244,13 @@ void Application::member_menu() {
                      "===============================================\n"
                      "0. Back. \n"
                      "1. View information.\n"
-                     "2. List all house are available to be occupied.\n"
-                     "3. Search all available houses. \n"
-                     "4. Request house to occupy. \n"
-                     "5. Accept/Decline incoming requests. \n"
-                     "6. Rate occupied house. \n"
-                     "7. Rate occupiers who had used my house. \n";
+                     "2. Add house to my renting list.\n"
+                     "3. List all house are available to be occupied.\n"
+                     "4. Search all available houses. \n"
+                     "5. Request house to occupy. \n"
+                     "6. Accept/Decline incoming requests. \n"
+                     "7. Rate occupied house. \n"
+                     "8. Rate occupiers who had used my house. \n";
 
         switch (Application::prompt_choice(1, 3)) {
             case 1:
@@ -204,7 +263,7 @@ void Application::member_menu() {
                           "Rating: " << std::fixed << std::setprecision(1) << current_member->get_rating() << "\n\n";
                 break;
             case 2:
-                // todo register accout
+                Application::add_house(*current_member);
                 break;
             case 3:
                 // todo Search all available houses
@@ -240,9 +299,29 @@ void Application::admin_menu() {
 
             switch (Application::prompt_choice(1, 2)) {
                 case 1:
-                    // todo View all house details and member details
-                    break;
-                case 0:back = true;
+                    // View all house details and member details
+                    for (auto member : this->members) {
+                        std::map<std::string, std::string> member_map;
+                        member_map = member.to_map();
+                        std::cout << "======================================\n" <<
+                            member.get_username() + "'s DETAILED INFO:\n" <<
+                            "======================================\n";
+                        for(auto it = member_map.cbegin(); it != member_map.cend(); ++it)
+                        {
+                            std::cout << it->first << " " << it->second << "\n";
+                            if (it->first == "username") {
+                                for (auto house : this->houses) {
+                                    if(house.getHouseOwner() == it->second) {
+                                        std::cout << "house's location: " << house.getCity() << "\n";
+                                        // todo implement more house info later
+                                    }
+                                }
+                            }
+                        }
+                        std::cout << std::endl;
+                    };
+                case 0:
+                    back = true;
                     break;
             }
         }
@@ -250,14 +329,14 @@ void Application::admin_menu() {
 }
 
 bool Application::register_member() {
-    std::string username, password, first_name, last_name, phone_number;
+    std::string username, password, first_name, last_name, phone_number, memberID;
 
     std::cout << "Enter your new username: ";
     std::getline(std::cin, username);
     std::cout << "Enter your new password: ";
     std::getline(std::cin, password);
 
-    for (const auto& member : this->members) {
+    for (const auto &member : this->members) {
         if (member.get_username() == username) {
             std::cout << "Error: Username '" << username << "' already exists.\n";
             return false;
@@ -285,10 +364,11 @@ bool Application::register_member() {
     std::cout << "Enter your phone number: ";
     std::getline(std::cin, phone_number);
 
-    this->members.emplace_back(username, password, first_name, last_name, phone_number);
+    memberID = std::to_string(this->members.size()+1);
+
+    this->members.emplace_back(memberID, username, password, first_name, last_name, phone_number);
     return true;
 }
-
 
 int Application::prompt_choice(unsigned min, unsigned max) {
     int choice = -1;
@@ -321,13 +401,11 @@ int Application::prompt_choice(unsigned min, unsigned max) {
     return choice;
 }
 
-
 Application::Application() {
     this->quit = false;
     this->login_type = NONE;
     this->database_path = "./data/";
 }
-
 
 void Application::main_loop() {
     std::cout <<
