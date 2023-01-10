@@ -162,7 +162,7 @@ void Application::guest_menu() {
                 std::cout << "House details \n";
                 break;
             case 2:
-                // todo register account
+                this->register_member();
                 std::cout << "Registered...\n";
                 break;
             case 0:
