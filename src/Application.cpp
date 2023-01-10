@@ -41,12 +41,13 @@ void Application::init_database() {
 }
 
 void Application::load_database() {
-    std::vector<std::map<std::string, std::string>> data_member;
-    data_member.clear();
-
+    // admin database file
     utils::io::DatabaseFile admin_dtb(this->database_path + "admin.dat");
     admin_dtb.read();
     this->admin.from_map(admin_dtb[0]);
+    //member database file
+    std::vector<std::map<std::string, std::string>> data_member;
+    data_member.clear();
 
     utils::io::DatabaseFile members_dtb(this->database_path + "members.dat");
     members_dtb.read();
@@ -55,7 +56,7 @@ void Application::load_database() {
         this->members.emplace_back();
         this->members.back().from_map(record);
     }
-
+    //houses database file
     std::vector<std::map<std::string, std::string>> data_houses;
     data_houses.clear();
 
@@ -66,15 +67,39 @@ void Application::load_database() {
         this->houses.emplace_back();
         this->houses.back().from_map(record);
     }
-//
-//    file.read(this->database_path + "requests.dat");
-//    file >> data;
-//
-//    file.read(this->database_path + "house_reviews.dat");
-//    file >> data;
-//
-//    file.read(this->database_path + "occupant_reviews.dat");
-//    file >> data;
+    //house reviews database
+    std::vector<std::map<std::string, std::string>> data_house_reviews;
+    data_house_reviews.clear();
+
+    utils::io::DatabaseFile house_reviews_dtb(this->database_path + "house_reviews.dat");
+    house_reviews_dtb.read();
+    house_reviews_dtb >> data_house_reviews;
+    for (auto &record : data_house_reviews) {
+        this->houses.emplace_back();
+        this->houses.back().from_map(record);
+    }
+    //occupant reviews database
+    std::vector<std::map<std::string, std::string>> data_occupant_reviews;
+    data_occupant_reviews.clear();
+
+    utils::io::DatabaseFile occupant_reviews_dtb(this->database_path + "occupant_reviews.dat");
+    occupant_reviews_dtb.read();
+    occupant_reviews_dtb >> data_occupant_reviews;
+    for (auto &record : data_occupant_reviews) {
+        this->houses.emplace_back();
+        this->houses.back().from_map(record);
+    }
+    //requests database
+    std::vector<std::map<std::string, std::string>> data_requests;
+    data_requests.clear();
+
+    utils::io::DatabaseFile requests_dtb(this->database_path + "requests.dat");
+    requests_dtb.read();
+    requests_dtb >> data_requests;
+    for (auto &record : data_requests) {
+        this->houses.emplace_back();
+        this->houses.back().from_map(record);
+    }
 //
 //    file.read(this->database_path + "cities.dat");
 //    file >> data;
@@ -131,7 +156,12 @@ void Application::save_database() {
 }
 
 void Application::reset_database() {
-    // TODO: Implement this
+    houses.clear();
+    members.clear();
+    //todo clear more db later
+    // cities.clear();
+    // house_reviews.clear();
+    //
 }
 
 bool Application::login(const account::Account &account) {
