@@ -25,6 +25,7 @@ class Application {
     void reset_database();
     bool login(const account::Account &account);
     void guest_menu();
+    void view_house();
     void member_menu();
     void admin_menu();
     bool register_member();

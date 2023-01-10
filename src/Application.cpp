@@ -158,12 +158,12 @@ void Application::guest_menu() {
 
         switch (Application::prompt_choice(1, 3)) {
             case 1:
-                // todo list house details
                 std::cout << "House details \n";
+                this->view_house();
                 break;
             case 2:
-                this->register_member();
                 std::cout << "Registered...\n";
+                this->register_member();
                 break;
             case 0:
                 back = true;
@@ -285,6 +285,19 @@ void Application::member_menu() {
                 break;
         }
     }
+}
+
+void Application::view_house() {
+    std::cout << "\nhouseLocation |\thouseID | houseOwner |\n";
+    for (auto house : this->houses) {
+        std::map<std::string, std::string> house_map;
+        house_map = house.to_map();
+        std::cout << std::endl;
+        for (auto it = house_map.cbegin(); it != house_map.cend(); ++it) {
+            std::cout << it->second + "\t|\t";
+        }
+    }
+    std::cout << std::endl;
 }
 
 void Application::admin_menu() {
