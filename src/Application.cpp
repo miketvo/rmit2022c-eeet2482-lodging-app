@@ -194,7 +194,7 @@ void Application::guest_menu() {
         switch (Application::prompt_choice(1, 3)) {
             case 1:
                 std::cout << "House details \n";
-                this->view_house();
+                this->guest_view_house();
                 break;
             case 2:
                 std::cout << "Registered...\n";
@@ -225,6 +225,7 @@ void Application::house_details(std::string buffer, std::string id) {
             city = "Sai Gon";
             break;
     }
+    // todo add the conditions of setting credit and minimum_rating_score
     std::cout << "\nPlease enter the credit point for your house: ";
     std::cin >> credit_score;
     std::cout << "\nPlease enter the minimum score rating to occupy the house: ";
@@ -268,9 +269,10 @@ void Application::add_house(account::Member &current_member) {
     }
 }
 
-void Application::list_house_available(account::Member &current_member) {
+std::vector<house::House> Application::list_house_available(account::Member &current_member) {
     bool back = true;
     std::string buffer;
+    std::vector<house::House> houses_in_city;
     std::cout << "Please select the city you want to search house for: \n"
               << "0. Back \n"
               << "1. Ha Noi \n"
@@ -303,15 +305,53 @@ void Application::list_house_available(account::Member &current_member) {
                           << " | Credit per day: "
                           << this->houses[i].get_credit()
                           << "\n";
+                houses_in_city.push_back(houses[i]);
             }
         }
     }
+    if (houses_in_city.empty()) {
+        std::cout << "\nThere are no available houses in this city!\n";
+    }
+    return houses_in_city;
+}
+
+bool Application::check_house_request(account::Member &current_member, std::vector<house::House> house_in_city) {
+    bool back = false;
+    house::HouseRequest requester;
+    std::string house_ID;
+
+    if (house_in_city.empty()) {
+        return true;
+    }
+    std::map<std::string, std::string> house_map;
+    while (!back) {
+        std::cout << "\nPlease Enter a valid House ID that you want to request: \n";
+        int houseID = prompt_choice(1, members.size());
+        for (auto house : house_in_city) {
+            house_map = house.to_map();
+            for (auto it = house_map.cbegin(); it != house_map.cend(); ++it) {
+                if (it->first == "houseID" && std::stoi(it->second) == houseID) {
+                    std::cout << "\n You have requested House ID: " << it->second << std::endl;
+                    requester.setHouseRequested(&house);
+                    house_ID = requester.getHouseRequested()->get_house_id();
+                    back = true;
+                }
+            }
+        }
+    }
+    requester.setRequester(&current_member);
+    std::string requester_ID = current_member.get_id();
+    requester.setRequesterId(requester_ID);
+    requester.setHouseRequestedId(house_ID);
+    requests.emplace_back(requester_ID, house_ID);
+    return true;
 }
 
 void Application::member_menu() {
     bool back = true;
     std::string buffer;
     account::Member *current_member;
+    std::vector<house::House> temp_vector;
 
     std::cout << "Enter your username: ";
     std::getline(std::cin, buffer);
@@ -353,8 +393,8 @@ void Application::member_menu() {
                 Application::list_house_available(*current_member);
                 break;
             case 4:
-                // todo Request house to occupy
-                break;
+                temp_vector = Application::list_house_available(*current_member);
+                if (Application::check_house_request(*current_member, temp_vector)) break;
             case 5:
                 // todo Accept/Decline incoming requests
                 break;
@@ -371,7 +411,8 @@ void Application::member_menu() {
     }
 }
 
-void Application::view_house() {
+void Application::guest_view_house() {
+    // todo add conditions so that the guest cannot view all house info
     std::cout << "\nhouseLocation |\thouseID | houseOwner |\n";
     for (auto house : this->houses) {
         std::map<std::string, std::string> house_map;

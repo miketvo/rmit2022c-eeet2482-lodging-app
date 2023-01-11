@@ -6,11 +6,19 @@
 
 namespace house {
     HouseRequest::HouseRequest() {
+        this->requester_id = "";
+        this->house_requested_id = "";
         this->requester = nullptr;
         this->house_requested = nullptr;
     }
-    void HouseRequest::setRequester(account::Member *requester) {
-        this->requester = requester;
+    void HouseRequest::setRequesterId(const std::string &requesterId) {
+        requester_id = requesterId;
+    }
+    void HouseRequest::setHouseRequestedId(const std::string &houseRequestedId) {
+        house_requested_id = houseRequestedId;
+    }
+    void HouseRequest::setRequester(account::Member *requesterID) {
+        this->requester = requesterID;
     }
     account::Member *HouseRequest::getRequester() const {
         return this->requester;
@@ -18,30 +26,22 @@ namespace house {
     House *HouseRequest::getHouseRequested() const {
         return this->house_requested;
     }
-    void HouseRequest::setHouseRequested(House *houseRequested) {
-        this->house_requested = houseRequested;
+    void HouseRequest::setHouseRequested(House *houseRequestedID) {
+        this->house_requested = houseRequestedID;
     }
-    HouseRequest::HouseRequest(account::Member *requester,
-                               House *house_requested){
-        this->requester = requester;
-        this->house_requested = house_requested;
+    HouseRequest::HouseRequest(std::string &requester_id,
+                               std::string &house_requested_id){
+        this->requester_id = requester_id;
+        this->house_requested_id = house_requested_id;
     }
     void HouseRequest::from_map(std::map<std::string, std::string> map) {
-        std::string requesterName;
-        requesterName = this->requester->get_username();
-        std::string houseRequestID;
-        houseRequestID = this->house_requested->get_house_id();
-        requesterName = map["requester"];
-        houseRequestID = map["houseRequestID"];
+        this->requester_id = map["requester_ID"];
+        this->house_requested_id = map["house_request_ID"];
     }
     std::map<std::string, std::string> HouseRequest::to_map() {
         std::map<std::string, std::string> map;
-        std::string requesterName;
-        requesterName = this->requester->get_username();
-        std::string houseRequestID;
-        houseRequestID = this->house_requested->get_house_id();
-        map.emplace("requester", requesterName);
-        map.emplace("house_request_ID", houseRequestID);
+        map.emplace("requester_ID", this->requester_id);
+        map.emplace("house_request_ID", this->house_requested_id);
         return map;
     }
 }

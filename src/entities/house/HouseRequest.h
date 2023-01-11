@@ -12,18 +12,24 @@ namespace house {
       private:
         account::Member *requester;
         House *house_requested;
+        std::string requester_id;
+        std::string house_requested_id;
       public:
         HouseRequest();
-        explicit HouseRequest(account::Member *requester,
-                              House *house_requested);
+        explicit HouseRequest(std::string &requester_id,
+                              std::string &house_requested_id);
+
         void from_map(std::map<std::string, std::string> map);
         std::map<std::string, std::string> to_map();
 
-        void setRequester(account::Member *requester);
+        void setRequester(account::Member *requesterID);
         account::Member *getRequester() const;
 
-        void setHouseRequested(House *houseRequested);
+        void setHouseRequested(House *houseRequestedID);
         House *getHouseRequested() const;
+
+        void setRequesterId(const std::string &requesterId);
+        void setHouseRequestedId(const std::string &houseRequestedId);
 
         friend class account::Member;
     };
