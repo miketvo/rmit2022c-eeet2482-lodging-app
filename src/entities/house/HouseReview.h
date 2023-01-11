@@ -15,8 +15,9 @@ namespace house {
 
       public:
         HouseReview() = default;
-        HouseReview(const std::string &id, const std::string &comment, short rating);
+        HouseReview(const std::string &id, const std::string &comment, int rating);
 
+        void from_map(std::map<std::string, std::string> map) override;
         std::map<std::string, std::string> to_map() override;
         friend class Member;
     };

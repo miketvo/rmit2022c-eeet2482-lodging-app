@@ -308,6 +308,16 @@ void Application::list_house_available(account::Member &current_member) {
     }
 }
 
+void Application::rate_occupied_house(account::Member &current_member) {
+    int rating_score;
+    std::cout << "Here's the information of your occupied house: \n";
+    std::cout << "Please enter the score you want to rate for this house <range: -10 to +10>: ";
+    std::cin >> rating_score;
+    for(auto request : this->requests){
+        request.getRequester()->get_first_name();
+    }
+}
+
 void Application::member_menu() {
     bool back = true;
     std::string buffer;
@@ -359,7 +369,7 @@ void Application::member_menu() {
                 // todo Accept/Decline incoming requests
                 break;
             case 6:
-                // todo Rate occupied house
+                Application::rate_occupied_house(*current_member);
                 break;
             case 7:
                 // todo Rate occupiers who had used my house
