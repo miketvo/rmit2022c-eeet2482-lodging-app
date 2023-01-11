@@ -7,13 +7,23 @@
 
 #include "../account/Member.h"
 namespace house {
+    class House;
     class HouseRequest {
       private:
         account::Member *requester;
+        House *house_requested;
       public:
         HouseRequest();
-        explicit HouseRequest(account::Member *requester);
+        explicit HouseRequest(account::Member *requester,
+                              House *house_requested);
+        void from_map(std::map<std::string, std::string> map);
+        std::map<std::string, std::string> to_map();
+
+        void setRequester(account::Member *requester);
         account::Member *getRequester() const;
+
+        void setHouseRequested(House *houseRequested);
+        House *getHouseRequested() const;
 
         friend class account::Member;
     };

@@ -75,8 +75,8 @@ void Application::load_database() {
     house_reviews_dtb.read();
     house_reviews_dtb >> data_house_reviews;
     for (auto &record : data_house_reviews) {
-        this->houses.emplace_back();
-        this->houses.back().from_map(record);
+        this->house_reviews.emplace_back();
+//        this->house_reviews.back().from_map(record);
     }
     //occupant reviews database
     std::vector<std::map<std::string, std::string>> data_occupant_reviews;
@@ -86,8 +86,8 @@ void Application::load_database() {
     occupant_reviews_dtb.read();
     occupant_reviews_dtb >> data_occupant_reviews;
     for (auto &record : data_occupant_reviews) {
-        this->houses.emplace_back();
-        this->houses.back().from_map(record);
+        this->occupant_reviews.emplace_back();
+//        this->occupant_reviews.back().from_map(record);
     }
     //requests database
     std::vector<std::map<std::string, std::string>> data_requests;
@@ -97,8 +97,8 @@ void Application::load_database() {
     requests_dtb.read();
     requests_dtb >> data_requests;
     for (auto &record : data_requests) {
-        this->houses.emplace_back();
-        this->houses.back().from_map(record);
+        this->requests.emplace_back();
+        this->requests.back().from_map(record);
     }
     //
     //    file.read(this->database_path + "cities.dat");
@@ -128,6 +128,9 @@ void Application::save_database() {
     houses_dtb.write();
 
     utils::io::DatabaseFile requests_dtb(this->database_path + "requests.dat");
+    std::vector<std::map<std::string, std::string>> requests;
+    for (auto request : this->requests) requests.push_back(request.to_map());
+    requests_dtb << requests;
     requests_dtb.write();
 
     utils::io::DatabaseFile house_reviews_dtb(this->database_path + "house_reviews.dat");
@@ -159,9 +162,11 @@ void Application::reset_database() {
     houses.clear();
     members.clear();
     //todo clear more db later
-    // cities.clear();
-    // house_reviews.clear();
-    //
+    cities.clear();
+    house_reviews.clear();
+    occupant_reviews.clear();
+    requests.clear();
+
 }
 
 bool Application::login(const account::Account &account) {
@@ -331,7 +336,7 @@ void Application::member_menu() {
                      "6. Rate occupied house. \n"
                      "7. Rate occupiers who had used my house. \n";
 
-        switch (Application::prompt_choice(1, 3)) {
+        switch (Application::prompt_choice(1, 7)) {
             case 1:
                 std::cout << "\nUsername: " << current_member->get_username() << "\n"
                                                                                  "First name: "
