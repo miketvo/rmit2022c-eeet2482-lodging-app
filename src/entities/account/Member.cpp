@@ -12,7 +12,7 @@ namespace account {
         this->last_name = "";
         this->phone_number = "";
         this->house = nullptr;
-        this->rating_score = 0;
+        this->rating_score = 10;
     }
 
     Member::Member(

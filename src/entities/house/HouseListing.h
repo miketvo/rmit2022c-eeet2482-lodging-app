@@ -15,21 +15,12 @@ namespace house {
       private:
         House *house;
         std::vector<HouseRequest *> requests;
-        unsigned long rent_per_day;
-        short int min_occupier_rating;
       public:
         HouseListing();
         HouseListing(House *house,
-                       std::vector<house::HouseRequest*> requests,
-                       unsigned long rent_per_day,
-                       short int min_occupier_rating = -10);
+                       std::vector<house::HouseRequest*> requests);
         House *getHouse() const;
         const std::vector<HouseRequest *> &getRequests() const;
-        unsigned long getRentPerDay() const;
-        std::string getMinOccupierRating();
-        void setRentPerDay(unsigned long rentPerDay);
-        void setMinOccupierRating(short minOccupierRating);
-        std::map<std::string, std::string> to_map();
     };
 
 } // house

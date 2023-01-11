@@ -252,7 +252,7 @@ void Application::add_house(account::Member &current_member) {
             << "Please enter the details of your house:\n"
             << "0. Back\n"
             << "1. Continue\n";
-        switch (Application::prompt_choice(1,2)) {
+        switch (Application::prompt_choice(1, 2)) {
             case 0:
                 back = true;
                 break;
@@ -264,21 +264,41 @@ void Application::add_house(account::Member &current_member) {
 }
 
 void Application::list_house_available(account::Member &current_member) {
+    bool back = true;
     std::string buffer;
-    buffer = current_member.get_username();
-    std::cout << "Here's the list of current house is available to you.....\n";
-    std::string id = current_member.get_id();
-    for (int i = 0; i < this->houses.size(); i++) {
-        if (current_member.get_id() != this->houses[i].get_house_id()
-            && current_member.get_credits() > this->houses[i].get_credit()
-            && current_member.get_rating() > this->houses[i].get_minimum_review_score()) {
-            std::cout << "House's ID: "
-                      << this->houses[i].get_house_id()
-                      << " | Owner: "
-                      << this->houses[i].getHouseOwner()
-                      << " | Credit per day: "
-                      << this->houses[i].get_credit()
-                      << "\n";
+    std::cout << "Please select the city you want to search house for: \n"
+              << "0. Back \n"
+              << "1. Ha Noi \n"
+              << "2. Hue \n"
+              << "3. Sai Gon \n";
+    switch (Application::prompt_choice(1, 3)) {
+        case 1:
+            buffer = "Ha Noi";
+            back = false;
+            break;
+        case 2:
+            buffer = "Hue";
+            back = false;
+            break;
+        case 3:
+            buffer = "Sai Gon";
+            back = false;
+            break;
+    }
+    if (!back) {
+        for (int i = 0; i < this->houses.size(); i++) {
+            if (current_member.get_id() != this->houses[i].get_house_id()
+                && current_member.get_credits() >= this->houses[i].get_credit()
+                && current_member.get_rating() >= this->houses[i].get_minimum_review_score()
+                && this->houses[i].getCity() == buffer) {
+                std::cout << "House's ID: "
+                          << this->houses[i].get_house_id()
+                          << " | Owner: "
+                          << this->houses[i].getHouseOwner()
+                          << " | Credit per day: "
+                          << this->houses[i].get_credit()
+                          << "\n";
+            }
         }
     }
 }
