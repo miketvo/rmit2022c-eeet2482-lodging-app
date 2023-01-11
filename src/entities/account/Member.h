@@ -26,6 +26,7 @@ namespace account {
     class Member : public Account {
       private:
         unsigned credits;
+        double rating_score;
         std::string memberID;
         std::string first_name;
         std::string last_name;
@@ -43,7 +44,8 @@ namespace account {
             const std::string &first_name,
             const std::string &last_name,
             const std::string &phone_number,
-            unsigned int credits = 500
+            unsigned int credits = 500,
+            double rating_score = 10
         );
 
         unsigned int get_credits() const;
