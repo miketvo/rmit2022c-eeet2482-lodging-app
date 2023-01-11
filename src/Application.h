@@ -28,14 +28,15 @@ class Application {
     void reset_database();
     bool login(const account::Account &account);
     void guest_menu();
-    void view_house();
+    void guest_view_house();
     void member_menu();
     void admin_menu();
     bool register_member();
     void add_house(account::Member &current_member);
     void house_details(std::string buffer, std::string id);
-    void list_house_available(account::Member &current_member);
     void rate_occupied_house(account::Member &current_member);
+    std::vector<house::House> list_house_available(account::Member &current_member);
+    bool check_house_request(account::Member &current_member, std::vector<house::House> temp_vector);
 
     static int prompt_choice(unsigned min, unsigned max);
   public:
