@@ -300,11 +300,10 @@ void Application::member_menu() {
                      "1. View information.\n"
                      "2. Add house to my renting list.\n"
                      "3. List all house are available to be occupied.\n"
-                     "4. Search all available houses. \n"
-                     "5. Request house to occupy. \n"
-                     "6. Accept/Decline incoming requests. \n"
-                     "7. Rate occupied house. \n"
-                     "8. Rate occupiers who had used my house. \n";
+                     "4. Request house to occupy. \n"
+                     "5. Accept/Decline incoming requests. \n"
+                     "6. Rate occupied house. \n"
+                     "7. Rate occupiers who had used my house. \n";
 
         switch (Application::prompt_choice(1, 3)) {
             case 1:
