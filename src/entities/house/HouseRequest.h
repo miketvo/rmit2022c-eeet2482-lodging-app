@@ -14,10 +14,17 @@ namespace house {
         House *house_requested;
         std::string requester_id;
         std::string house_requested_id;
+        std::string requester_username;
+
+      public:
+        const std::string &getRequesterName() const;
+        void setRequesterName(const std::string &requester_username);
+
       public:
         HouseRequest();
         explicit HouseRequest(std::string &requester_id,
-                              std::string &house_requested_id);
+                              std::string &house_requested_id,
+                              std::string &requester_username);
 
         void from_map(std::map<std::string, std::string> map);
         std::map<std::string, std::string> to_map();

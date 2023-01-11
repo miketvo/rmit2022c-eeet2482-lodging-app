@@ -319,6 +319,8 @@ bool Application::check_house_request(account::Member &current_member, std::vect
     bool back = false;
     house::HouseRequest requester;
     std::string house_ID;
+    std::string requester_ID = current_member.get_id();
+    std::string requester_name = current_member.get_first_name();
 
     if (house_in_city.empty()) {
         return true;
@@ -340,10 +342,10 @@ bool Application::check_house_request(account::Member &current_member, std::vect
         }
     }
     requester.setRequester(&current_member);
-    std::string requester_ID = current_member.get_id();
+    requester.setRequesterName(requester_name);
     requester.setRequesterId(requester_ID);
     requester.setHouseRequestedId(house_ID);
-    requests.emplace_back(requester_ID, house_ID);
+    requests.emplace_back(requester_ID, house_ID, requester_name);
     return true;
 }
 
