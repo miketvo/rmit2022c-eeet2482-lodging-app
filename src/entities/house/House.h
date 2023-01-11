@@ -20,6 +20,8 @@ namespace house {
         std::string houseID;
         std::string city;
         std::string houseOwner;
+        int credit;
+        int minimum_review_score;
         account::Member *owner;
         short int rating;
         std::vector<HouseReview*> reviews;
@@ -31,7 +33,7 @@ namespace house {
 
         House(std::string &city,
               std::string &houseOwner,
-              std::string &houseID);
+              std::string &houseID, int credit, int minimum_review_score);
 
         std::map<std::string, std::string> to_map();
         void from_map(std::map<std::string, std::string> map);
@@ -47,6 +49,8 @@ namespace house {
 
         friend class account::Member;
         const std::string get_house_id() const;
+        const int get_credit() const;
+        const int get_minimum_review_score() const;
     };
 
 } // house

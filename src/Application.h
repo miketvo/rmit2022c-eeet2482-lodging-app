@@ -33,6 +33,7 @@ class Application {
     void admin_menu();
     bool register_member();
     void add_house(account::Member &current_member);
+    void list_house_available(account::Member &current_member);
 
     static int prompt_choice(unsigned min, unsigned max);
   public:
