@@ -201,21 +201,41 @@ void Application::guest_menu() {
         }
     }
 }
-
+void Application::house_details(std::string buffer, std::string id) {
+    std::string city;
+    int credit_score, minimum_rating_score;
+    std::cout << "Please enter the new location of your house: \n";
+    std::cout
+        << "1. Ha Noi \n"
+        << "2. Hue \n"
+        << "3. Sai Gon \n";
+    switch (Application::prompt_choice(1, 3)) {
+        case 1:
+            city = "Ha Noi";
+            break;
+        case 2:
+            city = "Hue";
+            break;
+        case 3:
+            city = "Sai Gon";
+            break;
+    }
+    std::cout << "\nPlease enter the credit point for your house: ";
+    std::cin >> credit_score;
+    std::cout << "\nPlease enter the minimum score rating to occupy the house: ";
+    std::cin >> minimum_rating_score;
+    this->houses.emplace_back(city, buffer, id, credit_score, minimum_rating_score);
+}
 void Application::add_house(account::Member &current_member) {
     bool back = false;
-    std::string city;
     std::string buffer;
-    int credit_score, minimum_rating_score;
-
     buffer = current_member.get_username();
     std::string id = current_member.get_id();
     for (int i = 0; i < this->houses.size(); i++) {
         if (current_member.get_id() == this->houses[i].get_house_id()) {
             std::cout << "You can't add house anymore, do you want to remove your current house:\n"
                       << "1. Yes\n"
-                      << "2. No\n"
-                      << "Please enter you choice: ";
+                      << "2. No\n";
             switch (Application::prompt_choice(1, 2)) {
                 case 1:
                     this->houses.erase(this->houses.begin() + i);
@@ -228,32 +248,18 @@ void Application::add_house(account::Member &current_member) {
         }
     }
     if (!back) {
-        std::cout << "Please enter the new location of your house: \n";
         std::cout
-            << "0. Back \n"
-            << "1. Ha Noi \n"
-            << "2. Hue \n"
-            << "3. Sai Gon \n"
-            << "Please enter your choice: ";
-        switch (Application::prompt_choice(1, 3)) {
+            << "Please enter the details of your house:\n"
+            << "0. Back\n"
+            << "1. Continue\n";
+        switch (Application::prompt_choice(1,2)) {
             case 0:
                 back = true;
                 break;
             case 1:
-                city = "Ha Noi";
-                break;
-            case 2:
-                city = "Hue";
-                break;
-            case 3:
-                city = "Sai Gon";
+                this->house_details(buffer, id);
                 break;
         }
-        std::cout << "\nPlease enter the credit point for your house:   ";
-        std::cin >> credit_score;
-        std::cout << "\nPlease enter the minimum score rating to occupy the house:   ";
-        std::cin >> minimum_rating_score;
-        this->houses.emplace_back(city, buffer, id, credit_score, minimum_rating_score);
     }
 }
 
