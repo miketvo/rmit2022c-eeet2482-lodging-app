@@ -15,6 +15,10 @@ namespace account {
         this->rating_score = 10.0;
     }
 
+    house::House *Member::getHouse() const {
+        return this->house;
+    }
+
     Member::Member(
         const std::string &memberID,
         const std::string &username,
