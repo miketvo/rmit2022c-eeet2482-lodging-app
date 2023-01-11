@@ -45,7 +45,7 @@ namespace account {
             const std::string &last_name,
             const std::string &phone_number,
             unsigned int credits = 500,
-            double rating_score = 10
+            double rating_score = 0
         );
 
         unsigned int get_credits() const;
