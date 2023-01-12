@@ -51,8 +51,8 @@ namespace house {
     const double House::get_rating_score() const {
         return this->rating_score;
     }
-    void House::setRatingScore(double ratingScore) {
-        rating_score = ratingScore;
+    void House::setRatingScore(double rating_score) {
+        rating_score = rating_score;
     }
 
     House::House(std::string &city,

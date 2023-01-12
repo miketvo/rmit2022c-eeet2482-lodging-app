@@ -3,6 +3,7 @@
 #include "utils/io/DatabaseFile.h"
 #include <iomanip>
 #include <iostream>
+#include <sstream>
 #include <sys/stat.h>
 
 #if defined(WIN32) || defined(_WIN32) || defined(__WIN32__) || defined(_WIN64) || defined(__CYGWIN__)
@@ -210,7 +211,8 @@ void Application::guest_menu() {
 }
 void Application::house_details(std::string buffer, std::string id) {
     std::string city;
-    int credit_score, minimum_rating_score, rating_score;
+    int credit_score, minimum_rating_score;
+    double rating_score;
     std::cout << "Please enter the new location of your house: \n";
     std::cout
         << "1. Ha Noi \n"
@@ -498,12 +500,11 @@ void Application::rate_occupied_house(account::Member &current_member) {
                         case 1:
                             std::cout << "\nPlease enter the score you want to rate for this house <range: -10 to +10>: ";
                             std::cin >> rating_score_occupied_house;
-                            this->houses[i].setRatingScore(rating_score_occupied_house);
                             std::cout << "\nPlease enter your comment about this house: ";
                             std::cin.ignore(256, '\n');
                             std::getline(std::cin, comment);
                             house_id = this->houses[i].get_house_id();
-                            this->house_reviews.emplace_back(requester_ID, comment, rating_score, house_id);
+                            this->house_reviews.emplace_back(requester_ID, comment, rating_score_occupied_house, house_id);
                             std::cout << "\n========" << this->house_reviews.size() << "========\n";
                             for (auto house_review : this->house_reviews) {
                                 if (house_review.getHouseId() == this->houses[i].get_house_id()) {
