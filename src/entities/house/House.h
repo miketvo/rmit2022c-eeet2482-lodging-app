@@ -23,8 +23,8 @@ namespace house {
         std::string houseOwner;
         int credit;
         int minimum_review_score;
+        int rating_score;
         account::Member *owner;
-        short int rating;
         std::vector<HouseReview*> reviews;
         HouseOccupancy *occupancy;
         std::vector<HouseRequest*> requests;
@@ -36,7 +36,8 @@ namespace house {
               std::string &houseOwner,
               std::string &houseID,
               int credit,
-              int minimum_review_score);
+              int minimum_review_score,
+              int rating_score);
 
         std::map<std::string, std::string> to_map();
         void from_map(std::map<std::string, std::string> map);
@@ -45,7 +46,6 @@ namespace house {
         const std::string &getCity() const;
         account::Member *getOwner() const;
         const std::string &getHouseOwner() const;
-        short getRating() const;
         const std::vector<HouseReview *> &getReviews() const;
         HouseOccupancy *getOccupancy() const;
 
@@ -55,6 +55,9 @@ namespace house {
         const int get_minimum_review_score() const;
         const std::vector<HouseRequest *> &getRequests() const;
         void setRequests(house::HouseRequest &requests);
+        const int get_rating_score() const;
+        void setRatingScore(int ratingScore);
+
     };
 
 } // house

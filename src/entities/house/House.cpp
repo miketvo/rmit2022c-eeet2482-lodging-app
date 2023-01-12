@@ -10,6 +10,7 @@ namespace house {
         this->houseID = "";
         this->credit = 0;
         this->minimum_review_score = 0;
+        this->rating_score = 10;
         this->requests = {};
     }
     const std::vector<HouseRequest *> &House::getRequests() const {
@@ -27,9 +28,6 @@ namespace house {
     }
     const std::string &House::getHouseOwner() const {
         return this->houseOwner;
-    }
-    short House::getRating() const {
-        return rating;
     }
     const std::vector<HouseReview *> &House::getReviews() const {
         return reviews;
@@ -50,15 +48,26 @@ namespace house {
         return this->minimum_review_score;
     }
 
+    const int House::get_rating_score() const {
+        return this->rating_score;
+    }
+    void House::setRatingScore(int ratingScore) {
+        rating_score = ratingScore;
+    }
+
     House::House(std::string &city,
                  std::string &houseOwner,
-                 std::string &houseID, int credit, int minimum_review_score) {
+                 std::string &houseID,
+                 int credit,
+                 int minimum_review_score,
+                 int rating_score) {
 
         this->city = city;
         this->houseOwner = houseOwner;
         this->houseID = houseID;
         this->credit = credit;
         this->minimum_review_score = minimum_review_score;
+        this->rating_score = rating_score;
         //        this->period.set_start(start);
         //        this->period.set_end(end);
     }
@@ -72,8 +81,9 @@ namespace house {
         this->houseID = map["houseID"];
         this->city = map["city"];
         this->houseOwner = map["houseOwner"];
-        this->credit = std::stoul(map["credit"]);
-        this->minimum_review_score = std::stoul(map["minimum_review_score"]);
+        this->credit = std::stoi(map["credit"]);
+        this->minimum_review_score = std::stoi(map["minimum_review_score"]);
+        this->rating_score = std::stoi(map["rating_score"]);
     }
     std::map<std::string, std::string> House::to_map() {
         std::map<std::string, std::string> map;
@@ -82,7 +92,7 @@ namespace house {
         map.emplace("houseOwner", this->houseOwner);
         map.emplace("credit", std::to_string(this->credit));
         map.emplace("minimum_review_score", std::to_string(this->minimum_review_score));
-        //        map.emplace("owner", this->owner->get_username());
+        map.emplace("rating_score", std::to_string(this->rating_score));
         return map;
     }
 

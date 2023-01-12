@@ -76,7 +76,7 @@ void Application::load_database() {
     house_reviews_dtb >> data_house_reviews;
     for (auto &record : data_house_reviews) {
         this->house_reviews.emplace_back();
-//        this->house_reviews.back().from_map(record);
+        this->house_reviews.back().from_map(record);
     }
     //occupant reviews database
     std::vector<std::map<std::string, std::string>> data_occupant_reviews;
@@ -87,7 +87,7 @@ void Application::load_database() {
     occupant_reviews_dtb >> data_occupant_reviews;
     for (auto &record : data_occupant_reviews) {
         this->occupant_reviews.emplace_back();
-//        this->occupant_reviews.back().from_map(record);
+        //        this->occupant_reviews.back().from_map(record);
     }
     //requests database
     std::vector<std::map<std::string, std::string>> data_requests;
@@ -134,6 +134,9 @@ void Application::save_database() {
     requests_dtb.write();
 
     utils::io::DatabaseFile house_reviews_dtb(this->database_path + "house_reviews.dat");
+    std::vector<std::map<std::string, std::string>> house_reviews;
+    for (auto house_review : this->house_reviews) house_reviews.push_back(house_review.to_map());
+    house_reviews_dtb << house_reviews;
     house_reviews_dtb.write();
 
     utils::io::DatabaseFile occupant_reviews_dtb(this->database_path + "occupant_reviews.dat");
@@ -166,7 +169,6 @@ void Application::reset_database() {
     house_reviews.clear();
     occupant_reviews.clear();
     requests.clear();
-
 }
 
 bool Application::login(const account::Account &account) {
@@ -208,7 +210,7 @@ void Application::guest_menu() {
 }
 void Application::house_details(std::string buffer, std::string id) {
     std::string city;
-    int credit_score, minimum_rating_score;
+    int credit_score, minimum_rating_score, rating_score;
     std::cout << "Please enter the new location of your house: \n";
     std::cout
         << "1. Ha Noi \n"
@@ -230,7 +232,7 @@ void Application::house_details(std::string buffer, std::string id) {
     std::cin >> credit_score;
     std::cout << "\nPlease enter the minimum score rating to occupy the house: ";
     std::cin >> minimum_rating_score;
-    this->houses.emplace_back(city, buffer, id, credit_score, minimum_rating_score);
+    this->houses.emplace_back(city, buffer, id, credit_score, minimum_rating_score, rating_score);
 }
 void Application::add_house(account::Member &current_member) {
     bool back = false;
@@ -387,11 +389,40 @@ bool Application::check_house_listing(account::Member &current_member) {
 
 void Application::rate_occupied_house(account::Member &current_member) {
     int rating_score;
+    std::string comment;
+    std::string requester_ID = current_member.get_id();
+    house::HouseReview house_review;
+    bool back = false;
     std::cout << "Here's the information of your occupied house: \n";
-    std::cout << "Please enter the score you want to rate for this house <range: -10 to +10>: ";
-    std::cin >> rating_score;
-    for(auto request : this->requests){
-        request.getRequester()->get_first_name();
+    for (auto &request : this->requests) {
+        if (requester_ID == request.getRequesterId() && !back) {
+            for (int i = 0; i < this->houses.size(); i++) {
+                if (this->houses[i].get_house_id() == request.getHouseRequestedId()) {
+                    std::cout << "Owner: " << this->houses[i].getHouseOwner()
+                              << " | City: " << this->houses[i].getCity()
+                              << " | Credit per day: " << this->houses[i].get_credit()
+                              << "\nDo you want to rate this house ?\n"
+                              << "1. Yes\n"
+                              << "2. No\n"
+                              << "Please enter your choice: ";
+                    switch (Application::prompt_choice(1, 2)) {
+                        case 1:
+                            std::cout << "\nPlease enter the score you want to rate for this house <range: -10 to +10>: ";
+                            std::cin >> rating_score;
+                            this->houses[i].setRatingScore(rating_score);
+                            std::cout << "\nPlease enter your comment about this house: ";
+                            std::cin.ignore(256, '\n');
+                            std::getline(std::cin, comment);
+                            this->house_reviews.emplace_back(requester_ID, comment, rating_score);
+                            std::cout << "\n========" << this->house_reviews.size() << "========\n";
+                            break;
+                        case 2:
+                            back = true;
+                            break;
+                    }
+                }
+            }
+        }
     }
 }
 
