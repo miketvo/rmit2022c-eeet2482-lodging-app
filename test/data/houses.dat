@@ -1,6 +1,5 @@
-city,credit,houseID,houseOwner,minimum_review_score
-Sai Gon,300,1,test01,7
-Sai Gon,400,2,test02,0
-Sai Gon,500,3,test03,3
-Ha Noi,200,4,test04,7
-Ha Noi,600,5,test05,3
+city,credit,houseID,houseOwner,minimum_review_score,rating_score
+Ha Noi,500,1,test01,-10,0.000000
+Sai Gon,50,2,test02,0,0.000000
+Sai Gon,300,3,test03,4,0.000000
+Hue,100,4,test04,2,0.000000

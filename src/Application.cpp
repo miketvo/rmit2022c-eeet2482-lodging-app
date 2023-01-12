@@ -435,17 +435,20 @@ void Application::check_house_request_list(account::Member &current_member) {
     std::string accepted = "Accepted";
     std::string rejected = "Rejected";
     std::string house_request_ID, request_status, requester_ID, requester_username;
-    std::vector<house::HouseRequest> request_vector;
+    std::vector<house::HouseRequest> request_list;
+    std::map<std::string, std::string> temp_map;
+    bool valid = false;
     bool back = false;
+
     std::cout << "\tHere's the incoming request to your house: \n";
     for (auto request : this->requests) {
         if (current_member.get_id() == request.getHouseRequestedId()) {
             std::cout << "--> Requester username: " << request.getRequesterUsername()
                       << " | Requester ID: " << request.getRequesterId() << " <--\n";
-            request_vector.emplace_back(request);
+            request_list.emplace_back(request);
         }
     }
-    if (request_vector.empty()) {
+    if (request_list.empty()) {
         std::cout << "\tYou don't have any requests!\n";
         back = true;
     }
@@ -457,29 +460,38 @@ void Application::check_house_request_list(account::Member &current_member) {
         switch (Application::prompt_choice(1, 2)) {
             case 1:
                 int choice;
-                std::cout << "\n Please select requester ID you'd like to take action: ";
-                std::cin >> choice;
-                for (int i = 0; i < this->requests.size(); i++) {
-                    if (current_member.get_id() == this->requests[i].getHouseRequestedId()) {
-                        if (this->requests[i].getRequesterId() == std::to_string(choice)) {
+                while(!valid) {
+                    std::cout << "\nPlease Enter a valid Requester ID that you want to accept \n";
+                    choice = prompt_choice(1, members.size());
+                    for (auto request : request_list) {
+                        temp_map = request.to_map();
+                        if (temp_map["requester_ID"] == std::to_string(choice)) {
+                            temp_map.clear();
+                            valid = true;
+                        }
+                    }
+                }
+                for (auto request : this->requests) {
+                    if (current_member.get_id() == request.getHouseRequestedId()) {
+                        if (request.getRequesterId() == std::to_string(choice)) {
                             std::cout << "Please select your action on this request: \n"
                                       << "1. Accept\n"
                                       << "2. Reject\n";
                             switch (Application::prompt_choice(1, 2)) {
                                 case 1:
                                     request_status = accepted;
-                                    this->requests[i].setRequestStatus(request_status);
+                                    request.setRequestStatus(request_status);
                                     std::cout << "You have accepted this request !!!\n";
                                     break;
                                 case 2:
                                     request_status = rejected;
-                                    this->requests[i].setRequestStatus(request_status);
+                                    request.setRequestStatus(request_status);
                                     std::cout << "You have rejected this request !!!\n";
                                     break;
                             }
                         } else {
                             request_status = rejected;
-                            this->requests[i].setRequestStatus(request_status);
+                            request.setRequestStatus(request_status);
                         }
                     }
                 }
