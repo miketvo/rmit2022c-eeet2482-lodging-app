@@ -15,11 +15,6 @@ namespace house {
         std::string requester_id;
         std::string house_requested_id;
         std::string requester_username;
-
-      public:
-        const std::string &getRequesterName() const;
-        void setRequesterName(const std::string &requester_username);
-
       public:
         HouseRequest();
         explicit HouseRequest(std::string &requester_id,
@@ -37,6 +32,7 @@ namespace house {
 
         void setRequesterId(const std::string &requesterId);
         void setHouseRequestedId(const std::string &houseRequestedId);
+        void setRequesterName(const std::string &requester_username);
 
         friend class account::Member;
     };

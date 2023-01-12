@@ -319,6 +319,7 @@ bool Application::check_house_request(account::Member &current_member, std::vect
     bool back = false;
     house::HouseRequest requester;
     std::string house_ID;
+    requester.setRequester(&current_member);
     std::string requester_ID = current_member.get_id();
     std::string requester_name = current_member.get_first_name();
 
@@ -327,25 +328,60 @@ bool Application::check_house_request(account::Member &current_member, std::vect
     }
     std::map<std::string, std::string> house_map;
     while (!back) {
-        std::cout << "\nPlease Enter a valid House ID that you want to request: \n";
+        std::cout << "\nPlease Enter a valid House ID that you want to request!\n";
         int houseID = prompt_choice(1, members.size());
         for (auto house : house_in_city) {
             house_map = house.to_map();
-            for (auto it = house_map.cbegin(); it != house_map.cend(); ++it) {
-                if (it->first == "houseID" && std::stoi(it->second) == houseID) {
-                    std::cout << "\n You have requested House ID: " << it->second << std::endl;
-                    requester.setHouseRequested(&house);
-                    house_ID = requester.getHouseRequested()->get_house_id();
-                    back = true;
+            if(house_map["houseID"] == std::to_string(houseID)) {
+                for (auto request : requests) {
+                    std::map<std::string, std::string> request_map;
+                    request_map = request.to_map();
+                    // todo fix the logic of a memeber can request many houses
+                    if (request_map["requester_ID"] == current_member.get_id()) {
+                        std::cout << "\n You have already requested this house!\n";
+                        return true;
+                    }
+                    if (request_map["house_request_ID"] == current_member.get_id()) {
+                        std::cout << "\n You cannot make request on your own house!\n";
+                        return true;
+                    }
                 }
+                std::cout << "\n You have requested House ID: " << std::to_string(houseID) << std::endl;
+                requester.setHouseRequested(&house);
+                house_ID = requester.getHouseRequested()->get_house_id();
+                back = true;
             }
         }
     }
-    requester.setRequester(&current_member);
+
     requester.setRequesterName(requester_name);
     requester.setRequesterId(requester_ID);
     requester.setHouseRequestedId(house_ID);
+
     requests.emplace_back(requester_ID, house_ID, requester_name);
+    return true;
+}
+
+bool Application::check_house_listing(account::Member &current_member) {
+
+    if (current_member.getHouse()->getRequests().empty()) {
+        for (auto request : requests) {
+            std::map<std::string, std::string> request_map;
+            request_map = request.to_map();
+            if (request_map["house_requested_ID"] == current_member.get_id()) {
+                house::HouseRequest requester(request_map["requester_id"],request_map["house_requested_id"],request_map["requester_username"]);
+                current_member.getHouse()->setRequests(request);
+                std::cout
+                    << "Requester ID :" << request_map["requester_id"] << "  |  "
+                    << "Requester username: " << request_map["requester_username"]
+                    << std::endl;
+            }
+        }
+    }
+    if (current_member.getHouse()->getRequests().empty()) {
+        std::cout << "\n You don't have any house requests!\n";
+        return true;
+    }
     return true;
 }
 
@@ -384,7 +420,7 @@ void Application::member_menu() {
                      "2. Add house to my renting list.\n"
                      "3. List all house are available to be occupied.\n"
                      "4. Request house to occupy. \n"
-                     "5. Accept/Decline incoming requests. \n"
+                     "5. View incoming requests to your listing house. \n"
                      "6. Rate occupied house. \n"
                      "7. Rate occupiers who had used my house. \n";
 
@@ -408,7 +444,7 @@ void Application::member_menu() {
                 temp_vector = Application::list_house_available(*current_member);
                 if (Application::check_house_request(*current_member, temp_vector)) break;
             case 5:
-                // todo Accept/Decline incoming requests
+                if(Application::check_house_listing(*current_member))
                 break;
             case 6:
                 Application::rate_occupied_house(*current_member);

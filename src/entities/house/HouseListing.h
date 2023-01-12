@@ -21,6 +21,7 @@ namespace house {
                        std::vector<house::HouseRequest*> requests);
         House *getHouse() const;
         const std::vector<HouseRequest *> &getRequests() const;
+        void add_request(HouseRequest request);
     };
 
 } // house

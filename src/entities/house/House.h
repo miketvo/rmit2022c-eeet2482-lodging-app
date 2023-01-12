@@ -14,6 +14,7 @@ namespace house {
     class HouseOccupancy;
     class HouseListing;
     class HouseReview;
+    class HouseRequest;
 
     class House {
       private:
@@ -25,8 +26,8 @@ namespace house {
         account::Member *owner;
         short int rating;
         std::vector<HouseReview*> reviews;
-        HouseListing* listing;
         HouseOccupancy *occupancy;
+        std::vector<HouseRequest*> requests;
 //        utils::time::Period period;
       public:
         House();
@@ -46,13 +47,14 @@ namespace house {
         const std::string &getHouseOwner() const;
         short getRating() const;
         const std::vector<HouseReview *> &getReviews() const;
-        HouseListing *getListing() const;
         HouseOccupancy *getOccupancy() const;
 
         friend class account::Member;
         const std::string get_house_id() const;
         const int get_credit() const;
         const int get_minimum_review_score() const;
+        const std::vector<HouseRequest *> &getRequests() const;
+        void setRequests(house::HouseRequest &requests);
     };
 
 } // house

@@ -30,9 +30,6 @@ namespace house {
     void HouseRequest::setHouseRequested(House *houseRequestedID) {
         this->house_requested = houseRequestedID;
     }
-    const std::string &HouseRequest::getRequesterName() const {
-        return requester_username;
-    }
     void HouseRequest::setRequesterName(const std::string &requester_username) {
         this->requester_username = requester_username;
     }

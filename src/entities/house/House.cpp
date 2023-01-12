@@ -10,6 +10,13 @@ namespace house {
         this->houseID = "";
         this->credit = 0;
         this->minimum_review_score = 0;
+        this->requests = {};
+    }
+    const std::vector<HouseRequest *> &House::getRequests() const {
+        return this->requests;
+    }
+    void House::setRequests(house::HouseRequest &requests) {
+        this->requests.push_back(&requests);
     }
 
     const std::string &House::getCity() const {
@@ -26,9 +33,6 @@ namespace house {
     }
     const std::vector<HouseReview *> &House::getReviews() const {
         return reviews;
-    }
-    HouseListing *House::getListing() const {
-        return listing;
     }
     HouseOccupancy *House::getOccupancy() const {
         return occupancy;
