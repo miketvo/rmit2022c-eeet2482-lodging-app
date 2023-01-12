@@ -3,28 +3,16 @@
 namespace house {
 
     HouseReview::HouseReview() {
-        this->id = "";
+        this->reviewer_id = "";
         this->comment = "";
         this->rating = 0;
+        this->house_id = "";
     }
 
-    void HouseReview::from_map(std::map<std::string, std::string> map) {
-        this->id = map["Reviewer's ID"];
-        this->comment = map["Comment"];
-        this->rating = std::stod(map["Rating_score"]);
+    const std::string &HouseReview::get_reviewer_id() const {
+        return reviewer_id;
     }
-
-    std::map<std::string, std::string> HouseReview::to_map() {
-        std::map<std::string, std::string> map;
-        map.emplace("Reviewer's ID", this->id);
-        map.emplace("Comment", this->comment);
-        map.emplace("Rating_score", std::to_string(this->rating));
-        return map;
-    }
-    const std::string &HouseReview::getId() const {
-        return id;
-    }
-    void HouseReview::setId(const std::string &id) {
+    void HouseReview::set_reviewer_id(const std::string &reviewer_id) {
         HouseReview::id = id;
     }
     const std::string &HouseReview::getComment() const {
@@ -33,15 +21,38 @@ namespace house {
     void HouseReview::setComment(const std::string &comment) {
         HouseReview::comment = comment;
     }
-    int HouseReview::getRating() const {
+    double HouseReview::getRating() const {
         return rating;
     }
-    void HouseReview::setRating(int rating) {
+    void HouseReview::setRating(double rating) {
         HouseReview::rating = rating;
     }
-    HouseReview::HouseReview(const std::string &id, const std::string &comment, int rating) {
-        this->id = id;
+    const std::string &HouseReview::getHouseId() const {
+        return house_id;
+    }
+    void HouseReview::setHouseId(const std::string &houseId) {
+        house_id = houseId;
+    }
+
+    HouseReview::HouseReview(const std::string &reviewer_id, const std::string &comment, double rating, const std::string &house_id) {
+        this->reviewer_id = reviewer_id;
         this->comment = comment;
         this->rating = rating;
+        this->house_id = house_id;
+    }
+    void HouseReview::from_map(std::map<std::string, std::string> map) {
+        this->reviewer_id = map["Reviewer's ID"];
+        this->comment = map["Comment"];
+        this->rating = std::stod(map["Rating_score"]);
+        this->house_id = map["House's ID"];
+    }
+
+    std::map<std::string, std::string> HouseReview::to_map() {
+        std::map<std::string, std::string> map;
+        map.emplace("Reviewer's ID", this->reviewer_id);
+        map.emplace("Comment", this->comment);
+        map.emplace("Rating_score", std::to_string(this->rating));
+        map.emplace("House's ID", this->house_id);
+        return map;
     }
 }// namespace house

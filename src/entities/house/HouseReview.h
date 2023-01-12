@@ -10,23 +10,25 @@ namespace house {
     class Member;
     class HouseReview : public utils::Review {
       private:
-        std::string id;
+        std::string reviewer_id;
         std::string comment;
-        int rating;
-
-
+        double rating;
+        std::string house_id;
 
       public:
         HouseReview();
-        HouseReview(const std::string &id,
+        HouseReview(const std::string &reviewer_id,
                     const std::string &comment,
-                    int rating = 0);
-        const std::string &getId() const;
-        void setId(const std::string &id);
+                    double rating,
+                    const std::string &house_id);
+        const std::string &get_reviewer_id() const;
+        void set_reviewer_id(const std::string &reviewer_id);
         const std::string &getComment() const;
         void setComment(const std::string &comment);
-        int getRating() const;
-        void setRating(int rating);
+        double getRating() const;
+        void setRating(double rating);
+        const std::string &getHouseId() const;
+        void setHouseId(const std::string &houseId);
         void from_map(std::map<std::string, std::string> map) override;
         std::map<std::string, std::string> to_map() override;
         friend class Member;

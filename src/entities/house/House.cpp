@@ -10,7 +10,7 @@ namespace house {
         this->houseID = "";
         this->credit = 0;
         this->minimum_review_score = 0;
-        this->rating_score = 10;
+        this->rating_score = 0;
         this->requests = {};
     }
     const std::vector<HouseRequest *> &House::getRequests() const {
@@ -48,10 +48,10 @@ namespace house {
         return this->minimum_review_score;
     }
 
-    const int House::get_rating_score() const {
+    const double House::get_rating_score() const {
         return this->rating_score;
     }
-    void House::setRatingScore(int ratingScore) {
+    void House::setRatingScore(double ratingScore) {
         rating_score = ratingScore;
     }
 
@@ -60,7 +60,7 @@ namespace house {
                  std::string &houseID,
                  int credit,
                  int minimum_review_score,
-                 int rating_score) {
+                 double rating_score) {
 
         this->city = city;
         this->houseOwner = houseOwner;
@@ -83,7 +83,7 @@ namespace house {
         this->houseOwner = map["houseOwner"];
         this->credit = std::stoi(map["credit"]);
         this->minimum_review_score = std::stoi(map["minimum_review_score"]);
-        this->rating_score = std::stoi(map["rating_score"]);
+        this->rating_score = std::stod(map["rating_score"]);
     }
     std::map<std::string, std::string> House::to_map() {
         std::map<std::string, std::string> map;

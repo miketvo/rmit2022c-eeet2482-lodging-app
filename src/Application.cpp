@@ -317,105 +317,215 @@ std::vector<house::House> Application::list_house_available(account::Member &cur
     return houses_in_city;
 }
 
-bool Application::check_house_request(account::Member &current_member, std::vector<house::House> house_in_city) {
-    bool back = false;
-    house::HouseRequest requester;
-    std::string house_ID;
-    requester.setRequester(&current_member);
-    std::string requester_ID = current_member.get_id();
-    std::string requester_name = current_member.get_first_name();
+//bool Application::check_house_request(account::Member &current_member, std::vector<house::House> house_in_city) {
+//    bool back = false;
+//    house::HouseRequest requester;
+//    std::string house_ID;
+//    std::string request_status = "pending";
+//    requester.setRequester(&current_member);
+//    std::string requester_ID = current_member.get_id();
+//    std::string requester_name = current_member.get_first_name();
+//
+//    if (house_in_city.empty()) {
+//        return true;
+//    }
+//    std::map<std::string, std::string> house_map;
+//    while (!back) {
+//        std::cout << "\nPlease Enter a valid House ID that you want to request!\n";
+//        int houseID = prompt_choice(1, members.size());
+//        for (auto house : house_in_city) {
+//            house_map = house.to_map();
+//            if (house_map["houseID"] == std::to_string(houseID)) {
+//                for (auto request : requests) {
+//                    std::map<std::string, std::string> request_map;
+//                    request_map = request.to_map();
+//                    // todo fix the logic of a memeber can request many houses
+//                    if (request_map["requester_ID"] == current_member.get_id()) {
+//                        std::cout << "\n You have already requested this house!\n";
+//                        return true;
+//                    }
+//                    if (request_map["house_request_ID"] == current_member.get_id()) {
+//                        std::cout << "\n You cannot make request on your own house!\n";
+//                        return true;
+//                    }
+//                }
+//                std::cout << "\n You have requested House ID: " << std::to_string(houseID) << std::endl;
+//                requester.setHouseRequested(&house);
+//                house_ID = requester.getHouseRequested()->get_house_id();
+//                back = true;
+//            }
+//        }
+//    }
+//    requester.setRequestStatus(request_status);
+//    request_status = requester.getRequestStatus();
+//    requester.setRequesterName(requester_name);
+//    requester.setRequesterId(requester_ID);
+//    requester.setHouseRequestedId(house_ID);
+//
+//    requests.emplace_back(requester_ID, house_ID, requester_name, request_status);
+//    return true;
+//}
 
-    if (house_in_city.empty()) {
-        return true;
-    }
-    std::map<std::string, std::string> house_map;
-    while (!back) {
-        std::cout << "\nPlease Enter a valid House ID that you want to request!\n";
-        int houseID = prompt_choice(1, members.size());
-        for (auto house : house_in_city) {
-            house_map = house.to_map();
-            if(house_map["houseID"] == std::to_string(houseID)) {
-                for (auto request : requests) {
-                    std::map<std::string, std::string> request_map;
-                    request_map = request.to_map();
-                    // todo fix the logic of a memeber can request many houses
-                    if (request_map["requester_ID"] == current_member.get_id()) {
-                        std::cout << "\n You have already requested this house!\n";
-                        return true;
-                    }
-                    if (request_map["house_request_ID"] == current_member.get_id()) {
-                        std::cout << "\n You cannot make request on your own house!\n";
-                        return true;
-                    }
+//bool Application::check_house_listing(account::Member &current_member) {
+//
+//    if (current_member.getHouse()->getRequests().empty()) {
+//        for (auto request : requests) {
+//            std::map<std::string, std::string> request_map;
+//            request_map = request.to_map();
+//            if (request_map["house_requested_ID"] == current_member.get_id()) {
+//                house::HouseRequest requester(request_map["requester_id"], request_map["house_requested_id"], request_map["requester_username"]);
+//                current_member.getHouse()->setRequests(request);
+//                std::cout
+//                    << "Requester ID :" << request_map["requester_id"] << "  |  "
+//                    << "Requester username: " << request_map["requester_username"]
+//                    << std::endl;
+//            }
+//        }
+//    }
+//    if (current_member.getHouse()->getRequests().empty()) {
+//        std::cout << "\n You don't have any house requests!\n";
+//        return true;
+//    }
+//    return true;
+//}
+
+void Application::request_house_to_occupy(account::Member &current_member, std::vector<house::House> house_in_city) {
+    int choice;
+    bool back = false;
+
+    std::string house_request_ID, request_status, requester_ID, requester_username;
+    if (!back && !house_in_city.empty()) {
+        std::cout << "Please Enter a valid House ID that you want to request: ";
+        std::cin >> choice;
+        for (int i = 0; i < house_in_city.size(); i++) {
+            for (auto request : this->requests) {
+                if (request.getHouseRequestedId() == std::to_string(choice) && request.getRequesterUsername() == current_member.get_username()) {
+                    std::cout << "You have requested for this house...\n";
+                    back = true;
+                    break;
+                } else if (house_in_city[i].get_house_id() == std::to_string(choice)) {
+                    std::cout << "\nYou have requested House ID: " << house_in_city[i].get_house_id() << "\n";
+                    house_request_ID = house_in_city[i].get_house_id();
+                    requester_ID = current_member.get_id();
+                    requester_username = current_member.get_username();
+                    request_status = "pending";
+                    this->requests.emplace_back(requester_ID, house_request_ID, requester_username, request_status);
+                    break;
+                } else {
+                    back = true;
+                    break;
                 }
-                std::cout << "\n You have requested House ID: " << std::to_string(houseID) << std::endl;
-                requester.setHouseRequested(&house);
-                house_ID = requester.getHouseRequested()->get_house_id();
-                back = true;
             }
+            break;
         }
     }
-
-    requester.setRequesterName(requester_name);
-    requester.setRequesterId(requester_ID);
-    requester.setHouseRequestedId(house_ID);
-
-    requests.emplace_back(requester_ID, house_ID, requester_name);
-    return true;
 }
 
-bool Application::check_house_listing(account::Member &current_member) {
-
-    if (current_member.getHouse()->getRequests().empty()) {
-        for (auto request : requests) {
-            std::map<std::string, std::string> request_map;
-            request_map = request.to_map();
-            if (request_map["house_requested_ID"] == current_member.get_id()) {
-                house::HouseRequest requester(request_map["requester_id"],request_map["house_requested_id"],request_map["requester_username"]);
-                current_member.getHouse()->setRequests(request);
-                std::cout
-                    << "Requester ID :" << request_map["requester_id"] << "  |  "
-                    << "Requester username: " << request_map["requester_username"]
-                    << std::endl;
-            }
+void Application::check_house_request_list(account::Member &current_member) {
+    house::HouseRequest request_el;
+    std::string accepted = "Accepted";
+    std::string rejected = "Rejected";
+    std::string house_request_ID, request_status, requester_ID, requester_username;
+    bool back = false;
+    std::cout << "\tHere's the incoming request to your house: \n";
+    for (auto request : this->requests) {
+        if (current_member.get_id() == request.getHouseRequestedId()) {
+            std::cout << "--> Requester username: " << request.getRequesterUsername()
+                      << " | Requester ID: " << request.getRequesterId() << " <--\n";
         }
     }
-    if (current_member.getHouse()->getRequests().empty()) {
-        std::cout << "\n You don't have any house requests!\n";
-        return true;
+    if (!back) {
+        std::cout << "\nDo you want to want to accept/reject these request: \n"
+                  << "1. Yes\n"
+                  << "2. No\n"
+                  << "\n";
+        switch (Application::prompt_choice(1, 2)) {
+            case 1:
+                int choice;
+                std::cout << "\n Please select requester ID you'd like to take action: ";
+                std::cin >> choice;
+                for (int i = 0; i < this->requests.size(); i++) {
+                    if (current_member.get_id() == this->requests[i].getHouseRequestedId()) {
+                        if (this->requests[i].getRequesterId() == std::to_string(choice)) {
+                            std::cout << "Please select your action on this request: \n"
+                                      << "1. Accept\n"
+                                      << "2. Reject\n";
+                            switch (Application::prompt_choice(1, 2)) {
+                                case 1:
+                                    request_status = accepted;
+                                    this->requests[i].setRequestStatus(request_status);
+                                    std::cout << "You have accepted this request !!!\n";
+                                    break;
+                                case 2:
+                                    request_status = rejected;
+                                    this->requests[i].setRequestStatus(request_status);
+                                    std::cout << "You have rejected this request !!!\n";
+                                    break;
+                            }
+                        } else {
+                            request_status = rejected;
+                            this->requests[i].setRequestStatus(request_status);
+                        }
+                    }
+                }
+                break;
+            case 2:
+                back = true;
+                break;
+        }
     }
-    return true;
 }
 
 void Application::rate_occupied_house(account::Member &current_member) {
-    int rating_score;
-    std::string comment;
+    double rating_score = 0;
+    double rating_score_occupied_house = 0;
+    std::string comment, house_id;
     std::string requester_ID = current_member.get_id();
-    house::HouseReview house_review;
+    int count = 0;
     bool back = false;
     std::cout << "Here's the information of your occupied house: \n";
     for (auto &request : this->requests) {
         if (requester_ID == request.getRequesterId() && !back) {
             for (int i = 0; i < this->houses.size(); i++) {
-                if (this->houses[i].get_house_id() == request.getHouseRequestedId()) {
-                    std::cout << "Owner: " << this->houses[i].getHouseOwner()
+                if (this->houses[i].get_house_id() == request.getHouseRequestedId() && this->requests[i].getRequestStatus() == "Accepted") {
+                    std::cout << "--> Owner: " << this->houses[i].getHouseOwner()
                               << " | City: " << this->houses[i].getCity()
                               << " | Credit per day: " << this->houses[i].get_credit()
-                              << "\nDo you want to rate this house ?\n"
+                              << "\n\nDo you want to rate this house ?\n"
                               << "1. Yes\n"
-                              << "2. No\n"
-                              << "Please enter your choice: ";
+                              << "2. No\n";
                     switch (Application::prompt_choice(1, 2)) {
                         case 1:
                             std::cout << "\nPlease enter the score you want to rate for this house <range: -10 to +10>: ";
-                            std::cin >> rating_score;
-                            this->houses[i].setRatingScore(rating_score);
+                            std::cin >> rating_score_occupied_house;
+                            this->houses[i].setRatingScore(rating_score_occupied_house);
                             std::cout << "\nPlease enter your comment about this house: ";
                             std::cin.ignore(256, '\n');
                             std::getline(std::cin, comment);
-                            this->house_reviews.emplace_back(requester_ID, comment, rating_score);
+                            house_id = this->houses[i].get_house_id();
+                            this->house_reviews.emplace_back(requester_ID, comment, rating_score, house_id);
                             std::cout << "\n========" << this->house_reviews.size() << "========\n";
-                            break;
+                            for (auto house_review : this->house_reviews) {
+                                if (house_review.getHouseId() == this->houses[i].get_house_id()) {
+                                    rating_score += house_review.getRating();
+                                    count++;
+                                }
+                            }
+                            if (!back) {
+                                double rating_score_final = rating_score / count;
+                                std::cout << rating_score_final << "\n";
+                                std::stringstream sts;
+                                sts << std::fixed << std::setprecision(1) << rating_score_final;
+                                sts >> rating_score_final;
+                                for (int i = 0; i < this->houses.size(); i++) {
+                                    for (auto house_review : this->house_reviews) {
+                                        if (house_review.getHouseId() == this->houses[i].get_house_id()) {
+                                            this->houses[i].setRatingScore(rating_score_final);
+                                        }
+                                    }
+                                }
+                                break;
+                            }
                         case 2:
                             back = true;
                             break;
@@ -473,15 +583,17 @@ void Application::member_menu() {
                 break;
             case 4:
                 temp_vector = Application::list_house_available(*current_member);
-                if (Application::check_house_request(*current_member, temp_vector)) break;
+                Application::request_house_to_occupy(*current_member, temp_vector);
+                //                if (Application::check_house_request(*current_member, temp_vector))
+                break;
             case 5:
-                if(Application::check_house_listing(*current_member))
+                //                if(Application::check_house_listing(*current_member))
+                Application::check_house_request_list(*current_member);
                 break;
             case 6:
                 Application::rate_occupied_house(*current_member);
                 break;
             case 7:
-                // todo Rate occupiers who had used my house
                 break;
             case 0:
                 back = true;
