@@ -531,7 +531,6 @@ void Application::rate_occupier(account::Member &current_member) {
                                 std::stringstream sts;
                                 sts << std::fixed << std::setprecision(1) << rating_score_final;
                                 sts >> rating_score_final;
-                                std::cout << rating_score_final << "\n";
                                 for (int i = 0; i < this->members.size(); i++) {
                                     for (auto occupant_review : this->occupant_reviews) {
                                         if (occupant_review.getOccupierId() == this->members[i].get_id()) {
