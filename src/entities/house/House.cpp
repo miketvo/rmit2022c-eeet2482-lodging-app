@@ -1,6 +1,6 @@
 #include "House.h"
-#include <iostream>
 #include <utility>
+#include <string>
 
 namespace house {
 
@@ -10,7 +10,7 @@ namespace house {
         this->houseID = "";
         this->credit = 0;
         this->minimum_review_score = 0;
-        this->rating_score = 0;
+        this->rating_score = 0.0;
         this->requests = {};
     }
     const std::vector<HouseRequest *> &House::getRequests() const {
