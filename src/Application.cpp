@@ -524,14 +524,13 @@ void Application::rate_occupier(account::Member &current_member) {
     std::string reviewer_ID = current_member.get_id();
     int count = 0;
     bool back = false;
+    std::vector<account::OccupantReview> occupant_list;
     std::cout << "Here is the information for the current user of your home: \n";
-    if(occupant_reviews.empty()) {
-        std::cout << "\nThere is no one occupying your house!\n";
-    }
     for (auto occupant : occupant_reviews) {
         std::string occupierID = occupant.getOccupierId();
         for (auto member : members) {
             if (member.get_id() == occupierID && reviewer_ID == occupant.getReviewerId()) {
+                occupant_list.emplace_back(occupant);
                 std::cout << "--> Username: " << member.get_username()
                           << " | Firstname: " << member.get_first_name()
                           << " | Lastname: " << member.get_last_name()
@@ -571,13 +570,12 @@ void Application::rate_occupier(account::Member &current_member) {
                         back = true;
                         break;
                 }
-            } else {
-                std::cout << "\nThere is no one occupying your house!\n";
-                break;
             }
         }
     }
-
+    if (occupant_list.empty() || occupant_reviews.empty()) {
+        std::cout << "\nThere is no one occupying your house right now!\n";
+    }
 }
 
 void Application::member_menu() {
