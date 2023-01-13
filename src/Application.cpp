@@ -419,7 +419,7 @@ void Application::check_house_request_list(account::Member &current_member) {
                                     std::cout << "You have accepted this request !!!\n";
                                     house_requestedID = current_member.get_id();
                                     Application::update_credit(std::to_string(choice), house_requestedID);
-                                    Application::remove_request(request_list, house_requestedID);
+                                    Application::remove_request(request_list, house_requestedID, std::to_string(choice));
                                     break;
                                 case 2:
                                     request_status = rejected;
@@ -437,7 +437,7 @@ void Application::check_house_request_list(account::Member &current_member) {
         }
     }
 }
-void Application::remove_request(std::vector<house::HouseRequest> request_list, std::string house_requestedID) {
+void Application::remove_request(std::vector<house::HouseRequest> request_list, std::string house_requestedID, std::string requester_ID) {
     for (int i=0; i < requests.size(); i++) {
         for (auto req : request_list) {
             if (requests[i].getRequesterUsername() == req.getRequesterUsername()
@@ -446,6 +446,7 @@ void Application::remove_request(std::vector<house::HouseRequest> request_list, 
             }
         }
     }
+    this->occupant_reviews.emplace_back(house_requestedID,"",0,requester_ID);
 }
 void Application::update_credit(std::string requester_ID, std::string house_requestedID) {
     for (int i = 0; i < members.size(); i++) {
@@ -524,53 +525,59 @@ void Application::rate_occupier(account::Member &current_member) {
     int count = 0;
     bool back = false;
     std::cout << "Here is the information for the current user of your home: \n";
-    for (int a = 0; a < this->requests.size(); a++) {
-        if (this->requests[a].getHouseRequestedId() == current_member.get_id() && this->requests[a].getRequestStatus() == "Accepted" && !back) {
-            for (int b = 0; b < this->members.size(); b++) {
-                if (this->requests[a].getRequesterUsername() == this->members[b].get_username()) {
-                    std::cout << "--> Username: " << this->members[b].get_username()
-                              << " | Firstname: " << this->members[b].get_first_name()
-                              << " | Lastname: " << this->members[b].get_last_name()
-                              << " | Phone number: " << this->members[b].get_phone_number()
-                              << "\n\nDo you want to rate this user ?\n"
-                              << "1. Yes\n"
-                              << "2. No\n";
-                    switch (Application::prompt_choice(1, 2)) {
-                        case 1:
-                            std::cout << "\nPlease enter the score you want to rate for this user <range: -10 to +10>: ";
-                            std::cin >> rating_score_occupier;
-                            std::cout << "\nPlease enter your comment about this user: ";
-                            std::cin.ignore(256, '\n');
-                            std::getline(std::cin, comment);
-                            occupier_id = this->members[b].get_id();
-                            this->occupant_reviews.emplace_back(reviewer_ID, comment, rating_score_occupier, occupier_id);
-                            for (auto occupant_review : this->occupant_reviews) {
-                                if (occupant_review.getOccupierId() == this->members[b].get_id()) {
-                                    rating_score += occupant_review.getRating();
-                                    count++;
-                                }
+    if(occupant_reviews.empty()) {
+        std::cout << "\nThere is no one occupying your house!\n";
+    }
+    for (auto occupant : occupant_reviews) {
+        std::string occupierID = occupant.getOccupierId();
+        for (auto member : members) {
+            if (member.get_id() == occupierID && reviewer_ID == occupant.getReviewerId()) {
+                std::cout << "--> Username: " << member.get_username()
+                          << " | Firstname: " << member.get_first_name()
+                          << " | Lastname: " << member.get_last_name()
+                          << " | Phone number: " << member.get_phone_number()
+                          << "\n\nDo you want to rate this user ?\n"
+                          << "1. Yes\n"
+                          << "2. No\n";
+                switch (Application::prompt_choice(1, 2)) {
+                    case 1:
+                        std::cout << "\nPlease enter the score you want to rate for this user <range: -10 to +10>: ";
+                        std::cin >> rating_score_occupier;
+                        std::cout << "\nPlease enter your comment about this user: ";
+                        std::cin.ignore(256, '\n');
+                        std::getline(std::cin, comment);
+                        occupier_id = member.get_id();
+                        this->occupant_reviews.emplace_back(reviewer_ID, comment, rating_score_occupier, occupier_id);
+                        for (auto occupant_review : this->occupant_reviews) {
+                            if (occupant_review.getOccupierId() == member.get_id()) {
+                                rating_score += occupant_review.getRating();
+                                count++;
                             }
-                            if (!back) {
-                                double rating_score_final = rating_score / count;
-                                std::stringstream sts;
-                                sts << std::fixed << std::setprecision(1) << rating_score_final;
-                                sts >> rating_score_final;
-                                for (int i = 0; i < this->members.size(); i++) {
-                                    for (auto occupant_review : this->occupant_reviews) {
-                                        if (occupant_review.getOccupierId() == this->members[i].get_id()) {
-                                            this->members[i].setRatingScore(rating_score_final);
-                                        }
+                        }
+                        if (!back) {
+                            double rating_score_final = rating_score / count;
+                            std::stringstream sts;
+                            sts << std::fixed << std::setprecision(1) << rating_score_final;
+                            sts >> rating_score_final;
+                            for (int i = 0; i < this->members.size(); i++) {
+                                for (auto occupant_review : this->occupant_reviews) {
+                                    if (occupant_review.getOccupierId() == this->members[i].get_id()) {
+                                        this->members[i].setRatingScore(rating_score_final);
                                     }
                                 }
                             }
-                        case 2:
-                            back = true;
-                            break;
-                    }
+                        }
+                    case 2:
+                        back = true;
+                        break;
                 }
+            } else {
+                std::cout << "\nThere is no one occupying your house!\n";
+                break;
             }
         }
     }
+
 }
 
 void Application::member_menu() {

@@ -2,7 +2,6 @@
 #define RMIT2022C_EEET2482_LODGING_APP_SRC_ENTITIES_HOUSE_HOUSE_H_
 
 #include "../account/Member.h"
-#include "HouseListing.h"
 #include "HouseOccupancy.h"
 #include "HouseReview.h"
 #include <iostream>
@@ -12,7 +11,6 @@
 namespace house {
 
     class HouseOccupancy;
-    class HouseListing;
     class HouseReview;
     class HouseRequest;
 
