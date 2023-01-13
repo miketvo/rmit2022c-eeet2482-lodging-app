@@ -442,13 +442,13 @@ void Application::rate_occupied_house(account::Member &current_member) {
     int count = 0;
     bool back = false;
     std::cout << "Here's the information of your occupied house: \n";
-    for (auto &request : this->requests) {
-        if (requester_ID == request.getRequesterId() && !back) {
-            for (int i = 0; i < this->houses.size(); i++) {
-                if (this->houses[i].get_house_id() == request.getHouseRequestedId() && this->requests[i].getRequestStatus() == "Accepted" && current_member.get_username() == this->requests[i].getRequesterUsername()) {
-                    std::cout << "--> Owner: " << this->houses[i].getHouseOwner()
-                              << " | City: " << this->houses[i].getCity()
-                              << " | Credit per day: " << this->houses[i].get_credit()
+    for (int a = 0; a < this->requests.size(); a++) {
+        if (requester_ID == this->requests[a].getRequesterId() && !back) {
+            for (int b = 0; b < this->houses.size(); b++) {
+                if (this->houses[b].get_house_id() == this->requests[a].getHouseRequestedId() && this->requests[a].getRequestStatus() == "Accepted" && current_member.get_username() == this->requests[a].getRequesterUsername()) {
+                    std::cout << "--> Owner: " << this->houses[b].getHouseOwner()
+                              << " | City: " << this->houses[b].getCity()
+                              << " | Credit per day: " << this->houses[b].get_credit()
                               << "\n\nDo you want to rate this house ?\n"
                               << "1. Yes\n"
                               << "2. No\n";
@@ -459,10 +459,10 @@ void Application::rate_occupied_house(account::Member &current_member) {
                             std::cout << "\nPlease enter your comment about this house: ";
                             std::cin.ignore(256, '\n');
                             std::getline(std::cin, comment);
-                            house_id = this->houses[i].get_house_id();
+                            house_id = this->houses[b].get_house_id();
                             this->house_reviews.emplace_back(requester_ID, comment, rating_score_occupied_house, house_id);
                             for (auto house_review : this->house_reviews) {
-                                if (house_review.getHouseId() == this->houses[i].get_house_id()) {
+                                if (house_review.getHouseId() == this->houses[b].get_house_id()) {
                                     rating_score += house_review.getRating();
                                     count++;
                                 }
@@ -500,14 +500,14 @@ void Application::rate_occupier(account::Member &current_member) {
     int count = 0;
     bool back = false;
     std::cout << "Here is the information for the current user of your home: \n";
-    for (auto request : this->requests) {
-        if (request.getHouseRequestedId() == current_member.get_id() && request.getRequestStatus() == "Accepted" && !back) {
-            for (int i = 0; i < this->members.size(); i++) {
-                if (request.getRequesterUsername() == this->members[i].get_username()) {
-                    std::cout << "--> Username: " << this->members[i].get_username()
-                              << " | Firstname: " << this->members[i].get_first_name()
-                              << " | Lastname: " << this->members[i].get_last_name()
-                              << " | Phone number: " << this->members[i].get_phone_number()
+    for (int a = 0; a < this->requests.size(); a++) {
+        if (this->requests[a].getHouseRequestedId() == current_member.get_id() && this->requests[a].getRequestStatus() == "Accepted" && !back) {
+            for (int b = 0; b < this->members.size(); b++) {
+                if (this->requests[a].getRequesterUsername() == this->members[b].get_username()) {
+                    std::cout << "--> Username: " << this->members[b].get_username()
+                              << " | Firstname: " << this->members[b].get_first_name()
+                              << " | Lastname: " << this->members[b].get_last_name()
+                              << " | Phone number: " << this->members[b].get_phone_number()
                               << "\n\nDo you want to rate this user ?\n"
                               << "1. Yes\n"
                               << "2. No\n";
@@ -518,10 +518,10 @@ void Application::rate_occupier(account::Member &current_member) {
                             std::cout << "\nPlease enter your comment about this user: ";
                             std::cin.ignore(256, '\n');
                             std::getline(std::cin, comment);
-                            occupier_id = this->members[i].get_id();
+                            occupier_id = this->members[b].get_id();
                             this->occupant_reviews.emplace_back(reviewer_ID, comment, rating_score_occupier, occupier_id);
                             for (auto occupant_review : this->occupant_reviews) {
-                                if (occupant_review.getOccupierId() == this->members[i].get_id()) {
+                                if (occupant_review.getOccupierId() == this->members[b].get_id()) {
                                     rating_score += occupant_review.getRating();
                                     count++;
                                 }
@@ -653,7 +653,6 @@ void Application::admin_menu() {
                                 for (auto house : this->houses) {
                                     if (house.getHouseOwner() == it->second) {
                                         std::cout << "house's location: " << house.getCity() << "\n";
-                                        // todo implement more house info later
                                     }
                                 }
                             }
