@@ -4,8 +4,8 @@ house_request_ID,request_status,requester_ID,requester_username
 3,pending,4,test04
 5,pending,1,test01
 1,pending,5,test05
-1,pending,5,test05
+2,pending,5,test05
 2,pending,1,test01
 3,pending,2,test02
 5,pending,3,test03
-1,pending,5,test05
+4,pending,5,test05

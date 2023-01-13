@@ -49,6 +49,8 @@ namespace account {
         );
 
         unsigned int get_credits() const;
+        void setCredits(unsigned int credit);
+
         const std::string &get_first_name() const;
         const std::string &get_last_name() const;
         const std::string &get_phone_number() const;

@@ -331,7 +331,9 @@ bool Application::request_house_to_occupy(account::Member &current_member, std::
     house_map.clear();
 
     std::string house_request_ID, request_status, requester_ID, requester_username;
-
+    if (house_in_city.empty()) {
+        return true;
+    }
     while (!back && !house_in_city.empty()) {
         while (!valid) {
             std::cout << "\nPlease Enter a valid House ID that you want to request \n";
@@ -346,7 +348,7 @@ bool Application::request_house_to_occupy(account::Member &current_member, std::
         }
         for (auto request : this->requests) {
             if (request.getHouseRequestedId() == std::to_string(choice) && request.getRequesterUsername() == current_member.get_username()) {
-                std::cout << "You have requested for this house...\n";
+                std::cout << "You have already requested for this house!\n";
                 return true;
             }
         }
@@ -365,7 +367,7 @@ void Application::check_house_request_list(account::Member &current_member) {
     house::HouseRequest request_el;
     std::string accepted = "Accepted";
     std::string rejected = "Rejected";
-    std::string house_request_ID, request_status, requester_ID, requester_username;
+    std::string house_request_ID, request_status, requester_ID, requester_username, house_requestedID;
     std::vector<house::HouseRequest> request_list;
     std::map<std::string, std::string> temp_map;
     bool valid = false;
@@ -375,7 +377,9 @@ void Application::check_house_request_list(account::Member &current_member) {
     for (auto request : this->requests) {
         if (current_member.get_id() == request.getHouseRequestedId()) {
             std::cout << "--> Requester username: " << request.getRequesterUsername()
-                      << " | Requester ID: " << request.getRequesterId() << " <--\n";
+                      << " | Requester ID: " << request.getRequesterId()
+                      << " | Request Status: " << request.getRequestStatus()
+                      << " <--\n";
             request_list.emplace_back(request);
         }
     }
@@ -413,6 +417,9 @@ void Application::check_house_request_list(account::Member &current_member) {
                                     request_status = accepted;
                                     this->requests[i].setRequestStatus(request_status);
                                     std::cout << "You have accepted this request !!!\n";
+                                    house_requestedID = current_member.get_id();
+                                    Application::update_credit(std::to_string(choice), house_requestedID);
+//                                    Application::remove_request(request_list, house_requestedID);
                                     break;
                                 case 2:
                                     request_status = rejected;
@@ -420,9 +427,6 @@ void Application::check_house_request_list(account::Member &current_member) {
                                     std::cout << "You have rejected this request !!!\n";
                                     break;
                             }
-                        } else {
-                            request_status = rejected;
-                            this->requests[i].setRequestStatus(request_status);
                         }
                     }
                 }
@@ -433,7 +437,27 @@ void Application::check_house_request_list(account::Member &current_member) {
         }
     }
 }
-
+void Application::remove_request(std::vector<house::HouseRequest> request_list, std::string house_requestedID) {
+    for (int i=0; i < requests.size(); i++) {
+        for (auto req : request_list) {
+            if (requests[i].getRequesterUsername() == req.getRequesterUsername()
+                && requests[i].getHouseRequestedId() == house_requestedID) {
+                requests.erase(requests.begin() + i);
+            }
+        }
+    }
+}
+void Application::update_credit(std::string requester_ID, std::string house_requestedID) {
+    for (int i = 0; i < members.size(); i++) {
+        if (members[i].get_id() == requester_ID) {
+            for (auto house : houses) {
+                if (house.get_house_id() == house_requestedID) {
+                    members[i].setCredits(members[i].get_credits()-house.get_credit());
+                }
+            }
+        }
+    }
+}
 void Application::rate_occupied_house(account::Member &current_member) {
     double rating_score = 0;
     double rating_score_occupied_house = 0;

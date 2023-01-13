@@ -40,6 +40,8 @@ class Application {
     std::vector<house::House> list_house_available(account::Member &current_member);
     void check_house_request_list(account::Member &current_member);
     bool request_house_to_occupy(account::Member &current_member, std::vector<house::House> temp_vector);
+    void remove_request(std::vector<house::HouseRequest> request_list, std::string house_requestedID);
+    void update_credit(std::string requester_ID, std::string house_requestedID);
     void rate_occupier(account::Member &current_member);
 
     static int prompt_choice(unsigned min, unsigned max);

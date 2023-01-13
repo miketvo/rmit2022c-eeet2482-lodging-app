@@ -14,6 +14,9 @@ namespace account {
         this->house = nullptr;
         this->rating_score = 10;
     }
+    void Member::setCredits(unsigned int credit) {
+        this->credits -= credit;
+    }
 
     house::House *Member::getHouse() const {
         return this->house;
