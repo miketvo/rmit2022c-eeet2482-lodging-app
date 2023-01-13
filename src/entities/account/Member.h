@@ -54,7 +54,8 @@ namespace account {
         const std::string &get_phone_number() const;
         const std::string &get_id() const;
         house::House *getHouse() const;
-        double get_rating();
+        double getRatingScore() const;
+        void setRatingScore(double ratingScore);
 
         void from_map(std::map<std::string, std::string> map) override;
         std::map<std::string, std::string> to_map() override;

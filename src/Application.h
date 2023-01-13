@@ -38,10 +38,9 @@ class Application {
     void house_details(std::string buffer, std::string id);
     void rate_occupied_house(account::Member &current_member);
     std::vector<house::House> list_house_available(account::Member &current_member);
-//    bool check_house_request(account::Member &current_member, std::vector<house::House> temp_vector);
-//    bool check_house_listing(account::Member &current_member);
     void check_house_request_list(account::Member &current_member);
     bool request_house_to_occupy(account::Member &current_member, std::vector<house::House> temp_vector);
+    void rate_occupier(account::Member &current_member);
 
     static int prompt_choice(unsigned min, unsigned max);
   public:

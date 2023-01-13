@@ -1,7 +1,7 @@
+#include "Member.h"
 #include <algorithm>
 #include <iomanip>
 #include <sstream>
-#include "Member.h"
 
 namespace account {
 
@@ -27,8 +27,7 @@ namespace account {
         const std::string &last_name,
         const std::string &phone_number,
         unsigned int credits,
-        double rating_score
-    ) : Account(username, password) {
+        double rating_score) : Account(username, password) {
         this->memberID = memberID;
         this->credits = credits;
         this->first_name = first_name;
@@ -58,29 +57,14 @@ namespace account {
     const std::string &Member::get_id() const {
         return this->memberID;
     }
-    //Get the Rating Score
-    double Member::get_rating() {
-        // Case: If there is no one rate this member account
-        if (reviews.empty()) {
-            return this->rating_score;
-        }
 
-        //Using the loop to find out the score from the reviewList
-        double rv = 0;
-        for (auto &review : reviews) {
-            rv += review->rating;// For this, declare Member as friend of Occupant Review for access
-        }
-
-        //Then, calculate the average rating score for the member
-        double rating = (double) rv / (double) reviews.size();
-
-        std::stringstream sts;
-        sts << std::fixed << std::setprecision(1) << rating;
-        sts >> rating;
-
-        return this->rating_score = rating;
+    double Member::getRatingScore() const {
+        return rating_score;
     }
 
+    void Member::setRatingScore(double ratingScore) {
+        rating_score = ratingScore;
+    }
 
     void Member::from_map(std::map<std::string, std::string> map) {
         Account::from_map(map);
@@ -90,7 +74,6 @@ namespace account {
         this->phone_number = map["phone_number"];
         this->credits = std::stoul(map["credits"]);
         this->rating_score = std::stod(map["rating_score"]);
-
     }
 
     std::map<std::string, std::string> Member::to_map() {
@@ -103,4 +86,5 @@ namespace account {
         map.emplace("rating_score", std::to_string(this->rating_score));
         return map;
     }
+
 }// namespace account
