@@ -447,6 +447,7 @@ void Application::remove_request(std::vector<house::HouseRequest> request_list, 
         }
     }
     this->occupant_reviews.emplace_back(house_requestedID,"",0,requester_ID);
+    this->house_reviews.emplace_back(requester_ID,"",0,house_requestedID);
 }
 void Application::update_credit(std::string requester_ID, std::string house_requestedID) {
     for (int i = 0; i < members.size(); i++) {
@@ -463,57 +464,61 @@ void Application::rate_occupied_house(account::Member &current_member) {
     double rating_score = 0;
     double rating_score_occupied_house = 0;
     std::string comment, house_id;
-    std::string requester_ID = current_member.get_id();
+    std::string reviewerID = current_member.get_id();
+    house::HouseReview *houseOccupied;
     int count = 0;
     bool back = false;
     std::cout << "Here's the information of your occupied house: \n";
-    for (int a = 0; a < this->requests.size(); a++) {
-        if (requester_ID == this->requests[a].getRequesterId() && !back) {
-            for (int b = 0; b < this->houses.size(); b++) {
-                if (this->houses[b].get_house_id() == this->requests[a].getHouseRequestedId() && this->requests[a].getRequestStatus() == "Accepted" && current_member.get_username() == this->requests[a].getRequesterUsername()) {
-                    std::cout << "--> Owner: " << this->houses[b].getHouseOwner()
-                              << " | City: " << this->houses[b].getCity()
-                              << " | Credit per day: " << this->houses[b].get_credit()
-                              << "\n\nDo you want to rate this house ?\n"
-                              << "1. Yes\n"
-                              << "2. No\n";
-                    switch (Application::prompt_choice(1, 2)) {
-                        case 1:
-                            std::cout << "\nPlease enter the score you want to rate for this house <range: -10 to +10>: ";
-                            std::cin >> rating_score_occupied_house;
-                            std::cout << "\nPlease enter your comment about this house: ";
-                            std::cin.ignore(256, '\n');
-                            std::getline(std::cin, comment);
-                            house_id = this->houses[b].get_house_id();
-                            this->house_reviews.emplace_back(requester_ID, comment, rating_score_occupied_house, house_id);
-                            for (auto house_review : this->house_reviews) {
-                                if (house_review.getHouseId() == this->houses[b].get_house_id()) {
-                                    rating_score += house_review.getRating();
-                                    count++;
-                                }
+    for (auto house_occupied : house_reviews) {
+        for (auto house : houses) {
+            if (house.get_house_id() == house_occupied.getHouseId()
+                && reviewerID == house_occupied.get_reviewer_id()) {
+                *houseOccupied = house_occupied;
+                std::cout << "--> Owner: " << house.getHouseOwner()
+                          << " | City: " << house.getCity()
+                          << " | Credit per day: " << house.get_credit()
+                          << "\n\nDo you want to rate this house ?\n"
+                          << "1. Yes\n"
+                          << "2. No\n";
+                switch (Application::prompt_choice(1, 2)) {
+                    case 1:
+                        std::cout << "\nPlease enter the score you want to rate for this house <range: -10 to +10>: ";
+                        std::cin >> rating_score_occupied_house;
+                        std::cout << "\nPlease enter your comment about this house: ";
+                        std::cin.ignore(256, '\n');
+                        std::getline(std::cin, comment);
+                        house_id = house.get_house_id();
+                        this->house_reviews.emplace_back(reviewerID, comment, rating_score_occupied_house, house_id);
+                        for (auto house_review : this->house_reviews) {
+                            if (house_review.getHouseId() == house.get_house_id()) {
+                                rating_score += house_review.getRating();
+                                count++;
                             }
-                            if (!back) {
-                                double rating_score_final = rating_score / count;
-                                std::cout << rating_score_final << "\n";
-                                std::stringstream sts;
-                                sts << std::fixed << std::setprecision(1) << rating_score_final;
-                                sts >> rating_score_final;
-                                for (int i = 0; i < this->houses.size(); i++) {
-                                    for (auto house_review : this->house_reviews) {
-                                        if (house_review.getHouseId() == this->houses[i].get_house_id()) {
-                                            this->houses[i].setRatingScore(rating_score_final);
-                                        }
+                        }
+                        if (!back) {
+                            double rating_score_final = rating_score / count;
+                            std::cout << rating_score_final << "\n";
+                            std::stringstream sts;
+                            sts << std::fixed << std::setprecision(1) << rating_score_final;
+                            sts >> rating_score_final;
+                            for (int i = 0; i < this->houses.size(); i++) {
+                                for (auto house_review : this->house_reviews) {
+                                    if (house_review.getHouseId() == this->houses[i].get_house_id()) {
+                                        this->houses[i].setRatingScore(rating_score_final);
                                     }
                                 }
-                                break;
                             }
-                        case 2:
-                            back = true;
                             break;
-                    }
+                        }
+                    case 2:
+                        back = true;
+                        break;
                 }
             }
         }
+    }
+    if (houseOccupied == nullptr || house_reviews.empty()) {
+        std::cout << "\nYour staying request(s) have not got accepted!\n";
     }
 }
 
