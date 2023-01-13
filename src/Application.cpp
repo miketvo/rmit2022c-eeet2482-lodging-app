@@ -402,27 +402,27 @@ void Application::check_house_request_list(account::Member &current_member) {
                         }
                     }
                 }
-                for (auto request : this->requests) {
-                    if (current_member.get_id() == request.getHouseRequestedId()) {
-                        if (request.getRequesterId() == std::to_string(choice)) {
+                for (int i = 0; i < this->requests.size(); i++) {
+                    if (current_member.get_id() == this->requests[i].getHouseRequestedId()) {
+                        if (this->requests[i].getRequesterId() == std::to_string(choice)) {
                             std::cout << "Please select your action on this request: \n"
                                       << "1. Accept\n"
                                       << "2. Reject\n";
                             switch (Application::prompt_choice(1, 2)) {
                                 case 1:
                                     request_status = accepted;
-                                    request.setRequestStatus(request_status);
+                                    this->requests[i].setRequestStatus(request_status);
                                     std::cout << "You have accepted this request !!!\n";
                                     break;
                                 case 2:
                                     request_status = rejected;
-                                    request.setRequestStatus(request_status);
+                                    this->requests[i].setRequestStatus(request_status);
                                     std::cout << "You have rejected this request !!!\n";
                                     break;
                             }
                         } else {
                             request_status = rejected;
-                            request.setRequestStatus(request_status);
+                            this->requests[i].setRequestStatus(request_status);
                         }
                     }
                 }
