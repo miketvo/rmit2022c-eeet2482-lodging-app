@@ -419,7 +419,7 @@ void Application::check_house_request_list(account::Member &current_member) {
                                     std::cout << "You have accepted this request !!!\n";
                                     house_requestedID = current_member.get_id();
                                     Application::update_credit(std::to_string(choice), house_requestedID);
-//                                    Application::remove_request(request_list, house_requestedID);
+                                    Application::remove_request(request_list, house_requestedID);
                                     break;
                                 case 2:
                                     request_status = rejected;
