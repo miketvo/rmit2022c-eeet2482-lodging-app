@@ -445,7 +445,7 @@ void Application::rate_occupied_house(account::Member &current_member) {
     for (auto &request : this->requests) {
         if (requester_ID == request.getRequesterId() && !back) {
             for (int i = 0; i < this->houses.size(); i++) {
-                if (this->houses[i].get_house_id() == request.getHouseRequestedId() && this->requests[i].getRequestStatus() == "Accepted") {
+                if (this->houses[i].get_house_id() == request.getHouseRequestedId() && this->requests[i].getRequestStatus() == "Accepted" && current_member.get_username() == this->requests[i].getRequesterUsername()) {
                     std::cout << "--> Owner: " << this->houses[i].getHouseOwner()
                               << " | City: " << this->houses[i].getCity()
                               << " | Credit per day: " << this->houses[i].get_credit()
