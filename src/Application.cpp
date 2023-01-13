@@ -479,7 +479,7 @@ void Application::rate_occupied_house(account::Member &current_member) {
         for (auto house : houses) {
             if (house.get_house_id() == house_occupied.getHouseId()
                 && reviewerID == house_occupied.get_reviewer_id()) {
-                *houseOccupied = house_occupied;
+                houseOccupied = &house_occupied;
                 std::cout << "--> Owner: " << house.getHouseOwner()
                           << " | City: " << house.getCity()
                           << " | Credit per day: " << house.get_credit()
@@ -503,7 +503,7 @@ void Application::rate_occupied_house(account::Member &current_member) {
                         }
                         if (!back) {
                             double rating_score_final = rating_score / count;
-                            std::cout << rating_score_final << "\n";
+                            std::cout << "\nFinal average rating score for this house is: "<< rating_score_final << "\n";
                             std::stringstream sts;
                             sts << std::fixed << std::setprecision(1) << rating_score_final;
                             sts >> rating_score_final;
