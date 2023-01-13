@@ -438,7 +438,7 @@ void Application::check_house_request_list(account::Member &current_member) {
     }
 }
 void Application::remove_request(std::vector<house::HouseRequest> request_list, std::string house_requestedID, std::string requester_ID) {
-    for (int i=0; i < requests.size(); i++) {
+    for (int i = 0; i < requests.size(); i++) {
         for (auto req : request_list) {
             if (requests[i].getRequesterUsername() == req.getRequesterUsername()
                 && requests[i].getHouseRequestedId() == house_requestedID) {
@@ -446,14 +446,20 @@ void Application::remove_request(std::vector<house::HouseRequest> request_list, 
             }
         }
     }
-    this->occupant_reviews.emplace_back(house_requestedID,"",0,requester_ID);
+    this->occupant_reviews.emplace_back(house_requestedID, "", 0, requester_ID);
 }
 void Application::update_credit(std::string requester_ID, std::string house_requestedID) {
-    for (int i = 0; i < members.size(); i++) {
+    for (int i = 0; i < this->members.size(); i++) {
         if (members[i].get_id() == requester_ID) {
-            for (auto house : houses) {
+            for (auto house : this->houses) {
                 if (house.get_house_id() == house_requestedID) {
-                    members[i].setCredits(members[i].get_credits()-house.get_credit());
+                    int remaining_credit = members[i].get_credits() - house.get_credit();
+                    members[i].setCredits(remaining_credit);
+//                    double remaining_credit = members[i].get_credits() - house.get_credit();
+//                    std::cout << members[i].get_credits() << "\n";
+//                    std::cout << house.get_credit() << "\n";
+//                    std::cout << remaining_credit << "\n";
+//                    std::cout << "Test\n";
                 }
             }
         }
