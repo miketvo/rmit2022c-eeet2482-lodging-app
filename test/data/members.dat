@@ -1,0 +1,6 @@
+credits,first_name,last_name,member_id,password,phone_number,rating_score,username
+500,nam,nguyen,1,1,123,10.000000,test01
+500,minh,nguyen,2,1,4444444,10.000000,test02
+500,son,nguyen,3,1,444444444,10.000000,test03
+500,vuong,nguyen,4,1,12312312,10.000000,test04
+500,Anh,Nguyen,5,1,54356556,10.000000,test05

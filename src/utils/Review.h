@@ -12,14 +12,15 @@ namespace utils {
 
     class Review {
       protected:
-        short rating;
+        unsigned int rating;
         std::string id;
         std::string comment;
         account::Member *reviewer;
 
       public:
-        explicit Review(const std::string &id = "", const std::string &comment = "", short rating = 0);
+        explicit Review(const std::string &id = "", const std::string &comment = "", int rating = 0);
 
+        virtual void from_map(std::map<std::string, std::string> map);
         virtual std::map<std::string, std::string> to_map();
     };
 

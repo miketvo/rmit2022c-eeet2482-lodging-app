@@ -26,6 +26,7 @@ namespace account {
     class Member : public Account {
       private:
         unsigned credits;
+        double rating_score;
         std::string memberID;
         std::string first_name;
         std::string last_name;
@@ -43,15 +44,20 @@ namespace account {
             const std::string &first_name,
             const std::string &last_name,
             const std::string &phone_number,
-            unsigned int credits = 500
+            unsigned int credits = 500,
+            double rating_score = 10
         );
 
         unsigned int get_credits() const;
+        void setCredits(unsigned int credit);
+
         const std::string &get_first_name() const;
         const std::string &get_last_name() const;
         const std::string &get_phone_number() const;
         const std::string &get_id() const;
-        double get_rating();
+        house::House *getHouse() const;
+        double getRatingScore() const;
+        void setRatingScore(double ratingScore);
 
         void from_map(std::map<std::string, std::string> map) override;
         std::map<std::string, std::string> to_map() override;
