@@ -7,10 +7,22 @@ add_executable(
     lodging
     src/main.cpp
     src/Application.cpp src/Application.h
-    src/entities/House.cpp src/entities/House.h src/entities/Member.cpp src/entities/Member.h
-    src/entities/Admin.cpp src/entities/Admin.h src/entities/Account.cpp src/entities/Account.h
+    src/entities/house/House.cpp src/entities/house/House.h
+    src/entities/house/HouseOccupancy.cpp src/entities/house/HouseOccupancy.h
+    src/entities/house/HouseListing.cpp src/entities/house/HouseListing.h
+    src/entities/house/HouseReview.h src/entities/house/HouseReview.cpp
+    src/entities/account/OccupantReview.cpp src/entities/account/OccupantReview.h
+    src/entities/account/Member.cpp src/entities/account/Member.h
+    src/entities/account/Account.cpp src/entities/account/Account.h
+    src/entities/account/Admin.cpp src/entities/account/Admin.h
+    src/utils/Review.cpp src/utils/Review.h
     src/utils/io/DatabaseFile.cpp src/utils/io/DatabaseFile.h
-)
+    src/utils/io/corrupted_database.cpp src/utils/io/corrupted_database.h
+    src/utils/time/Temporal.cpp src/utils/time/Temporal.h
+    src/utils/time/Datetime.cpp src/utils/time/Datetime.h
+    src/utils/time/Duration.cpp src/utils/time/Duration.h
+    src/utils/time/Period.cpp src/utils/time/Period.h
+        src/entities/house/HouseRequest.cpp src/entities/house/HouseRequest.h)
 
 
 #=======#
@@ -23,7 +35,12 @@ add_subdirectory(test)
 add_test(main.test lodging)
 
 ## Unit tests
-add_test(DatabaseFile.test test/DatabaseFile.test)
-add_test(DatabaseFile.data.csv.test test/DatabaseFile.test test/data/bos2021ModC.csv)
-add_test(DatabaseFile.data.tsv.test test/DatabaseFile.test test/data/bos2021ModC.tsv "\t")
-add_test(DatabaseFile.data.psv.test test/DatabaseFile.test test/data/bos2021ModC.dat "|")
+add_test(io.test test/io.test)
+add_test(io.data.csv.test test/io.test test/data/bos2021ModC.csv)
+add_test(io.data.tsv.test test/io.test test/data/bos2021ModC.tsv "\t")
+add_test(io.data.psv.test test/io.test test/data/bos2021ModC.dat "|")
+add_test(io.data.corrupted-dtb.test test/io.test test/data/corrupted.dtb)  # Throws utils::exceptions::corrupted_database
+add_test(time.test test/time.test)
+add_test(houses.test test/houses.test)
+
+set_property(TEST io.data.corrupted-dtb.test PROPERTY WILL_FAIL true)
